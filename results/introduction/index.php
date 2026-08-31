@@ -1,4 +1,5 @@
 <?php
+include 'validacsee.php'; // Include the file with valid advanced school IDs
 
 // Retrieve values from GET parameters
 $examLevel = isset($_POST['exam_level']) ? filter_var(trim($_POST['exam_level']), FILTER_SANITIZE_FULL_SPECIAL_CHARS) : 'acsee';
@@ -7,9 +8,9 @@ $candidate = isset($_POST['candidate']) ? filter_var(trim($_POST['candidate']), 
 
 
 
-// Extract before the slash and convert to lowercase
-$schoolCode = strtolower(explode('/', $candidate)[0]); // Outputs: p0652
-
+$parts = explode('/', $candidate);
+$school_id = strtoupper(trim($parts[0]));
+$schoolCode = strtolower(trim($parts[0]));
 
 // Validate NECTA format server-side
 $nectaPattern = '/^(?:[SPE]Q?\d{4}\/\d{4}|PS\d{6,7}-\d{3,4})$/i';
@@ -20,13 +21,32 @@ if (!preg_match($nectaPattern, $candidate)) {
 }
 
 // Proceed with database query or web scraping using $examLevel, $examYear, $candidate
+if ($examLevel === 'csee') {
+    if($examYear === '2026' || $examYear === '2025' || $examYear === '2024' || $examYear === '2023'){
+
+        $url = "https://matokeo.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
+
+    }
+    
+} elseif ($examLevel === 'acsee' && in_array($school_id, $valid_ids, true)) {
+    if($examYear === '2023' || $examYear === '2024' || $examYear === '2025' ){
+
+        $url = "https://onlinesys.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
+        
+    }elseif($examYear === '2026'){
+        $url = "https://matokeo.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
+    }
+} else {
+    header("Location: ../index.html");
+}
+
 
 $result = [];
 
 if ($candidate != '') {
 
     // NECTA URL
-    $url = "https://matokeo.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
+    
 
     // Get webpage
     $html = file_get_contents($url);
@@ -91,6 +111,7 @@ if ($candidate != '') {
                 }
 
                 break;
+            }else {
             }
         }
     }

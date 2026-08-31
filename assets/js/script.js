@@ -70,6 +70,7 @@
             candidateInput.focus();
             return;
         }
+        
 
         // Auto format to uppercase
         candidateInput.value = rawValue.toUpperCase();

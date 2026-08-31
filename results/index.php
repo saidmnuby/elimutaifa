@@ -136,27 +136,27 @@ include "introduction/index.php";
                                 <td>
                                     <?php 
                                     if ($subject["grade"] == "A") {
-                                        $comment = "PASS";
+                                        $comment = "";
                                         echo htmlspecialchars($comment);
 
                                     }elseif($subject["grade"] == "B"){
-                                        $comment = "PASS";
+                                        $comment = "";
                                         echo htmlspecialchars($comment);
 
                                     }elseif($subject["grade"] == "C"){
-                                        $comment = "PASS";
+                                        $comment = "";
                                         echo htmlspecialchars($comment);
 
                                     }elseif($subject["grade"] == "D"){
-                                        $comment = "PASS";
+                                        $comment = "";
                                         echo htmlspecialchars($comment);
 
                                     }elseif($subject["grade"] == "F"){
-                                        $comment = "FAIL";
+                                        $comment = "";
                                         echo htmlspecialchars($comment);
                                         
                                     }else {
-                                        $comment = "UNDEFINED.";
+                                        $comment = "";
                                         echo htmlspecialchars($comment);
                                     }
                                     ?>
@@ -168,9 +168,9 @@ include "introduction/index.php";
 
 
                         </table>
-                    <?php elseif ($candidate != ''): ?>
-
-                        <p>Candidate not found.</p>
+                    
+                    <?php else: header("Location: index.php") ?>
+                        <p class="no-results">Matokeo hayajapatikana kwa mgombea huyu.</p>
                         
                     <?php endif; ?>
 
