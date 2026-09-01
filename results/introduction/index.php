@@ -17,18 +17,25 @@ $nectaPattern = '/^(?:[SPE]Q?\d{4}\/\d{4}|PS\d{6,7}-\d{3,4})$/i';
 
 if (!preg_match($nectaPattern, $candidate)) {
     // Handle invalid candidate number output
-    die("Format ya namba ya mtihani sio sahihi.");
+    session_start();
+    $_SESSION['error_message'] = "Invalid candidate ID or exam detailsB.";
+    $_SESSION['style'] = "failed-alert";
+        header("Location: ../error/");
+        exit();
 }
 
 // Proceed with database query or web scraping using $examLevel, $examYear, $candidate
-if ($examLevel === 'csee') {
+if ($examLevel === 'csee' && preg_match('/^[SP]/i', trim($candidate))) {
     if($examYear === '2026' || $examYear === '2025' || $examYear === '2024' || $examYear === '2023'){
 
-        $url = "https://matokeo.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
+        $url = "https://onlinesys.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
 
     }
     
-} elseif ($examLevel === 'acsee' && in_array($school_id, $valid_ids, true)) {
+} else {
+ 
+
+if ($examLevel === 'acsee' && in_array($school_id, $valid_ids, true)) {
     if($examYear === '2023' || $examYear === '2024' || $examYear === '2025' ){
 
         $url = "https://onlinesys.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
@@ -37,10 +44,15 @@ if ($examLevel === 'csee') {
         $url = "https://matokeo.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
     }
 } else {
-    header("Location: ../index.html");
+    session_start();
+    $_SESSION['error_message'] = "Invalid candidate ID or exam detailsB.";
+    $_SESSION['style'] = "failed-alert";
+        header("Location: ../error/");
+        exit();
 }
+  
 
-
+}
 $result = [];
 
 if ($candidate != '') {
@@ -111,7 +123,6 @@ if ($candidate != '') {
                 }
 
                 break;
-            }else {
             }
         }
     }

@@ -1,5 +1,13 @@
 <?php
 include "introduction/index.php";
+if(!isset($result)){
+    session_start();
+    $_SESSION['error_message'] = "Invalid candidate ID or exam detailsB.";
+    $_SESSION['style'] = "warning-alert";
+        header("Location: ../error/");
+        exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +22,7 @@ include "introduction/index.php";
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/script.js"></script>
+    
 </head>
 <body>
 
@@ -88,12 +97,13 @@ include "introduction/index.php";
 
                 </div>
 
+                <?php if (!empty($result)): ?>
                 <!-- Right Column Forms -->
                 <div class="right-column">
                     <div class="card">
                     <h2 id="rh2">EXAMINATION RESULTS <?php echo htmlspecialchars(strtoupper($examLevel));?> <?php echo htmlspecialchars($examYear);?></h2>
                     <h3 class="rh3"><?php echo htmlspecialchars($text);?></h3>
-                    <h3 class="rh3">CANDIDATE INDEX:<?php echo htmlspecialchars($candidate);?></h3>
+                    <h3 class="rh3" >CANDIDATE INDEX:<span style="text-decoration: underline;"><?php echo htmlspecialchars($candidate);?>/<?php echo htmlspecialchars($examYear); ?></span></h3>
                     <div class="card-one">
                         <table class="center">
                             <tr style="background-color: transparent;">
@@ -117,7 +127,6 @@ include "introduction/index.php";
 
                     
                     <div class="card-one">
-                    <?php if (!empty($result)): ?>
 
                         <table class="left">
                             <tr  style="background-color: transparent;">
@@ -155,6 +164,10 @@ include "introduction/index.php";
                                         $comment = "";
                                         echo htmlspecialchars($comment);
                                         
+                                    }elseif($subject["grade"] == "X"){
+                                        $comment = "";
+                                        echo htmlspecialchars($comment);
+                                        
                                     }else {
                                         $comment = "";
                                         echo htmlspecialchars($comment);
@@ -168,14 +181,20 @@ include "introduction/index.php";
 
 
                         </table>
-                    
-                    <?php else: header("Location: index.php") ?>
-                        <p class="no-results">Matokeo hayajapatikana kwa mgombea huyu.</p>
+                        
+                    <?php elseif ($candidate != ''): ?>
+
+                        <p>Candidate not found.</p>
+                        <?php session_start();
+                        $_SESSION['error_message'] = "Candidate not found.";
+                        header("Location: ../error/");
+                        exit();
+                         ?>
                         
                     <?php endif; ?>
 
                     </div>
-                    <a href="<?php echo htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">visit necta for confirmation</a>
+                    <a href="<?php echo htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">Please Visit NECTA pages for confirmation ▶▷</a>
 
                     </div>
 

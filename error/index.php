@@ -1,3 +1,18 @@
+<?php
+session_start();
+if (isset($_SESSION['error_message'])) {
+    $style = isset($_SESSION['style']) ? $_SESSION['style'] : 'failed-alert';
+        $error = $_SESSION['error_message'];
+        unset($_SESSION['error_message']);
+} else {
+    // If the error message is not set, redirect to the home page or another appropriate page
+    header("Location: ../");
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="sw">
 <head>
@@ -8,10 +23,106 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/script.js"></script>
+
+    <style>
+        .blur-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px); /* For Safari support */
+            z-index: 8; /* Ensure it is behind other content */
+
+        }
+
+        .right-columnb{
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            top: 20%;
+            right: 24vw;
+            width: 50%; /* Adjust width as needed */
+            height: 30vw;
+            background-color: #ffffff; /* Light background color */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+            z-index: 9; /* Ensure it is above the blur background */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.44); /* Optional shadow for depth */
+            border-radius: 10px; /* Optional rounded corners */
+
+        }
+
+        .warning-alert {
+            background-color: #fff3cd; /* Light yellow background */
+            color: #856404; /* Dark yellow text */
+            border: 1px solid #856404; /* Optional border */
+            padding: 10px;
+            background-color: #d5bd42; /* Light yellow background */
+            margin-bottom: 15px;
+            border-radius: 5px; /* Optional rounded corners */
+
+        }
+
+        .failed-alert {
+            background-color: #f8d7da; /* Light red background */
+            color: #c80014; /* Dark red text */
+            border-top: 5px solid #c80014; /* Optional border */
+            border-bottom: 5px solid #c80014; /* Optional border */
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-radius: 5px; /* Optional rounded corners */
+            font-style: italic; /* Italic text for emphasis */
+        }
+
+        
+
+        .arlet-box {
+            width: 90%; /* Adjust width as needed */
+            margin-top: 8%;
+            height: 50%; /* Adjust height as needed */
+            padding: 20px;
+            background-color: #fffdfe; /* Light red background for warning */
+            border-radius: 8px; /* Optional rounded corners */
+            text-align: center;
+        }
+
+        .commit-button {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            padding: 8px 15px;
+            background-color: #007bff; /* Blue background */
+            color: #fff; /* White text */
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.44); /* Optional shadow for depth */
+        }   
+
+        .commit-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transition for width and background color */
+        }
+
+    </style>
+
 </head>
 <body>
+    <section class="right-columnb">
+        <section class="arlet-box <?php echo $style; ?>">
+            <p><?php echo htmlspecialchars($error); ?>  </p>
+            <button class="commit-button" onclick="window.location.href='../'">OK ▶</button>
+        </section>
+    </section>
+    <main class="blur-background">
+    <!--Background blur effect in the main content area -->
+    </main> 
 
     <!-- Custom Dynamic Alert Container -->
      <div class="alert-box">
@@ -96,7 +207,7 @@
                 <div class="right-column">
                     <!-- Form 1: Search by Index Number -->
 <div class="card">
-    <form id="index1" method="post" action="results/">
+    <form id="index1" method="post" action="results/index.php">
     <!-- Hidden inputs submitted to PHP -->
     <input type="hidden" name="exam_level" id="exam_level" value="acsee">
     <input type="hidden" name="exam_year" id="exam_year" value="2025">
@@ -210,6 +321,6 @@
     </div>
 
     <!-- Interactive Behavior JavaScript -->
-    
 </body>
 </html>
+
