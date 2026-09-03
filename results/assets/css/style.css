@@ -43,12 +43,12 @@
 
        .in-alert{
         background-color:white;
-        max-width: 400px;
+        max-width: 600px;
         visibility: hidden;
         padding: 10px 20px;
         border-radius: 8px;
         font-style:italic;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.875); /* floating shadow */
         
         animation-name: inAlert;
         font-weight: 900;
@@ -57,28 +57,42 @@
 
        .success{
         color: var(--success);
-        border: 1px solid var(--success);
-        background-color:rgb(192, 190, 190);
+        border: 3px solid var(--success);
+        background-color:rgb(255, 255, 255);
+        font-weight: bold;
         
        }
 
        .waiting{
-        color: var(--failed);
-        border: 1px solid var(--failed);
+        color: var(--waiting);
+        border: 3px solid var(--waiting);
+        background-color:rgb(255, 255, 255);
+        font-weight: bold;
 
        }
 
        .failed{
         color: var(--failed);
-        border: 1px solid var(--failed);
+        border: 3px solid var(--failed);
+        background-color:rgb(255, 255, 255);
+        font-weight: bold;
 
        }
 
        .warning{
         color: var(--warning);
-        border: 1px solid var(--warning);
+        border: 3px solid var(--warning);
         text-shadow:2px 1px 1px var(--text-muted);   
 
+       }
+
+       .close-btn{
+        float:right;
+        font-size: 20px;
+        font-weight: 900;
+        cursor: pointer;
+        margin-left: 10px;
+        color: var(--text-muted);
        }
 
        @keyframes inAlert{

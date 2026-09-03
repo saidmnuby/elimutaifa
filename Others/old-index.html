@@ -1,7 +1,3 @@
-<?php
-include 'header.php'; // Include the header file
-?>
-
 <!DOCTYPE html>
 <html lang="sw">
 <head>
@@ -13,22 +9,9 @@ include 'header.php'; // Include the header file
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../assets/js/script.js"></script>
-
-    <style></style>
-
+    <script src="assets/js/script.js"></script>
 </head>
 <body>
-    <section class="right-columnb">
-        <section class="arlet-box <?php echo $style; ?>">
-            <p><?php echo htmlspecialchars($error); ?><br><a href="<?php echo htmlspecialchars($necta); ?>" target="_blank" rel="noopener noreferrer"><?php echo htmlspecialchars($nectaStatement); ?></a></p>
-            <button class="commit-button" onclick="window.location.href='../'">OK ▶</button>
-        </section>
-    </section>
-    <main class="blur-background">
-    <!--Background blur effect in the main content area -->
-    </main> 
 
     <!-- Custom Dynamic Alert Container -->
      <div class="alert-box">
@@ -113,7 +96,7 @@ include 'header.php'; // Include the header file
                 <div class="right-column">
                     <!-- Form 1: Search by Index Number -->
 <div class="card">
-    <form id="index1" method="post" action="results/index.php">
+    <form id="index1" method="post" action="results/ftna/">
     <!-- Hidden inputs submitted to PHP -->
     <input type="hidden" name="exam_level" id="exam_level" value="acsee">
     <input type="hidden" name="exam_year" id="exam_year" value="2025">
@@ -145,7 +128,7 @@ include 'header.php'; // Include the header file
         <div class="option active" data-value="acsee">FORM 6<span class="check">✓</span></div>
         <div class="option" data-value="csee">FORM 4</div>
         <div class="option" data-value="ftna">FORM 2</div>
-        <div class="option" data-value="plse">STANDARD 7</div>
+        <div class="option" data-value="psle">STANDARD 7</div>
     </div>
 
     <!-- Year Selector Chips -->
@@ -227,6 +210,6 @@ include 'header.php'; // Include the header file
     </div>
 
     <!-- Interactive Behavior JavaScript -->
+    
 </body>
 </html>
-

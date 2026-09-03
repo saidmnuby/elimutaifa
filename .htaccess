@@ -1,10 +1,11 @@
-# 1. Zuia Directory Browsing (Listing) kwa tovuti nzima
+# 1. Zuia Directory Browsing (Listing) kwa tovuti nzima.
 Options -Indexes
 
-# 2. Zuia watu kufungua mafaili ya siri moja kwa moja
+# 2. Zuia watu kufungua mafaili ya siri moja kwa moja.
 <FilesMatch "\.(env|json|log|sql|git|md)$">
     Require all denied
 </FilesMatch>
 
+# 3. Zuia error zinazo pelekea kuonyesha path za mafail.
 php_flag display_errors off
 php_flag display_startup_errors off
