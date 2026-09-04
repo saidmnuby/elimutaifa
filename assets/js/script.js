@@ -8,7 +8,8 @@
 
     // 1. Helper Function to Display Dynamic Alerts
     function showAlert(message, type = "failed") {
-        alertEl.className = `in-alert ${type}`;
+        alertEl.classList.remove("failed", "warning", "success", "show");
+        alertEl.classList.add("in-alert", type);
         alertEl.textContent = message;
         
         // Restart animation reset
@@ -56,11 +57,13 @@
         // - Secondary: S1234/0001, P1234/0001, EQ1234/0001
         // - Primary / STD 7: PS123456-0001
         // Stronger NECTA index number validation
-        const nectaRegex = /^(?:[SPE]Q?\d{4}\/\d{4}|PS\d{6,7}-\d{3,4})$/i;
+        const nectaRegex = /^(?:[SPE]Q?\d{4}\/\d{4})$/i;
         return nectaRegex.test(cleaned);
     }
 
     // 4. Form Submit Listener
+    if (!form || !candidateInput || !alertEl) return;
+
     form.addEventListener("submit", function (e) {
         const rawValue = candidateInput.value.trim();
 
@@ -77,7 +80,7 @@
 
         if (!validateIndexNumber(candidateInput.value)) {
             e.preventDefault();
-            showAlert("Format ya Index Number siyo sahihi! Mfano sahihi: S3743/0037 au PS170604-0001", "warning");
+            showAlert("Format ya Index Number siyo sahihi! Mfano sahihi: S3743/0037 au P2173/0002", "warning");
             candidateInput.focus();
             return;
         }
@@ -85,3 +88,4 @@
         showAlert("Inathibitisha matokeo...", "success");
     });
 });
+

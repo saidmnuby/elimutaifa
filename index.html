@@ -3,237 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya Form Four (CSEE) - NECTA | G.R.F</title>
-    <!-- FontAwesome Icons -->
+    <meta name="description" content="Get Results Faster - access national examination results quickly and clearly.">
+    <title>GET RESULTS FASTER (GRF) | Matokeo ya NECTA | NECTA Results </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js"></script>
-
+    <link rel="stylesheet" href="assets/css/consent.css">
+    <script src="assets/js/consent.js"></script>
 </head>
-<body>
-
-    <!-- Alert Banner -->
-    <div class="alert-box">
-        <div id="alert-message" class="in-alert"></div>
-    </div>
-
-    <!-- Mobile Navigation Overlay -->
+<body class="home-page">
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Collapsible Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <ul class="sidebar-menu">
-            <li>
-                <a href="../" class="sidebar-item">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Nyumbani</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="sidebar-item active">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <span>Form Four (CSEE)</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="sidebar-item">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <span>Maelekezo</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="sidebar-item">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <span>Maswali Yanayoulizwa</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="sidebar-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>Wasiliana Nasi</span>
-                </a>
-            </li>
-        </ul>
-        <div class="sidebar-quote">
-            <p>“Elimu ni msingi<br>wa maendeleo”</p>
+    <aside class="sidebar home-sidebar" id="sidebar">
+        <div>
+            <a class="home-brand" href="./" aria-label="Get Results Faster home">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span>
+                    <strong>GET RESULTS FASTER</strong>
+                    <small>GET RESULTS FASTER - G.R.F</small>
+                </span>
+            </a>
+
+            <nav aria-label="Main navigation">
+                <ul class="sidebar-menu home-menu">
+                    <li><a href="./" class="sidebar-item active"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
+                    <li class="results-menu">
+                        <details open>
+                            <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Results</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
+                            <div class="results-submenu">
+                                <a href="acsee/">ACSEE <small>Form Six</small></a>
+                                <a href="csee/">CSEE <small>Form Four</small></a>
+                                <a href="ftna/">FTNA <small>Form Two</small></a>
+                                <a href="sfna/">SFNA <small>Standard Four</small></a>
+                            </div>
+                        </details>
+                    </li>
+                    <li><a href="#selection" class="sidebar-item pending-link"><i class="fa-solid fa-list-check"></i><span>Selection</span><em>soon</em></a></li>
+                    <li><a href="#admission" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
+                    <li><a href="about/" class="sidebar-item"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
+                    <li><a href="contact/" class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+                    <li><a href="privacy/" class="sidebar-item"><i class="fa-solid fa-shield-halved"></i><span>Privacy Policy</span></a></li>
+                </ul>
+            </nav>
         </div>
+        <p class="sidebar-quote">“Elimu ni msingi<br>wa maendeleo”</p>
     </aside>
 
-    <!-- Main Content Area -->
-    <div class="main-wrapper">
-        
-        <!-- Sticky Header Banner -->
-        <header class="header-banner">
+    <div class="main-wrapper home-wrapper">
+        <header class="header-banner home-header">
             <div class="header-left">
-                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua Menyu">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
-                    <div class="header-title">
-                        <h1>G.R.F</h1>
-                        <p>Get Results Faster</p>
-                    </div>
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
+                <div class="header-title">
+                    <h1>GET RESULTS FASTER (GRF)</h1>
+                    <p>GET RESULTS FASTER - G.R.F</p>
                 </div>
             </div>
-            <div class="datetime-display">
-                <i class="fa-regular fa-clock"></i>
-                <span id="current-datetime">Ijumaa, 31 Mei 2025 | Saa 20:30</span>
-            </div>
+            <div class="datetime-display"><i class="fa-regular fa-clock"></i><span id="location-text">G.R.F RESULTS PORTAL</span></div>
         </header>
 
-        <!-- Dynamic Content Body -->
-        <main class="content-container">
-            <div class="grid-layout">
-                
-                <!-- Secondary Info Section -->
-                <section class="intro-card">
-                    <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> CSEE Examination Results
-                    </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                    <h3 class="intro-title">Form Four (Kidato cha Nne)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Kidato cha Nne (CSEE) kwa haraka na kwa urahisi. Ingiza namba yako ya mtihani kisha uchague mwaka uliofanya mtihani.</p>
-                </section>
+        <main class="home-content">
+            <section class="home-intro">
+                <span class="home-eyebrow"><i class="fa-solid fa-bolt"></i> G.R.F RESULTS PORTAL</span>
+                <h2>GET RESULTS<br><span>FASTER</span></h2>
+                <p>Find national examination results through one clear, reliable starting point.</p>
+                <a class="home-primary-action" href="#quick-links"><i class="fa-solid fa-arrow-down"></i> Explore services</a>
+            </section>
 
-                <!-- Actionable Search Forms Column -->
-                <section class="right-column">
-                    
-                    <!-- Search by Index Card -->
-                    <div class="card">
-                        <!-- Direct Action to Form Four (CSEE) endpoint -->
-                          <form id="index1" method="post" action="results/ftna/">
-    <!-- Hidden inputs submitted to PHP -->
-    <input type="hidden" name="exam_level" id="exam_level" value="acsee">
-    <input type="hidden" name="exam_year" id="exam_year" value="2025">
+            <section class="home-services" id="quick-links" aria-labelledby="services-title">
+                <div class="section-heading">
+                    <div><span class="section-kicker">START HERE</span><h2 id="services-title">Quick links</h2></div>
+                    <span class="service-count">04 SERVICES</span>
+                </div>
+                <div class="service-grid">
+                    <a class="service-card service-card-primary" href="acsee/">
+                        <span class="service-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <span><strong>Angalia Matokeo</strong><small>Search ACSEE, CSEE, FTNA or SFNA results.</small></span>
+                        <i class="fa-solid fa-arrow-right service-arrow"></i>
+                    </a>
+                    <a class="service-card" href="#instructions">
+                        <span class="service-icon"><i class="fa-solid fa-compass"></i></span>
+                        <span><strong>Maelekezo</strong><small>Learn how to find your examination results.</small></span>
+                        <i class="fa-solid fa-arrow-right service-arrow"></i>
+                    </a>
+                    <a class="service-card" href="contact/">
+                        <span class="service-icon"><i class="fa-solid fa-headset"></i></span>
+                        <span><strong>Wasiliana Nasi</strong><small>Reach the G.R.F support team.</small></span>
+                        <i class="fa-solid fa-arrow-right service-arrow"></i>
+                    </a>
+                    <a class="service-card" href="contribution/">
+                        <span class="service-icon"><i class="fa-solid fa-comments"></i></span>
+                        <span><strong>Changia au Toa Maoni</strong><small>Share feedback, ideas, or contributions.</small></span>
+                        <i class="fa-solid fa-arrow-right service-arrow"></i>
+                    </a>
+                </div>
+            </section>
 
-    <div class="card-header">
-        <div class="card-title-group">
-            <i class="fa-solid fa-list-check card-title-icon"></i>
-            <span class="card-title">ANGALIA KWA INDEX NUMBER</span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span class="form-label" style="margin-bottom:0;">Andika INDEX Namba ya Mtihani hapa...</span>
-        </div>
-        
-        <div class="dividexp">
-            <div class="input-with-icon">
-                <i class="fa-regular fa-user"></i>
-                <input type="text" class="form-input" id="candidate" name="candidate" placeholder="Andika index number ya mtihani hapa..." maxlength="25" >
-            </div>
-            <div class="example-hint">Mfano: <span>PS170604-0001</span> Au <span>S3743/0037</span> Au <span>P3743/0037</span></div>
-        </div>
-    </div>
-
-    <!-- Exam Selector Chips with data-value -->
-    <label class="form-label"><i class="fa-solid fa-graduation-cap" style="color:var(--primary-green); margin-right: 4px;"></i> Chagua mtihani</label>
-    <div class="options" id="exam-options" >
-        <div class="option active" data-value="acsee">FORM 6<span class="check">✓</span></div>
-        <div class="option" data-value="csee">FORM 4</div>
-        <div class="option" data-value="ftna">FORM 2</div>
-        <div class="option" data-value="psle">STANDARD 7</div>
-    </div>
-
-    <!-- Year Selector Chips --> 
-    <label class="form-label"><i class="fa-regular fa-calendar-days" style="color:var(--primary-green); margin-right: 4px;"></i>Chagua mwaka</label>
-    <div class="options" id="year-options">
-        <div class="option" data-value="2023">2023</div>
-        <div class="option" data-value="2024">2024</div>
-        <div class="option active" data-value="2025">2025<span class="check">✓</span></div>
-        <div class="option" data-value="2026">2026</div>
-    </div>
-
-    <button type="submit" class="btn btn-green">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        ANGALIA
-        <i class="fa-solid fa-arrow-right" style="margin-left: auto;"></i>
-    </button>
-</form>
-                    </div>
-
-                    <!-- Search School Card -->
-                    <div class="card">
-                        <div class="school-card-header">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <span>ANGALIA MATOKEO KWA SHULE (FORM 4)</span>
-                        </div>
-
-                        <div class="select-grid">
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Chagua mkoa</label>
-                                <div class="custom-select-wrapper">
-                                    <i class="fa-solid fa-location-dot select-icon"></i>
-                                    <select class="custom-select" aria-label="Chagua mkoa">
-                                        <option value="dar" selected>Dar es Salaam</option>
-                                        <option value="arusha">Arusha</option>
-                                        <option value="dodoma">Dodoma</option>
-                                        <option value="mwanza">Mwanza</option>
-                                        <option value="mbeya">Mbeya</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Chagua wilaya</label>
-                                <div class="custom-select-wrapper">
-                                    <i class="fa-solid fa-building-columns select-icon"></i>
-                                    <select class="custom-select" aria-label="Chagua wilaya">
-                                        <option value="ilala" selected>Ilala</option>
-                                        <option value="kinondoni">Kinondoni</option>
-                                        <option value="temeke">Temeke</option>
-                                        <option value="ubungo">Ubungo</option>
-                                        <option value="kigamboni">Kigamboni</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-blue" style="margin-top: 16px;">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <span>ANGALIA ORODHA YA SHULE</span>
-                        </button>
-                    </div>
-
-                </section>
-            </div>
+            <section class="home-note" id="instructions">
+                <i class="fa-solid fa-circle-check"></i>
+                <span><strong>One place for your results.</strong> Select Results from the menu and choose your examination level.</span>
+            </section>
         </main>
 
-        <!-- Footer Banner -->
-        <footer class="footer">
-            <div>
-                &copy; 2026 G.R.F. Haki zote zimehifadhiwa.
-            </div>
-            <div class="footer-links">
-                <a href="#">Sera za Matumizi</a> |
-                <a href="#">Faragha</a>
-            </div>
+        <footer class="footer home-footer">
+            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
+            <span><a href="privacy/">Privacy Policy</a><a href="privacy/#terms">Terms of Use</a></span>
         </footer>
     </div>
 
-</body>
-
- <!-- Scripts -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebar = document.getElementById("sidebar");
-            const sidebarOverlay = document.getElementById("sidebarOverlay");
-            let alertTimer = null;
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const pendingLinks = document.querySelectorAll('.pending-link');
 
-            // 1. Mobile Sidebar Toggle
             function toggleMenu() {
-                sidebar.classList.toggle("open");
-                sidebarOverlay.classList.toggle("active");
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
             }
 
-            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
-            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            pendingLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                });
+            });
         });
-
     </script>
+</body>
 </html>
