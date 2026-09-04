@@ -11,7 +11,7 @@
         banner.innerHTML = `
             <div class="consent-copy">
                 <strong id="consent-title">Privacy, terms and cookies</strong>
-                <p>By continuing to use G.R.F, you acknowledge our <a href="${getSitePath('privacy/')}">Privacy Policy</a> and <a href="${getSitePath('privacy/#terms')}">Terms of Service</a>. We use essential session cookies and temporary storage to operate and improve the service.</p>
+                <p>By continuing to use G.R.F, you acknowledge our <a href="${getSitePath('get-results-faster/privacy')}">Privacy Policy</a> and <a href="${getSitePath('get-results-faster/privacy/#terms')}">Terms of Service</a>. We use essential session cookies and temporary storage to operate and improve the service.</p>
             </div>
             <button class="consent-button" type="button">Accept &amp; continue</button>
         `;
