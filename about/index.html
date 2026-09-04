@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Get Results Faster and Edutech.">
+    <title>About Us | GET RESULTS FASTER (GRF)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/consent.css">
+    <script src="../assets/js/consent.js"></script>
+    <style>
+        .about-content {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            padding: 48px 34px 34px;
+        }
+
+        .about-intro {
+            max-width: 760px;
+            padding: 18px 0 30px;
+        }
+
+        .about-intro h2 {
+            margin-top: 18px;
+            padding-left: 18px;
+            border-left: 5px solid var(--primary-green);
+            color: var(--sidebar-bg);
+            font-size: clamp(38px, 5vw, 64px);
+            line-height: 1;
+        }
+
+        .about-intro h2 span {
+            color: var(--primary-green);
+        }
+
+        .about-intro p {
+            max-width: 630px;
+            margin-top: 18px;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(230px, 0.9fr);
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .about-panel {
+            padding: 22px;
+            background: #FFFFFF;
+            border: 1px solid #DDE5F0;
+            border-top: 3px solid var(--primary-green);
+            box-shadow: 0 8px 22px rgba(3, 27, 78, 0.05);
+        }
+
+        .about-panel h3 {
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 18px;
+        }
+
+        .about-panel p {
+            color: #526174;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .mission-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--sidebar-bg);
+            border-top-color: #FBBF24;
+        }
+
+        .mission-panel h3,
+        .mission-panel p {
+            color: #FFFFFF;
+        }
+
+        .mission-panel p {
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .about-feature {
+            min-height: 142px;
+            padding: 16px;
+            background: #FFFFFF;
+            border: 1px solid #DDE5F0;
+            border-top: 3px solid var(--primary-blue);
+            box-shadow: 0 8px 22px rgba(3, 27, 78, 0.04);
+        }
+
+        .about-feature i {
+            display: grid;
+            width: 32px;
+            height: 32px;
+            place-items: center;
+            color: var(--primary-blue);
+            background: #EAF2FF;
+            border-radius: 7px;
+        }
+
+        .about-feature strong,
+        .about-feature small {
+            display: block;
+        }
+
+        .about-feature strong {
+            margin-top: 12px;
+            color: var(--text-dark);
+            font-size: 13px;
+        }
+
+        .about-feature small {
+            margin-top: 6px;
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .about-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px solid #D7E0ED;
+        }
+
+        .about-step {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .about-step b {
+            color: var(--primary-green);
+            font-size: 20px;
+        }
+
+        .about-step strong,
+        .about-step small {
+            display: block;
+        }
+
+        .about-step strong {
+            color: var(--text-dark);
+            font-size: 13px;
+        }
+
+        .about-step small {
+            margin-top: 4px;
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .about-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-top: 22px;
+            padding: 16px 18px;
+            color: #36506F;
+            background: #EAF2FF;
+            border-left: 3px solid var(--primary-blue);
+        }
+
+        .about-action strong,
+        .about-action small {
+            display: block;
+        }
+
+        .about-action strong {
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .about-action small {
+            margin-top: 4px;
+            font-size: 12px;
+        }
+
+        .about-action a {
+            flex: 0 0 auto;
+            padding: 10px 14px;
+            color: #FFFFFF;
+            background: var(--primary-green);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .about-action a:hover {
+            background: var(--primary-green-hover);
+        }
+
+        .about-footer {
+            margin-left: 0;
+        }
+
+        @media (max-width: 900px) {
+            .about-content {
+                padding: 36px 20px 24px;
+            }
+
+            .about-layout,
+            .about-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .about-layout,
+            .about-features,
+            .about-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .about-action {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="home-page">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar home-sidebar" id="sidebar">
+        <div>
+            <a class="home-brand" href="../" aria-label="Get Results Faster home">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span><strong>GET RESULTS FASTER</strong><small>GET RESULTS FASTER - G.R.F</small></span>
+            </a>
+            <nav aria-label="Main navigation">
+                <ul class="sidebar-menu home-menu">
+                    <li><a href="../" class="sidebar-item"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
+                    <li class="results-menu">
+                        <details open>
+                            <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Results</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
+                            <div class="results-submenu">
+                                <a href="../acsee/">ACSEE <small>Form Six</small></a>
+                                <a href="../csee/">CSEE <small>Form Four</small></a>
+                                <a href="../ftna/">FTNA <small>Form Two</small></a>
+                                <a href="../sfna/">SFNA <small>Standard Four</small></a>
+                            </div>
+                        </details>
+                    </li>
+                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-list-check"></i><span>Selection</span><em>soon</em></a></li>
+                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
+                    <li><a href="./" class="sidebar-item active" aria-current="page"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
+                    <li><a href="../contact/" class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+                    <li><a href="../privacy/" class="sidebar-item"><i class="fa-solid fa-shield-halved"></i><span>Privacy Policy</span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <p class="sidebar-quote">“Elimu ni msingi<br>wa maendeleo”</p>
+    </aside>
+
+    <div class="main-wrapper home-wrapper">
+        <header class="header-banner home-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
+                <div class="header-title"><h1>GET RESULTS FASTER (GRF)</h1><p>GET RESULTS FASTER - G.R.F</p></div>
+            </div>
+            <div class="datetime-display"><i class="fa-solid fa-circle-info"></i><span>ABOUT G.R.F</span></div>
+        </header>
+
+        <main class="about-content">
+            <section class="about-intro">
+                <span class="home-eyebrow"><i class="fa-solid fa-circle-info"></i> ABOUT G.R.F</span>
+                <h2>WE MAKE RESULTS<br><span>EASIER</span></h2>
+                <p>Get Results Faster helps students, parents, and schools access national examination results quickly and clearly.</p>
+            </section>
+
+            <section class="about-layout">
+                <div class="about-panel">
+                    <h3>About Get Results Faster</h3>
+                    <p>G.R.F is a focused result-access platform designed to simplify the process of finding published examination results. We bring the main education levels into one clear starting point with a straightforward search experience.</p>
+                </div>
+                <div class="about-panel mission-panel">
+                    <h3>Our mission</h3>
+                    <p>To make examination-result access faster, simpler, and more reliable for everyone.</p>
+                </div>
+            </section>
+
+            <section class="about-features" aria-label="What we provide">
+                <div class="about-feature"><i class="fa-solid fa-bolt"></i><strong>Fast access</strong><small>Reach result pages with fewer steps.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-layer-group"></i><strong>Multiple levels</strong><small>ACSEE, CSEE, FTNA, PSLE, and SFNA.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-route"></i><strong>Simple experience</strong><small>Clear navigation built for repeated use.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-circle-check"></i><strong>Reliable information</strong><small>Access published results from official and trusted sources.</small></div>
+            </section>
+
+            <section class="about-steps" aria-label="How it works">
+                <div class="about-step"><b>01</b><span><strong>Choose a level</strong><small>Select the examination from Results.</small></span></div>
+                <div class="about-step"><b>02</b><span><strong>Enter details</strong><small>Provide the index number and year.</small></span></div>
+                <div class="about-step"><b>03</b><span><strong>View results</strong><small>Review the retrieved result information.</small></span></div>
+            </section>
+
+            <section class="about-action">
+                <span><strong>Have a question or suggestion?</strong><small>Contact the G.R.F team through Edutech.</small></span>
+                <a href="../contact/">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+            </section>
+        </main>
+
+        <footer class="footer home-footer about-footer"><span>&copy; 2026 G.R.F <b>·</b> Techware47</span><span><a href="../privacy/">Privacy Policy</a><a href="../privacy/#terms">Terms of Use</a></span></footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const pendingLinks = document.querySelectorAll('.pending-link');
+            function toggleMenu() { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            pendingLinks.forEach(function (link) { link.addEventListener('click', function (event) { event.preventDefault(); }); });
+        });
+    </script>
+</body>
+</html>

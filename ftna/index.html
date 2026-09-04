@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matokeo ya Form Two (FTNA) - NECTA | G.R.F</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/consent.css">
+    <script src="../assets/js/consent.js"></script>
+    <link rel="stylesheet" href="../assets/css/education.css">
+    <script src="assets/js/script.js"></script>
+
+</head>
+<body class="education-page">
+
+    <!-- Alert Banner -->
+    <div class="alert-box">
+        <div id="alert-message" class="in-alert"></div>
+    </div>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Collapsible Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="../" class="sidebar-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Nyumbani</span>
+                </a>
+            </li>
+                <a href="../acsee/" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>FORM SIX (ACSEE)</span>
+                </a>
+            </li>
+            <li>
+                <a href="../csee/" class="sidebar-item" >
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>FORM FOUR (CSEE)</span>
+                </a>
+            </li>
+            <li>
+            <li>
+                <a href="../ftna" class="sidebar-item active">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>FORM TWO (FTNA)</span>
+                </a>
+            </li>
+            <li>
+                <a href="../psle/" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>STANDARD 7 (PSLE)</span>
+                </a>
+            </li>
+            <li>
+            <li>
+                <a href="../sfna/" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>STANDARD 4 (SFNA)</span>
+                </a>
+            </li><br>
+                <a href="../contribution/" class="sidebar-item">
+                   <i class="fa-solid fa-circle-info"></i>
+                    <span>Ask, Contribute, Comment</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-quote">
+            <p>“Elimu ni msingi<br>wa maendeleo”</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        
+        <!-- Sticky Header Banner -->
+        <header class="header-banner">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua Menyu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="logo-section">
+                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <div class="header-title">
+                        <h1>G.R.F</h1>
+                        <p>Get Results Faster</p>
+                    </div>
+                </div>
+            </div>
+            <div class="datetime-display">
+                <div class="clock-container">
+                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
+                    <div id="location-text" class="location-info">Inapakia eneo...</div>
+                </div>
+                <i class="fa-regular fa-clock"></i>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Body -->
+        <main class="content-container">
+            <div class="grid-layout">
+                
+                <!-- Secondary Info Section -->
+                <section class="intro-card">
+                    <div class="badge-fast">
+                        <i class="fa-solid fa-bolt"></i> FTNA Examination Results
+                    </div>
+                    <h2 >MATOKEO YA NECTA</h2>
+                    <h3 class="intro-title">Form Two <br> (Kidato cha Pili)</h3>
+                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Kidato cha Pili (FTNA) kwa haraka na kwa urahisi. Ingiza namba yako ya mtihani kisha uchague mwaka uliofanya mtihani.</p>
+                </section>
+
+                <!-- Actionable Search Forms Column -->
+                <section class="right-column">
+                    
+                    <!-- Search by Index Card -->
+                    <div class="card">
+                        <!-- Direct Action to Form Two (FTNA) endpoint -->
+                          <form id="index1" method="post" action="results/">
+    <!-- Hidden inputs submitted to PHP -->
+
+    <div class="card-header">
+        <div class="card-title-group">
+            <i class="fa-solid fa-list-check card-title-icon"></i>
+            <span class="card-title">ANGALIA KWA INDEX NUMBER</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span class="form-label" style="margin-bottom:0;">
+            <i class="fa-regular fa-pen-to-square" style="color:var(--primary-green);padding-right: 2px;"></i>Andika INDEX Namba ya Mtihani hapa...</span>
+        </div>
+        
+        <div class="dividexp">
+            <div class="example-hint">Mfano: <br> <span>P3743/0037</span> <br> <span>P2173/0002 </span></div>
+            <div class="input-with-icon">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" class="form-input" id="candidate" name="candidate"  maxlength="13" >
+            </div>
+        </div>
+    </div>
+
+    <!-- Year Selector Chips --> 
+    <label class="form-label"><i class="fa-regular fa-calendar-days" style="color:var(--primary-green); margin-right: 4px;"></i>Chagua mwaka</label>
+    <div class="options" id="year-options" >
+        <label class="year-label" for="year" >Mwaka :</label>
+        <select id="year" name="examYear">
+            <option value="none" disabled>Chagua Mwaka</option>
+            <option value="2026" selected>2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-green">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        ANGALIA
+        <i class="fa-solid fa-arrow-right" style="margin-left: auto;"></i>
+    </button>
+</form>
+                    </div>
+
+                    <!-- Search School Card -->
+                    <div class="card">
+                        <div class="school-card-header">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>ANGALIA MATOKEO KWA SHULE (FORM 2)</span>
+                        </div>
+
+                        <div class="select-grid">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Chagua mkoa</label>
+                                <div class="custom-select-wrapper">
+                                    <i class="fa-solid fa-location-dot select-icon"></i>
+                                    <select class="custom-select" aria-label="Chagua mkoa">
+                                        <option value="dar" selected>Dar es Salaam</option>
+                                        <option value="arusha">Arusha</option>
+                                        <option value="dodoma">Dodoma</option>
+                                        <option value="mwanza">Mwanza</option>
+                                        <option value="mbeya">Mbeya</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Chagua wilaya</label>
+                                <div class="custom-select-wrapper">
+                                    <i class="fa-solid fa-building-columns select-icon"></i>
+                                    <select class="custom-select" aria-label="Chagua wilaya">
+                                        <option value="ilala" selected>Ilala</option>
+                                        <option value="kinondoni">Kinondoni</option>
+                                        <option value="temeke">Temeke</option>
+                                        <option value="ubungo">Ubungo</option>
+                                        <option value="kigamboni">Kigamboni</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-blue" style="margin-top: 16px;">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>ANGALIA ORODHA YA SHULE</span>
+                        </button>
+                    </div>
+
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer Banner -->
+        <footer class="footer">
+            <div>
+                2026 G.R.F. All rights reserved | Techware47.
+            </div>
+            <div class="footer-links">
+                <a href="../privacy/">Sera za Matumizi</a> |
+                <a href="../privacy/">Faragha</a>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+ <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarOverlay = document.getElementById("sidebarOverlay");
+            let alertTimer = null;
+
+            // 1. Mobile Sidebar Toggle
+            function toggleMenu() {
+                sidebar.classList.toggle("open");
+                sidebarOverlay.classList.toggle("active");
+            }
+
+            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
+            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
+        });
+
+    </script>
+      <script>
+    function updateClock() {
+      const now = new Date();
+      
+      // 1. Inapata Timezone ya kifaa cha mtumiaji kulingana na eneo lake (mfano: Africa/Dar_es_Salaam)
+      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      // 2. Inapanga muundo wa saa, tarehe na sekunde kulingana na Timezone hiyo
+      const timeFormatter = new Intl.DateTimeFormat('sw-TZ', {
+        timeZone: userTimeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Weka 'true' kama unataka AM/PM
+      });
+
+      const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
+        timeZone: userTimeZone,
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+
+      // 3. Inaweka matokeo kwenye HTML
+      document.getElementById('live-clock').textContent = timeFormatter.format(now);
+      document.getElementById('location-text').textContent = `${dateFormatter.format(now)} | ${userTimeZone}`;
+    }
+
+    // Isome mara moja na kuisasisha kila sekunde 1 (1000ms)
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask, Contribute, Comment | G.R.F</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/consent.css">
+    <script src="../assets/js/consent.js"></script>
+    <style>
+        .contribution-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .contribution-intro {
+            padding: 10px 12px 0 0;
+        }
+
+        .contribution-intro h2 {
+            margin: 18px 0 12px;
+            font-size: 32px;
+            line-height: 1.15;
+            color: var(--text-dark);
+        }
+
+        .contribution-intro p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .contribution-points {
+            display: grid;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .contribution-point {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .contribution-point i {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #ECFDF5;
+            color: var(--primary-green);
+        }
+
+        .contribution-form-card {
+            margin-top: 0;
+        }
+
+        .contribution-form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .contribution-form .form-group {
+            margin-bottom: 0;
+        }
+
+        .contribution-form input,
+        .contribution-form select,
+        .contribution-form textarea {
+            width: 100%;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text-dark);
+            background: #fff;
+            font: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .contribution-form select {
+            height: auto;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            background: #fff;
+        }
+
+        .contribution-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contribution-form input:focus,
+        .contribution-form select:focus,
+        .contribution-form textarea:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(5, 130, 73, 0.12);
+        }
+
+        .contribution-form .btn {
+            border: 0;
+            cursor: pointer;
+        }
+
+        .form-note {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .contribution-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .contribution-intro {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="alert-box" aria-live="polite">
+        <div id="alert-message" class="in-alert"></div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="../" class="sidebar-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Nyumbani</span>
+                </a>
+            </li>
+                <a href="../acsee/" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>FORM SIX (ACSEE)</span>
+                </a>
+            </li>
+            <li>
+                <a href="../csee/" class="sidebar-item" >
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>FORM FOUR (CSEE)</span>
+                </a>
+            </li>
+            <li>
+            <li>
+                <a href="../ftna" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>FORM TWO (FTNA)</span>
+                </a>
+            </li>
+            <li>
+                <a href="../psle/" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>STANDARD 7 (PSLE)</span>
+                </a>
+            </li>
+            <li>
+            <li>
+                <a href="../sfna/" class="sidebar-item">
+                   <i class="fa-solid fa-list-check"></i>
+                    <span>STANDARD 4 (SFNA)</span>
+                </a>
+            </li><br>
+                <a href="" class="sidebar-item active">
+                   <i class="fa-solid fa-circle-info"></i>
+                    <span>Ask, Contribute, Comment</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-quote"><p>“Elimu ni msingi<br>wa maendeleo”</p></div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="header-banner">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua Menyu"><i class="fa-solid fa-bars"></i></button>
+                <div class="logo-section">
+                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <div class="header-title"><h1>G.R.F</h1><p>Get Results Faster</p></div>
+                </div>
+            </div>
+            <div class="datetime-display">
+                <i class="fa-regular fa-clock"></i>
+                <span id="current-datetime">Ask, Contribute, Comment</span>
+            </div>
+        </header>
+
+        <main class="content-container">
+            <div class="contribution-layout">
+                <section class="contribution-intro">
+                    <div class="badge-fast"><i class="fa-solid fa-comments"></i> Community Desk</div>
+                    <h2>Ask, Contribute, Comment</h2>
+                    <p>Tuambie unachohitaji, pendekeza maboresho, au shiriki maoni yako kuhusu huduma za G.R.F.</p>
+                    <div class="contribution-points">
+                        <div class="contribution-point"><i class="fa-solid fa-circle-question"></i><span>Uliza kuhusu matokeo na matumizi ya tovuti</span></div>
+                        <div class="contribution-point"><i class="fa-solid fa-lightbulb"></i><span>Pendekeza wazo au huduma mpya</span></div>
+                        <div class="contribution-point"><i class="fa-solid fa-bug"></i><span>Ripoti tatizo linalohitaji kurekebishwa</span></div>
+                    </div>
+                </section>
+
+                <section class="card contribution-form-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-paper-plane card-title-icon"></i>
+                            <span class="card-title">Tuma ujumbe</span>
+                        </div>
+                    </div>
+                    <form class="contribution-form" id="contribution-form">
+                        <div class="form-group">
+                            <label class="form-label" for="topic">Aina ya ujumbe</label>
+                            <select id="topic" name="topic" required>
+                                <option value="" selected disabled>Chagua aina ya ujumbe</option>
+                                <option value="question">Swali</option>
+                                <option value="contribution">Pendekezo</option>
+                                <option value="comment">Maoni</option>
+                                <option value="report">Ripoti tatizo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="name">Jina</label>
+                            <input id="name" name="name" type="text" maxlength="80" placeholder="Andika jina lako" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="contact">Barua pepe au simu</label>
+                            <input id="contact" name="contact" type="text" maxlength="120" placeholder="Hiari">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">Ujumbe</label>
+                            <textarea id="message" name="message" maxlength="1000" placeholder="Andika ujumbe wako hapa..." required></textarea>
+                        </div>
+                        <p class="form-note">Usiweke namba ya siri au taarifa nyeti kwenye ujumbe.</p>
+                        <button type="submit" class="btn btn-green"><i class="fa-solid fa-paper-plane"></i><span>Tuma ujumbe</span><i class="fa-solid fa-arrow-right" style="margin-left:auto"></i></button>
+                    </form>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div>&copy; 2026 G.R.F. Haki zote zimehifadhiwa.</div>
+            <div class="footer-links"><a href="../privacy/">Sera za Matumizi</a> | <a href="../privacy/">Faragha</a></div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarOverlay = document.getElementById("sidebarOverlay");
+            const form = document.getElementById("contribution-form");
+            const alertEl = document.getElementById("alert-message");
+
+            function toggleMenu() {
+                sidebar.classList.toggle("open");
+                sidebarOverlay.classList.toggle("active");
+            }
+
+            menuToggle.addEventListener("click", toggleMenu);
+            sidebarOverlay.addEventListener("click", toggleMenu);
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                alertEl.className = "in-alert success show";
+                alertEl.textContent = "Ujumbe wako umetumwa. Asante kwa kushiriki.";
+                form.reset();
+                window.setTimeout(function () {
+                    alertEl.classList.remove("show");
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

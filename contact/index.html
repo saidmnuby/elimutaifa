@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Get Results Faster and Edutech.">
+    <title>Contact | GET RESULTS FASTER (GRF)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/consent.css">
+    <script src="../assets/js/consent.js"></script>
+    <style>
+        .contact-content {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            padding: 54px 34px 34px;
+        }
+
+        .contact-intro {
+            max-width: 680px;
+            padding: 20px 0 34px;
+        }
+
+        .contact-intro h2 {
+            margin-top: 18px;
+            padding-left: 18px;
+            border-left: 5px solid var(--primary-green);
+            color: var(--sidebar-bg);
+            font-size: clamp(38px, 5vw, 64px);
+            line-height: 1;
+        }
+
+        .contact-intro h2 span {
+            color: var(--primary-green);
+        }
+
+        .contact-intro p {
+            max-width: 560px;
+            margin-top: 18px;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .contact-panel {
+            padding: 22px;
+            background: #FFFFFF;
+            border: 1px solid #DDE5F0;
+            border-top: 3px solid var(--primary-green);
+            box-shadow: 0 8px 22px rgba(3, 27, 78, 0.05);
+        }
+
+        .contact-panel h3 {
+            margin-bottom: 18px;
+            color: var(--text-dark);
+            font-size: 17px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 0;
+            border-bottom: 1px solid #E7EDF5;
+        }
+
+        .contact-detail:last-child {
+            border-bottom: 0;
+        }
+
+        .contact-detail i {
+            display: grid;
+            flex: 0 0 32px;
+            width: 32px;
+            height: 32px;
+            place-items: center;
+            color: var(--primary-green);
+            background: #DCFCE7;
+            border-radius: 7px;
+        }
+
+        .contact-detail small,
+        .contact-detail strong {
+            display: block;
+        }
+
+        .contact-detail small {
+            margin-bottom: 4px;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .contact-detail strong,
+        .contact-detail a {
+            display: block;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-detail a:hover,
+        .social-link:hover {
+            color: var(--primary-green);
+        }
+
+        .social-panel {
+            border-top-color: var(--primary-blue);
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 58px;
+            padding: 10px 12px;
+            color: var(--text-dark);
+            background: #F7F9FC;
+            border: 1px solid #E2E8F0;
+            text-decoration: none;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .social-link i {
+            width: 26px;
+            color: var(--primary-blue);
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .social-link strong,
+        .social-link small {
+            display: block;
+        }
+
+        .social-link strong {
+            font-size: 13px;
+        }
+
+        .social-link small {
+            margin-top: 3px;
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        .contact-footer {
+            margin-left: 0;
+        }
+
+        @media (max-width: 900px) {
+            .contact-content {
+                padding: 38px 20px 24px;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="home-page">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar home-sidebar" id="sidebar">
+        <div>
+            <a class="home-brand" href="../" aria-label="Get Results Faster home">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span><strong>GET RESULTS FASTER</strong><small>GET RESULTS FASTER - G.R.F</small></span>
+            </a>
+            <nav aria-label="Main navigation">
+                <ul class="sidebar-menu home-menu">
+                    <li><a href="../" class="sidebar-item"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
+                    <li class="results-menu">
+                        <details open>
+                            <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Results</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
+                            <div class="results-submenu">
+                                <a href="../acsee/">ACSEE <small>Form Six</small></a>
+                                <a href="../csee/">CSEE <small>Form Four</small></a>
+                                <a href="../ftna/">FTNA <small>Form Two</small></a>
+                                <a href="../sfna/">SFNA <small>Standard Four</small></a>
+                            </div>
+                        </details>
+                    </li>
+                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-list-check"></i><span>Selection</span><em>soon</em></a></li>
+                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
+                    <li><a href="../about/" class="sidebar-item"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
+                    <li><a href="./" class="sidebar-item active" aria-current="page"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+                    <li><a href="../privacy/" class="sidebar-item"><i class="fa-solid fa-shield-halved"></i><span>Privacy Policy</span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <p class="sidebar-quote">“Elimu ni msingi<br>wa maendeleo”</p>
+    </aside>
+
+    <div class="main-wrapper home-wrapper">
+        <header class="header-banner home-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
+                <div class="header-title"><h1>GET RESULTS FASTER (GRF)</h1><p>GET RESULTS FASTER - G.R.F</p></div>
+            </div>
+            <div class="datetime-display"><i class="fa-regular fa-clock"></i><span>EDUTECH CONTACT DESK</span></div>
+        </header>
+
+        <main class="contact-content">
+            <section class="contact-intro">
+                <span class="home-eyebrow"><i class="fa-solid fa-envelope"></i> EDUTECH CONTACT DESK</span>
+                <h2>LET'S STAY<br><span>CONNECTED</span></h2>
+                <p>Reach the G.R.F and Edutech team through the channel that works best for you.</p>
+            </section>
+
+            <section class="contact-layout" aria-label="Contact information">
+                <div class="contact-panel">
+                    <h3>Contact details</h3>
+                    <div class="contact-detail"><i class="fa-solid fa-phone"></i><span><small>Phone</small><strong>255 765 657 X77</strong></span></div>
+                    <div class="contact-detail"><i class="fa-solid fa-at"></i><span><small>Email</small><a href="mailto:grf@elimutech">grf@elimutech</a><a href="mailto:ceo@elimutech">ceo@elimutech</a></span></div>
+                    <div class="contact-detail"><i class="fa-solid fa-globe"></i><span><small>Website</small><a href="https://www.edutech.com" target="_blank" rel="noopener noreferrer">www.edutech.com</a></span></div>
+                </div>
+
+                <div class="contact-panel social-panel">
+                    <h3>Connect with Edutech</h3>
+                    <div class="social-grid">
+                        <a class="social-link" href="https://www.youtube.com/@edutech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i><span><strong>YouTube</strong><small>Edutech</small></span></a>
+                        <a class="social-link" href="https://www.facebook.com/edutech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i><span><strong>Facebook</strong><small>Edutech</small></span></a>
+                        <a class="social-link" href="https://www.instagram.com/edutech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i><span><strong>Instagram</strong><small>Edutech</small></span></a>
+                        <a class="social-link" href="https://www.tiktok.com/@edutech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i><span><strong>TikTok</strong><small>Edutech</small></span></a>
+                        <a class="social-link" href="https://github.com/edutech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i><span><strong>GitHub</strong><small>Edutech</small></span></a>
+                        <a class="social-link" href="https://www.linkedin.com/company/edutech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i><span><strong>LinkedIn</strong><small>Edutech</small></span></a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer home-footer contact-footer"><span>&copy; 2026 G.R.F <b>·</b> Techware47</span><span><a href="../privacy/">Privacy Policy</a><a href="../privacy/#terms">Terms of Use</a></span></footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const pendingLinks = document.querySelectorAll('.pending-link');
+            function toggleMenu() { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            pendingLinks.forEach(function (link) { link.addEventListener('click', function (event) { event.preventDefault(); }); });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+/* Shared education-level landing page refinements */
+.education-page {
+    background: #F4F7FB;
+}
+
+.education-page .main-wrapper {
+    min-height: 100vh;
+}
+
+.education-page .content-container {
+    width: min(1180px, 100%);
+    max-width: none;
+    padding: 42px 34px 30px;
+}
+
+.education-page .grid-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1.15fr);
+    gap: 44px;
+    align-items: start;
+}
+
+.education-page .intro-card {
+    gap: 14px;
+    padding: 26px 0 0;
+}
+
+.education-page .intro-card .intro-title {
+    max-width: 520px;
+    padding: 12px 0 12px 18px;
+    border-left: 5px solid var(--primary-green);
+    border-bottom: 0;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.08;
+}
+
+.education-page .intro-card .intro-desc {
+    max-width: 480px;
+    font-size: 15px;
+}
+
+.education-page .right-column {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    display: grid;
+    gap: 14px;
+}
+
+.education-page .right-column .card {
+    margin-top: 0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.education-page .right-column .card + .card {
+    margin-top: 0;
+}
+
+.education-page .card-title-icon {
+    padding: 7px;
+    font-size: 16px;
+}
+
+.education-page .card-title {
+    font-size: 13px;
+}
+
+.education-page .form-input,
+.education-page select {
+    min-height: 42px;
+}
+
+.education-page .form-input:focus,
+.education-page select:focus,
+.education-page .option:focus-visible,
+.education-page .btn:focus-visible,
+.education-page a:focus-visible {
+    outline: 3px solid rgba(5, 130, 73, 0.3);
+    outline-offset: 2px;
+}
+
+.education-page .footer {
+    margin-left: 0;
+}
+
+@media (max-width: 900px) {
+    .education-page .content-container {
+        padding: 30px 20px 24px;
+    }
+
+    .education-page .grid-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .education-page .intro-card {
+        padding-top: 10px;
+    }
+
+    .education-page .right-column {
+        width: 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    .education-page .intro-card .intro-title {
+        font-size: 34px;
+    }
+
+    .education-page .right-column .card {
+        padding: 16px;
+    }
+
+    .education-page .dividexp {
+        align-items: stretch;
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .education-page .input-with-icon {
+        width: 100%;
+    }
+
+    .education-page .select-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .education-page .footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        padding: 16px 20px;
+    }
+}

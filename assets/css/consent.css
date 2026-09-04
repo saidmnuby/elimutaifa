@@ -1,0 +1,76 @@
+.consent-banner {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    left: 280px;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 18px;
+    color: #E2E8F0;
+    background: var(--sidebar-bg);
+    border-top: 3px solid var(--primary-green);
+    box-shadow: 0 12px 30px rgba(3, 27, 78, 0.22);
+}
+
+.consent-copy {
+    min-width: 0;
+}
+
+.consent-copy strong {
+    display: block;
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+.consent-copy p {
+    max-width: 780px;
+    margin-top: 5px;
+    color: #BFDBFE;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.consent-copy a {
+    color: #86EFAC;
+    font-weight: 700;
+}
+
+.consent-button {
+    flex: 0 0 auto;
+    padding: 10px 14px;
+    color: #FFFFFF;
+    background: var(--primary-green);
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.consent-button:hover,
+.consent-button:focus-visible {
+    background: var(--primary-green-hover);
+}
+
+@media (max-width: 900px) {
+    .consent-banner {
+        right: 14px;
+        bottom: 14px;
+        left: 14px;
+    }
+}
+
+@media (max-width: 560px) {
+    .consent-banner {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .consent-button {
+        width: 100%;
+    }
+}
