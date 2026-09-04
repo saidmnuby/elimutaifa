@@ -132,7 +132,7 @@ include 'header.php'; // Include the header file
         <div class="dividexp">
             <div class="input-with-icon">
                 <i class="fa-regular fa-user"></i>
-                <input type="text" class="form-input" id="candidate" name="candidate" placeholder="Andika index number ya mtihani hapa..." minlength="14" maxlength="14" required>
+                <input type="text" class="form-input" id="candidate" name="candidate" placeholder="Andika index number ya mtihani hapa..."  maxlength="14" required>
             </div>
             <div class="example-hint">Mfano: <span>PS1704061-0001</span></div>
         </div>
@@ -222,7 +222,7 @@ include 'header.php'; // Include the header file
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-                &copy; 2026 G.R.F. All rights reserved.
+            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |

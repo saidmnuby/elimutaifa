@@ -219,7 +219,8 @@
                     <?php elseif ($candidate != ''): ?>
 
                         <p>Candidate not found.</p>
-                        <?php $_SESSION['error_message'] = "namba ya mtihani au ngazi ya Elimu siyo sahihi au haipatikani. Tafadhali hakiki namba, ngazi ya Elimu na mwaka kisha ujaribu tena. au";
+                        <?php 
+                        $_SESSION['error_message'] = "namba ya mtihani au ngazi ya Elimu siyo sahihi au haipatikani. Tafadhali hakiki namba, ngazi ya Elimu na mwaka kisha ujaribu tena. au";
                         $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";
                         $_SESSION['NECTA'] = "https://necta.go.tz";
                         $_SESSION['style'] = "warning-alert";
@@ -241,7 +242,7 @@
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-                &copy; 2026 G.R.F. All rights reserved. | Techware47
+            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |

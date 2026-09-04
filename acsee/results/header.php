@@ -13,7 +13,7 @@ if ($candidate != '') {
     $statusCode = $response['status'];
 
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
-        $_SESSION['error_message'] = "Matokeo hayapatikani kwa sasa. Tafadhali jaribu tena baadaye.";
+        $_SESSION['error_message'] = "Taarifa hazipatikani katika kumbukumbu za mifumo, Tafathali jaribu taarifa nyingine";
         $_SESSION['style'] = "warning-alert";
         header("Location: ../error/");
         exit();

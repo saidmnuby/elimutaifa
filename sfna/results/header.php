@@ -15,7 +15,7 @@ if ($candidate !== '' && isset($url)) {
     $statusCode = $response['status'];
 
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
-        $_SESSION['error_message'] = "Matokeo hayapatikani kwa sasa. Tafadhali jaribu tena baadaye.";
+        $_SESSION['error_message'] = "Taarifa hazipatikani katika kumbukumbu za mifumo, Tafathali jaribu taarifa nyingine..";
         $_SESSION['style'] = "warning-alert";
         header("Location: ../error/");
         exit();
@@ -55,9 +55,12 @@ if ($candidate !== '' && isset($url)) {
                     $prem_no  = trim($cells->item(1)->textContent);
                     $sex      = trim($cells->item(2)->textContent);
                     $subjects = trim($cells->item($cells->length - 1)->textContent);
+                    if ($examYear <= '2021') {
+                    $subjects = trim($cells->item($cells->length - 2)->textContent);
+                    }
 
                     // Extract Subjects & Grades
-                    preg_match_all("/([A-Za-z\s]+)\s*-\s*([A-F])/i", $subjects, $matches);
+                    preg_match_all("/([A-Za-z\s &. [A-Za-z\s]+)\s*-\s*([A-F])/i", $subjects, $matches);
 
                     for ($i = 0; $i < count($matches[1]); $i++) {
                         $subjName = trim($matches[1][$i]);
@@ -65,6 +68,7 @@ if ($candidate !== '' && isset($url)) {
                         if (strcasecmp($subjName, 'Average Grade') === 0) {
                             continue;
                         }
+
 
                         $result[] = [
                             "subject" => $subjName,

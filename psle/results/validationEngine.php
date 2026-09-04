@@ -11,15 +11,23 @@ $candidate = isset($_POST['candidate']) ? filter_var(trim($_POST['candidate']), 
 $parts = explode('-', $candidate);
 $school_id = strtoupper(trim($parts[0]));
 $schoolCode = strtolower(trim($parts[0]));
+$code = str_replace('ps', 'p', $schoolCode);
+
+if ($exa <= 2015) {
+    $schoolCode = $code;
+}
 
 // Validate NECTA format server-side
 $nectaPattern = '/^(PS\d{7}-\d{4})$/i';
+$nectaPb = '/^(PS\d{7}-\d{3})$/i';
 
 if (!preg_match($nectaPattern, $candidate)) {
-    $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena1.";
+    if (!preg_match($nectaPb, $candidate)) {
+    $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena1b.";
     $_SESSION['style'] = "failed-alert";
     header("Location: ../error/");
     exit();
+    }
 }
 
 // Proceed with URL generation

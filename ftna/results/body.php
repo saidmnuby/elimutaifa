@@ -244,7 +244,7 @@
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-                &copy; 2026 G.R.F. All rights reserved. | Techware47
+            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |

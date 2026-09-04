@@ -28,7 +28,7 @@
     // 2. Standard Seven / PSLE index validation
     function validateIndexNumber(val) {
         const cleaned = val.trim().toUpperCase();
-        const nectaRegex = /^PS\d{7}-\d{4}$/i;
+        const nectaRegex = /^PS\d{7}-\d{3}|\d{4}$/i;
         return nectaRegex.test(cleaned);
     }
 

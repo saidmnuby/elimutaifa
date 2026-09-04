@@ -140,6 +140,24 @@
                     <h3 class="rh3"><?php echo htmlspecialchars($text);?></h3>
                     <h3 class="rh3" >CANDIDATE INDEX:<span style="text-decoration: underline;"><?php echo htmlspecialchars($candidate); ?>-<?php echo htmlspecialchars($examYear);?></span></h3>
                     <div class="card-one">
+                        <?php if ($examYear <= '2020') { ?>
+                            
+                        <table class="center">
+                            <tr style="background-color: transparent;">
+                                <th>CNO</th>
+                                <th>SEX</th>
+                                <th>NAME</th>
+                                
+                            </tr>
+                                
+                            <tr style="background-color: transparent;">
+                                <td><?php echo htmlspecialchars($candidate); ?></td>
+                                <td><?php echo htmlspecialchars($prem_no); ?></td>
+                                <td><?php echo htmlspecialchars($sex); ?></td>
+                               
+                            </tr>
+                        <?php }else{?>
+                            
                         <table class="center">
                             <tr style="background-color: transparent;">
                                 <th>CNO</th>
@@ -154,6 +172,9 @@
                                 <td><?php echo htmlspecialchars($sex); ?></td>
                                
                             </tr>
+
+                        
+                        <?php }?>
 
                         </table>
                     </div>
@@ -239,7 +260,7 @@
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-                &copy; 2026 G.R.F. All rights reserved. | Techware47
+            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |

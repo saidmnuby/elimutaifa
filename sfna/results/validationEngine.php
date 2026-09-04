@@ -14,12 +14,15 @@ $schoolCode = strtolower(trim($parts[0]));
 
 // Validate NECTA format server-side
 $nectaPattern = '/^(PS\d{7}-\d{4})$/i';
+$nectaPb = '/^(PS\d{7}-\d{3})$/i';
 
-if (!preg_match($nectaPattern, $candidate) || $examYear === false || $examYear < 2010 || $examYear > 2026) {
+if (!preg_match($nectaPattern, $candidate)) {
+    if (!preg_match($nectaPb, $candidate)) {
     $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena1.";
     $_SESSION['style'] = "failed-alert";
     header("Location: ../error/");
     exit();
+    }
 }
 
 // Proceed with URL generation

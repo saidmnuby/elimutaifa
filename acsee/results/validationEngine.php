@@ -17,7 +17,7 @@ $schoolCode = strtolower(trim($parts[0]));
 // Validate NECTA format server-side
 $nectaPattern = '/^(?:[SP]Q?\d{4}\/\d{4})$/i';
 
-if (!preg_match($nectaPattern, $candidate) || $examYear === false || $examYear < 2010 || $examYear > 2026 || !in_array($school_id, $valid_ids, true)) {
+if (!preg_match($nectaPattern, $candidate) || !in_array($school_id, $valid_ids, true)) {
     // Handle invalid candidate number output
     $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
     $_SESSION['style'] = "failed-alert";
