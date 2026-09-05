@@ -1,0 +1,119 @@
+
+        .contribution-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .contribution-intro {
+            padding: 10px 12px 0 0;
+        }
+
+        .contribution-intro h2 {
+            margin: 18px 0 12px;
+            font-size: 32px;
+            line-height: 1.15;
+            color: var(--text-dark);
+        }
+
+        .contribution-intro p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .contribution-points {
+            display: grid;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .contribution-point {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .contribution-point i {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #ECFDF5;
+            color: var(--primary-green);
+        }
+
+        .contribution-form-card {
+            margin-top: 0;
+        }
+
+        .contribution-form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .contribution-form .form-group {
+            margin-bottom: 0;
+        }
+
+        .contribution-form input,
+        .contribution-form select,
+        .contribution-form textarea {
+            width: 100%;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text-dark);
+            background: #fff;
+            font: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .contribution-form select {
+            height: auto;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            background: #fff;
+        }
+
+        .contribution-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contribution-form input:focus,
+        .contribution-form select:focus,
+        .contribution-form textarea:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(5, 130, 73, 0.12);
+        }
+
+        .contribution-form .btn {
+            border: 0;
+            cursor: pointer;
+        }
+
+        .form-note {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .contribution-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .contribution-intro {
+                padding-right: 0;
+            }
+        }
+    

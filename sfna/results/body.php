@@ -83,7 +83,7 @@
             </li>
         </ul>
         <div class="sidebar-quote">
-            <p>“Elimu ni msingi<br>wa maendeleo”</p>
+            <p>“#position for success”</p>
         </div>
     </aside>
 
@@ -101,8 +101,8 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>G.R.F</h1>
-                        <p>Get Results Faster</p>
+                        <h1>ElimuTaifa</h1>
+                        <p>#position for success</p>
                     </div>
                 </div>
             </div>
@@ -260,7 +260,7 @@
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
+            <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |

@@ -83,7 +83,7 @@
             </li>
         </ul>
         <div class="sidebar-quote">
-            <p>“Elimu ni msingi<br>wa maendeleo”</p>
+            <p>“#position for success”</p>
         </div>
     </aside>
 
@@ -94,25 +94,12 @@
         
         <!-- Sticky Header Banner -->
         <header class="header-banner">
+        <header class="header-banner home-header">
             <div class="header-left">
-                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua Menyu">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
-                    <div class="header-title">
-                        <h1>G.R.F</h1>
-                        <p>Get Results Faster</p>
-                    </div>
-                </div>
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
+                <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.com</p></div>
             </div>
-            <div class="datetime-display">
-                <div class="clock-container">
-                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
-                    <div id="location-text" class="location-info">Inapakia eneo...</div>
-                </div>
-                <i class="fa-regular fa-clock"></i>
-            </div>
+            <div class="datetime-display"><i class="fa-solid fa-circle-info"></i><span>ABOUT-ELIMUTAIFA</span></div>
         </header>
 
         <!-- Main Body Content -->
@@ -242,7 +229,7 @@
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
+            <span>&copy; 2026 ElimuTaifaTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |
@@ -254,56 +241,4 @@
     
 </body>
 
- <!-- Scripts -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebar = document.getElementById("sidebar");
-            const sidebarOverlay = document.getElementById("sidebarOverlay");
-            let alertTimer = null;
-
-            // 1. Mobile Sidebar Toggle
-            function toggleMenu() {
-                sidebar.classList.toggle("open");
-                sidebarOverlay.classList.toggle("active");
-            }
-
-            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
-            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
-        });
-
-    </script>
-      <script>
-    function updateClock() {
-      const now = new Date();
-      
-      // 1. Inapata Timezone ya kifaa cha mtumiaji kulingana na eneo lake (mfano: Africa/Dar_es_Salaam)
-      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-      // 2. Inapanga muundo wa saa, tarehe na sekunde kulingana na Timezone hiyo
-      const timeFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false // Weka 'true' kama unataka AM/PM
-      });
-
-      const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-
-      // 3. Inaweka matokeo kwenye HTML
-      document.getElementById('live-clock').textContent = timeFormatter.format(now);
-      document.getElementById('location-text').textContent = `${dateFormatter.format(now)} | ${userTimeZone}`;
-    }
-
-    // Isome mara moja na kuisasisha kila sekunde 1 (1000ms)
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
 </html>

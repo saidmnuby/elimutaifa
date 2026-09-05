@@ -7,7 +7,7 @@ include 'header.php'; // Include the header file
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya Form Six (ACSEE) - NECTA | G.R.F</title>
+    <title>Matokeo ya Form Six (ACSEE) - NECTA | ElimuTaifa</title>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -17,8 +17,6 @@ include 'header.php'; // Include the header file
     <script src="../../assets/js/consent.js"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/script.js"></script>
-
-    <style></style>
 
 </head>
 <body>
@@ -62,7 +60,7 @@ include 'header.php'; // Include the header file
             </a>
         </ul>
         <div class="sidebar-quote">
-            <p>“Elimu ni msingi<br>wa maendeleo”</p>
+            <p>“#position for success”</p>
         </div>
     </aside>
 
@@ -76,8 +74,8 @@ include 'header.php'; // Include the header file
             <div class="logo-section">
                 <i class="fa-solid fa-graduation-cap logo-icon"></i>
                 <div class="header-title">
-                    <h1>G.R.F </h1>
-                    <p>Get Results Faster</p>
+                    <h1>ElimuTaifa </h1>
+                    <p>#position for success</p>
                 </div>
             </div>
             <div class="datetime-display">
@@ -222,7 +220,7 @@ include 'header.php'; // Include the header file
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
+            <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |

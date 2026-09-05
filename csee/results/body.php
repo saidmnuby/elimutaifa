@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="../assets/js/script.js"></script>
     
 </head>
 <body>
@@ -85,7 +85,7 @@
             </li>
         </ul>
         <div class="sidebar-quote">
-            <p>“Elimu ni msingi<br>wa maendeleo”</p>
+            <p>“#position for success”</p>
         </div>
     </aside>
 
@@ -103,8 +103,8 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>G.R.F</h1>
-                        <p>Get Results Faster</p>
+                        <h1>ElimuTaifa</h1>
+                        <p>#position for success</p>
                     </div>
                 </div>
             </div>
@@ -244,7 +244,7 @@
         <!-- Footer Banner -->
         <footer class="footer">
             <div class="footer-text">
-            <span>&copy; 2026 G.R.F <b>·</b> Techware47</span>
+            <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
                 <a href="../../privacy/">Sera za Matumizi</a> |
@@ -256,89 +256,4 @@
     
 </body>
 
- <!-- Scripts -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebar = document.getElementById("sidebar");
-            const sidebarOverlay = document.getElementById("sidebarOverlay");
-            let alertTimer = null;
-
-            // 1. Mobile Sidebar Toggle
-            function toggleMenu() {
-                sidebar.classList.toggle("open");
-                sidebarOverlay.classList.toggle("active");
-            }
-
-            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
-            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
-        });
-
-    </script>
-      <script>
-    function updateClock() {
-      const now = new Date();
-      
-      // 1. Inapata Timezone ya kifaa cha mtumiaji kulingana na eneo lake (mfano: Africa/Dar_es_Salaam)
-      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-      // 2. Inapanga muundo wa saa, tarehe na sekunde kulingana na Timezone hiyo
-      const timeFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false // Weka 'true' kama unataka AM/PM
-      });
-
-      const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-
-      // 3. Inaweka matokeo kwenye HTML
-      document.getElementById('live-clock').textContent = timeFormatter.format(now);
-      document.getElementById('location-text').textContent = `${dateFormatter.format(now)} | ${userTimeZone}`;
-    }
-
-    // Isome mara moja na kuisasisha kila sekunde 1 (1000ms)
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
-  <script>
-    function updateClock() {
-      const now = new Date();
-      
-      // 1. Inapata Timezone ya kifaa cha mtumiaji kulingana na eneo lake (mfano: Africa/Dar_es_Salaam)
-      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-      // 2. Inapanga muundo wa saa, tarehe na sekunde kulingana na Timezone hiyo
-      const timeFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false // Weka 'true' kama unataka AM/PM
-      });
-
-      const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-
-      // 3. Inaweka matokeo kwenye HTML
-      document.getElementById('live-clock').textContent = timeFormatter.format(now);
-      document.getElementById('location-text').textContent = `${dateFormatter.format(now)} | ${userTimeZone}`;
-    }
-
-    // Isome mara moja na kuisasisha kila sekunde 1 (1000ms)
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
 </html>

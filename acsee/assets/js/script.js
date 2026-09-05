@@ -1,6 +1,4 @@
-
-
-    document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("index1");
     const candidateInput = document.getElementById("candidate");
     const alertEl = document.getElementById("alert-message");
@@ -23,29 +21,6 @@
         alertTimer = setTimeout(() => {
             alertEl.classList.remove("show");
         }, 4000);
-    }
-
-    // 2. Chip Option Click Handler (Sync with Hidden Inputs)
-    function setupChipGroup(containerId, hiddenInputId) {
-        const container = document.getElementById(containerId);
-        const hiddenInput = document.getElementById(hiddenInputId);
-
-        if (!container || !hiddenInput) return;
-
-        const options = container.querySelectorAll(".option");
-        options.forEach((opt) => {
-            opt.addEventListener("click", function () {
-                options.forEach((o) => {
-                    o.classList.remove("active");
-                    const check = o.querySelector(".check");
-                    if (check) check.remove();
-                });
-
-                this.classList.add("active");
-                this.innerHTML += '<span class="check">✓</span>';
-                hiddenInput.value = this.getAttribute("data-value") || this.innerText.replace("✓", "").trim();
-            });
-        });
     }
 
     setupChipGroup("exam-options", "exam_level");
@@ -91,3 +66,52 @@
     });
 });
 
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarOverlay = document.getElementById("sidebarOverlay");
+            let alertTimer = null;
+
+            // 1. Mobile Sidebar Toggle
+            function toggleMenu() {
+                sidebar.classList.toggle("open");
+                sidebarOverlay.classList.toggle("active");
+            }
+
+            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
+            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
+        });
+
+     function updateClock() {
+      const now = new Date();
+      
+      // 1. Inapata Timezone ya kifaa cha mtumiaji kulingana na eneo lake (mfano: Africa/Dar_es_Salaam)
+      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      // 2. Inapanga muundo wa saa, tarehe na sekunde kulingana na Timezone hiyo
+      const timeFormatter = new Intl.DateTimeFormat('sw-TZ', {
+        timeZone: userTimeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Weka 'true' kama unataka AM/PM
+      });
+
+      const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
+        timeZone: userTimeZone,
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+
+      // 3. Inaweka matokeo kwenye HTML
+      document.getElementById('live-clock').textContent = timeFormatter.format(now);
+      document.getElementById('location-text').textContent = `${dateFormatter.format(now)} | ${userTimeZone}`;
+     }
+
+     // Isome mara moja na kuisasisha kila sekunde 1 (1000ms)
+     updateClock();
+     setInterval(updateClock, 1000);
+  

@@ -53,7 +53,7 @@ function grf_fetch_result(string $url): array
         CURLOPT_CONNECTTIMEOUT => 3,
         CURLOPT_TIMEOUT => 10,
         CURLOPT_ENCODING => '',
-        CURLOPT_USERAGENT => 'Get Results Faster/1.0',
+        CURLOPT_USERAGENT => '#position for success/1.0',
         CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2
     ]);

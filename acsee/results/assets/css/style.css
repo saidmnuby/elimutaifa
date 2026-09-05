@@ -170,6 +170,7 @@
         .header-banner {
             background-color: var(--sidebar-bg);
             color: #FFFFFF;
+            height: 80px;
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
