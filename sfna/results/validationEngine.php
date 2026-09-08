@@ -18,7 +18,8 @@ $nectaPb = '/^(PS\d{7}-\d{3})$/i';
 
 if (!preg_match($nectaPattern, $candidate)) {
     if (!preg_match($nectaPb, $candidate)) {
-    $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena1.";
+    $_SESSION['error_title'] = "Errorr_<V001>";
+    $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, mwaka kisha ujaribu tena.";
     $_SESSION['style'] = "failed-alert";
     header("Location: ../error/");
     exit();
@@ -34,7 +35,8 @@ if (!preg_match($nectaPattern, $candidate)) {
         $url = "https://maktaba.tetea.org/exam-results/SFNA$examYear/$schoolCode.htm";
 
     }else {
-        $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena2.";
+        $_SESSION['error_title'] = "Errorr_<V002>";
+        $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, mwaka kisha ujaribu tena.";
         $_SESSION['style'] = "failed-alert";
         header("Location: ../error/");
         exit();

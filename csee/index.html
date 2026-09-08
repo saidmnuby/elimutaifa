@@ -3,7 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya Form Four (CSEE) - NECTA | ElimuTaifa</title>
+    <title>Matokeo ya Form Five Necta | ElimuTaifa</title>
+    
+    <meta
+    name="description"
+    content="Angalia matokeo ya Form Four (CSEE) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani.">
+
+    <link
+    rel="canonical"
+    href="https://elimutafuta.com/csee/">
+
+    <meta property="og:title"
+    content="Matokeo ya Form Four 2026 - NECTA">
+
+    <meta property="og:description"
+    content="Angalia matokeo ya Foem Four mwaka 2026 na Elimutaifa.">
+
+    <meta property="og:type" content="website">
+    
+    <meta property="og:url"
+    content="https://elimutaifa.com/csee/">
+
+    <meta property="og:image"
+    content="https://elimutaifa.com/assets/images/psle-results.jpg">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -88,17 +111,13 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>ElimuTaifa</h1>
+                        <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
                     </div>
                 </div>
             </div>
             <div class="datetime-display">
-                <div class="clock-container">
-                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
-                    <div id="location-text" class="location-info">Inapakia eneo...</div>
-                </div>
-                <i class="fa-regular fa-clock"></i>
+                <span>Certificate of Secondary Education Examination (CSEE)</span>
             </div>
         </header>
 
@@ -109,11 +128,16 @@
                 <!-- Secondary Info Section -->
                 <section class="intro-card">
                     <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> CSEE Examination Results
+                        <i class="fa-solid fa-bolt"></i> 
+                        <span>CSEE Examination Results</span>
                     </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                    <h3 class="intro-title">Form Four <br> (Kidato cha Nne)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Kidato cha Nne (CSEE) kwa haraka na kwa urahisi. Ingiza namba yako ya mtihani kisha uchague mwaka uliofanya mtihani.</p>
+                    <h1 class="intro-title">Matokeo ya Form Four 2026 (CSEE)</h1>
+                    <section class="seo-content">
+                        <p>Angalia matokeo ya mtihani wa kidato cha pili
+                            (CSEE) mwaka 2026 kwa
+                            kuandika index  namba ya mtihani na mwaka.
+                        </p>
+                    </section>
                 </section>
 
                 <!-- Actionable Search Forms Column -->
@@ -142,7 +166,7 @@
             <div class="example-hint">Mfano: <br> <span>P3743/0037</span> <br> <span>P2173/0002 </span></div>
             <div class="input-with-icon">
                 <i class="fa-regular fa-user"></i>
-                <input type="text" class="form-input" id="candidate" name="candidate"  maxlength="14" >
+                <input type="text" class="form-input" id="candidate" name="candidate" maxlength="14" required>
             </div>
         </div>
     </div>
@@ -175,49 +199,6 @@
         <i class="fa-solid fa-arrow-right" style="margin-left: auto;"></i>
     </button>
 </form>
-                    </div>
-
-                    <!-- Search School Card -->
-                    <div class="card">
-                        <div class="school-card-header">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <span>ANGALIA MATOKEO KWA SHULE (FORM 4)</span>
-                        </div>
-
-                        <div class="select-grid">
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Chagua mkoa</label>
-                                <div class="custom-select-wrapper">
-                                    <i class="fa-solid fa-location-dot select-icon"></i>
-                                    <select class="custom-select" aria-label="Chagua mkoa">
-                                        <option value="dar" selected>Dar es Salaam</option>
-                                        <option value="arusha">Arusha</option>
-                                        <option value="dodoma">Dodoma</option>
-                                        <option value="mwanza">Mwanza</option>
-                                        <option value="mbeya">Mbeya</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Chagua wilaya</label>
-                                <div class="custom-select-wrapper">
-                                    <i class="fa-solid fa-building-columns select-icon"></i>
-                                    <select class="custom-select" aria-label="Chagua wilaya">
-                                        <option value="ilala" selected>Ilala</option>
-                                        <option value="kinondoni">Kinondoni</option>
-                                        <option value="temeke">Temeke</option>
-                                        <option value="ubungo">Ubungo</option>
-                                        <option value="kigamboni">Kigamboni</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-blue" style="margin-top: 16px;">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <span>ANGALIA ORODHA YA SHULE</span>
-                        </button>
                     </div>
 
                 </section>
@@ -263,22 +244,14 @@
         }, 4000);
     }
 
-    setupChipGroup("exam-options", "exam_level");
-    setupChipGroup("year-options", "exam_year");
-
-    // 3. NECTA Index Number Validation
+    // Simple CSEE index-number validation: S1234/0001 or P1234/0001.
     function validateIndexNumber(val) {
         const cleaned = val.trim().toUpperCase();
-        
-        // Formats supported:
-        // - Secondary: S1234/0001, P1234/0001, EQ1234/0001
-        // - Primary / STD 7: PS123456-0001
-        // Stronger NECTA index number validation
-        const nectaRegex = /^(?:[SPE]Q?\d{4}\/\d{4})$/i;
+        const nectaRegex = /^(?:[SP]Q?\d{4}\/\d{4})$/i;
         return nectaRegex.test(cleaned);
     }
 
-    // 4. Form Submit Listener
+    // Validate before submitting the form.
     if (!form || !candidateInput || !alertEl) return;
 
     form.addEventListener("submit", function (e) {

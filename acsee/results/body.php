@@ -10,28 +10,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angalia Matokeo ya Primary and Secondary</title>
+    <title>Matokeo ya Form Six Necta | ElimuTaifa</title>
+    
+    <meta
+    name="description"
+    content="Angalia matokeo ya Form Four (aCSEE) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani.">
+
+    <link
+    rel="canonical"
+    href="https://elimutafuta.com/error/acsee/">
+
+    <meta property="og:title"
+    content="Matokeo ya Form Six 2026 - NECTA">
+
+    <meta property="og:description"
+    content="Angalia matokeo ya Form Six mwaka 2026 na Elimutaifa.">
+
+    <meta property="og:type" content="website">
+    
+    <meta property="og:url"
+    content="https://elimutaifa.com/error/acsee/">
+
+    <meta property="og:image"
+    content="https://elimutaifa.com/assets/images/psle-results.jpg">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
-    <script src="assets/js/script.js"></script>
-    
+    <link rel="stylesheet" href="../../assets/css/education.css">
+    <script src="../../assets/js/script.js"></script>
+
 </head>
-<body>
-
-    <!--this is   -->
-    <div class="alert-box" >
-        <section class="in-alert success">
-            <p>
-                <?php echo htmlspecialchars($successMessage); ?>
-                <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';"> &times;</span></p>
-        </section>
-
-    </div>
+<body class="education-page">
 
     <!-- Mobile Navigation Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -40,7 +55,7 @@
     <aside class="sidebar" id="sidebar">
         <ul class="sidebar-menu">
             <li>
-                <a href="../" class="sidebar-item">
+                <a href="../../" class="sidebar-item">
                     <i class="fa-solid fa-house"></i>
                     <span>Nyumbani</span>
                 </a>
@@ -52,7 +67,7 @@
                 </a>
             </li>
             <li>
-                <a href="../../csee/" class="sidebar-item">
+                <a href="../../csee/" class="sidebar-item" >
                    <i class="fa-solid fa-list-check"></i>
                     <span>FORM FOUR (CSEE)</span>
                 </a>
@@ -66,13 +81,13 @@
             <li>
                 <a href="../../psle/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
-                    <span>STANDARD SEVEN</span>
+                    <span>STANDARD 7 (PSLE)</span>
                 </a>
             </li>
             <li>
                 <a href="../../sfna/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
-                    <span>STANDARD TWO</span>
+                    <span>STANDARD 4 (SFNA)</span>
                 </a>
             </li><br>
             <li>
@@ -87,36 +102,45 @@
         </div>
     </aside>
 
-    
-
-    <!-- Right Main Wrapper -->
+    <!-- Main Content Area -->
     <div class="main-wrapper">
         
         <!-- Sticky Header Banner -->
         <header class="header-banner">
-        <header class="header-banner home-header">
             <div class="header-left">
-                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
-                <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.com</p></div>
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua Menyu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="logo-section">
+                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <div class="header-title">
+                        <span class="site-name">ElimuTaifa</span>
+                        <p>#position for success</p>
+                    </div>
+                </div>
             </div>
-            <div class="datetime-display"><i class="fa-solid fa-circle-info"></i><span>ABOUT-ELIMUTAIFA</span></div>
+            <div class="datetime-display">
+                <span>Advanced Certificate of Secondary Education Examination (ACSEE)</span>
+            </div>
         </header>
 
-        <!-- Main Body Content -->
+        <!-- Dynamic Content Body -->
         <main class="content-container">
-            
-
-            <!-- Two Column Section -->
             <div class="grid-layout">
                 
                 <!-- Secondary Info Section -->
                 <section class="intro-card">
                     <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> ACSEE Examination Results
+                        <i class="fa-solid fa-bolt"></i> 
+                        <span>ACSEE Examination Results</span>
                     </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                    <h3 class="intro-title">Form Six <br> (Kidato cha Sita)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Kidato cha Sita (ACSEE) kwa haraka na kwa urahisi. Ingiza namba yako ya mtihani kisha uchague mwaka uliofanya mtihani.</p>
+                    <h1 class="intro-title">Matokeo ya Form Six 2026 (ACSEE)</h1>
+                    <section class="seo-content">
+                        <p>Angalia matokeo ya mtihani wa kidato cha pili
+                            (ACSEE) mwaka 2026 kwa
+                            kuandika index  namba ya mtihani na mwaka.
+                        </p>
+                    </section>
                 </section>
 
                 <?php if (!empty($result)): ?>
@@ -207,12 +231,14 @@
 
                         <p>Candidate not found.</p>
                         <?php 
-                        $_SESSION['error_message'] = "namba ya mtihani au ngazi ya Elimu siyo sahihi au haipatikani. Tafadhali hakiki namba, ngazi ya Elimu na mwaka kisha ujaribu tena. au";
-                        $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";
-                        $_SESSION['NECTA'] = "https://necta.go.tz";
-                        $_SESSION['style'] = "warning-alert";
-                        header("Location: ../error/");
-                        exit();
+                            $_SESSION['error_title'] = "Errorr_<B002>";
+                            $_SESSION['error_message'] = "Hakiki taarifa au tembelea official pages za NECTA";
+                            $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";
+                            $_SESSION['NECTA'] = "https://necta.go.tz";
+                            $_SESSION['style'] = "warning-alert";
+                            header("Location: ../error/");
+                            exit();
+           
                          ?>
                         
                     <?php endif; ?>
@@ -228,17 +254,15 @@
 
         <!-- Footer Banner -->
         <footer class="footer">
-            <div class="footer-text">
-            <span>&copy; 2026 ElimuTaifaTaifa <b>·</b> Techware47</span>
+            <div>
+               <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../../privacy/">Sera za Matumizi</a> |
-                <a href="../../privacy/">Faragha</a>
+                <a href="../privacy/">Sera za Matumizi</a> |
+                <a href="../privacy/">Faragha</a>
             </div>
         </footer>
     </div>
 
-    
 </body>
-
 </html>

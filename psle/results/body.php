@@ -5,32 +5,54 @@
     unset($_SESSION['style']);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angalia Matokeo ya Standard Seven (PSLE)</title>
+    <title>Matokeo ya darasa la saba Necta | ElimuTaifa</title>
+    
+    <meta
+    name="description"
+    content="Angalia matokeo ya Darasa la Saba (PSLE) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
+
+    <link
+    rel="canonical"
+    href="https://elimutafuta.com/psle/">
+
+    <meta property="og:title"
+    content="Matokeo ya Darasa la Saba 2026 - NECTA">
+
+    <meta property="og:description"
+    content="Angalia matokeo ya dalasa la saba kwa mwaka 2026 na Elimutaifa.">
+
+    <meta property="og:type" content="website">
+    
+    <meta property="og:url"
+    content="https://elimutaifa.com/psle/">
+
+    <meta property="og:image"
+    content="https://elimutaifa.com/assets/images/psle-results.jpg">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
-    <script src="assets/js/script.js"></script>
-    
+    <link rel="stylesheet" href="../../assets/css/education.css">
+    <script src="../../assets/js/script.js"></script>
+
 </head>
-<body>
+<body class="education-page" data-exam="psle">
+    
 
-    <!--this is   -->
-    <div class="alert-box" >
-        <section class="in-alert success">
-            <p>
-                <?php echo htmlspecialchars($successMessage); ?>
-                <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';"> &times;</span></p>
-        </section>
-
+    <!-- Custom Dynamic Alert Container -->
+     <div class="alert-box">
+        <div id="alert-message" class="in-alert"></div>
     </div>
 
     <!-- Mobile Navigation Overlay -->
@@ -87,9 +109,7 @@
         </div>
     </aside>
 
-    
-
-    <!-- Right Main Wrapper -->
+    <!-- Main Content Area -->
     <div class="main-wrapper">
         
         <!-- Sticky Header Banner -->
@@ -101,36 +121,38 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>ElimuTaifa</h1>
+                        <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
                     </div>
                 </div>
             </div>
+
             <div class="datetime-display">
-                <div class="clock-container">
-                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
-                    <div id="location-text" class="location-info">Inapakia eneo...</div>
-                </div>
-                <i class="fa-regular fa-clock"></i>
+                <span>Primary School Living Examination (PSLE)</span>
             </div>
         </header>
 
-        <!-- Main Body Content -->
+        <!-- Dynamic Content Body -->
         <main class="content-container">
-            
-
-            <!-- Two Column Section -->
             <div class="grid-layout">
                 
                 <!-- Secondary Info Section -->
                 <section class="intro-card">
                     <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> PSLE Examination Results
+                        <i class="fa-solid fa-bolt"></i> 
+                        <span>PSLE Examination Results</span>
                     </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                    <h3 class="intro-title">Standard Seven <br> (Darasa la Saba)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Darasa la Saba (PSLE) kwa haraka na kwa urahisi.</p>
+                    <h1 class="intro-title">Matokeo ya Darasa la Saba 2026 (PSLE)</h1>
+                    <section class="seo-content">
+                        <p>Angalia matokeo ya mtihani wa kumaliza elimu ya msingi
+                            (PSLE) kwa mwaka 2026. Unaweza kutafuta matokeo kwa
+                            kutumia namba ya mtihani au kuchagua shule, mkoa na
+                            wilaya.
+                        </p>
+                    </section>
                 </section>
+
+                
 
                 <?php if (!empty($result)): ?>
                 <!-- Right Column Forms -->
@@ -259,17 +281,16 @@
 
         <!-- Footer Banner -->
         <footer class="footer">
-            <div class="footer-text">
-            <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
+            <div>
+                <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../../privacy/">Sera za Matumizi</a> |
-                <a href="../../privacy/">Faragha</a>
+                <a href="../privacy/">Sera za Matumizi</a> |
+                <a href="../privacy/">Faragha</a>
             </div>
         </footer>
     </div>
 
-    
 </body>
 
  <!-- Scripts -->
@@ -324,4 +345,5 @@
     updateClock();
     setInterval(updateClock, 1000);
   </script>
+  <script src="../assets/js/region-municipalities.js"></script>
 </html>

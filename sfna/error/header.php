@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['error_message'])) {
+    $error_title = $_SESSION['error_title'];
     $style = isset($_SESSION['style']) ? $_SESSION['style'] : 'failed-alert';
         $error = $_SESSION['error_message'];
         $nectaStatement = isset($_SESSION['nectaStatement']) ? $_SESSION['nectaStatement'] : '';

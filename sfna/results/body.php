@@ -5,24 +5,51 @@
     unset($_SESSION['style']);
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angalia Matokeo ya Standard Two (PSLE)</title>
+    <title>Matokeo ya darasala pili Necta | ElimuTaifa</title>
+    
+    <meta
+    name="description"
+    content="Angalia matokeo ya Darasa la Pili (SFNA) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
+
+    <link
+    rel="canonical"
+    href="https://elimutafuta.example/sfna/">
+
+    <meta property="og:title"
+    content="Matokeo ya Darasa la pili 2026 - NECTA">
+
+    <meta property="og:description"
+    content="Angalia matokeo ya Darasa la pili mwaka 2026 na Elimutaifa.">
+
+    <meta property="og:type" content="website">
+    
+    <meta property="og:url"
+    content="https://elimutaifa.com/sfna/">
+
+    <meta property="og:image"
+    content="https://elimutaifa.com/assets/img/psle-results.jpg">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
-    <script src="assets/js/script.js"></script>
-    
-</head>
-<body>
+    <link rel="stylesheet" href="../../assets/css/education.css">
+    <script src="../../assets/js/script.js"></script>
 
+</head>
+<body class="education-page" data-exam="sfna">
+    
     <!--this is   -->
     <div class="alert-box" >
         <section class="in-alert success">
@@ -32,7 +59,7 @@
         </section>
 
     </div>
-
+    
     <!-- Mobile Navigation Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -58,7 +85,7 @@
             </li>
             <li>
             <li>
-                <a href="../../ftna" class="sidebar-item">
+                <a href="../../ftna/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
                     <span>FORM TWO (FTNA)</span>
                 </a>
@@ -87,9 +114,7 @@
         </div>
     </aside>
 
-    
-
-    <!-- Right Main Wrapper -->
+    <!-- Main Content Area -->
     <div class="main-wrapper">
         
         <!-- Sticky Header Banner -->
@@ -101,37 +126,33 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>ElimuTaifa</h1>
+                        <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
                     </div>
                 </div>
             </div>
             <div class="datetime-display">
-                <div class="clock-container">
-                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
-                    <div id="location-text" class="location-info">Inapakia eneo...</div>
-                </div>
-                <i class="fa-regular fa-clock"></i>
+                <span>Standard Four National Assesment (SFNA)</span>
             </div>
         </header>
 
-        <!-- Main Body Content -->
+        <!-- Dynamic Content Body -->
         <main class="content-container">
-            
-
-            <!-- Two Column Section -->
             <div class="grid-layout">
-                
                 <!-- Secondary Info Section -->
                 <section class="intro-card">
                     <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> SFNA Examination Results
+                        <i class="fa-solid fa-bolt"></i> 
+                        <span></span>STNA Examination Results
                     </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                    <h3 class="intro-title">Standard Two (Darasa la Nne)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Darasa la Nne (SFNA) kwa haraka na kwa urahisi.</p>
+                    <h1 class="intro-title">Matokeo ya Darasa la pili 2026 (STNA)</h1>
+                    <section class="seo-content">
+                        <p>Angalia matokeo ya mtihani wa darasa la nne elimu ya msingi
+                            (SFNA) kwa mwaka 2026 kwa
+                            kuandika index  namba ya mtihani na mwaka  au kwa kuchagua mwaka mkoa na shule wilaya ili kuona matokeo yote ya shule.
+                        </p>
+                    </section>
                 </section>
-
                 <?php if (!empty($result)): ?>
                 <!-- Right Column Forms -->
                 <div class="right-column">
@@ -254,22 +275,23 @@
                     </div>
 
                 </div>
+
+
             </div>
         </main>
 
         <!-- Footer Banner -->
         <footer class="footer">
-            <div class="footer-text">
-            <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
+            <div>
+                <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../../privacy/">Sera za Matumizi</a> |
-                <a href="../../privacy/">Faragha</a>
+                <a href="../privacy/">Sera za Matumizi</a> |
+                <a href="../privacy/">Faragha</a>
             </div>
         </footer>
     </div>
 
-    
 </body>
 
  <!-- Scripts -->
@@ -324,4 +346,5 @@
     updateClock();
     setInterval(updateClock, 1000);
   </script>
+  <script src="../assets/js/region-municipalities.js"></script>
 </html>

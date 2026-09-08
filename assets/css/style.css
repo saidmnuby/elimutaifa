@@ -406,7 +406,7 @@
             top: 70px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
+            z-index: 1100;
             width: 90%;
             max-width: 480px;
             pointer-events: none;
@@ -476,7 +476,7 @@
             position: fixed;
             inset: 0;
             background: rgba(15, 23, 42, 0.6);
-            z-index: 150;
+            z-index: 1000;
             backdrop-filter: blur(2px);
         }
 

@@ -7,33 +7,49 @@
     unset($_SESSION['style']);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angalia Matokeo ya Primary and Secondary</title>
+    <title>Matokeo ya Form Five Necta | ElimuTaifa</title>
+    
+    <meta
+    name="description"
+    content="Angalia matokeo ya Form Four (CSEE) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani.">
+
+    <link
+    rel="canonical"
+    href="https://elimutafuta.com/csee/">
+
+    <meta property="og:title"
+    content="Matokeo ya Form Four 2026 - NECTA">
+
+    <meta property="og:description"
+    content="Angalia matokeo ya Foem Four mwaka 2026 na Elimutaifa.">
+
+    <meta property="og:type" content="website">
+    
+    <meta property="og:url"
+    content="https://elimutaifa.com/csee/">
+
+    <meta property="og:image"
+    content="https://elimutaifa.com/assets/images/psle-results.jpg">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
-    <script src="../assets/js/script.js"></script>
-    
+    <link rel="stylesheet" href="../../assets/css/education.css">
+    <script src="../../assets/js/script.js"></script>
+
 </head>
-<body>
-
-    <!--this is   -->
-    <div class="alert-box" >
-        <section class="in-alert success">
-            <p>
-                <?php echo htmlspecialchars($successMessage); ?>
-                <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';"> &times;</span></p>
-        </section>
-
-    </div>
+<body class="education-page">
 
     <!-- Mobile Navigation Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -89,9 +105,7 @@
         </div>
     </aside>
 
-    
-
-    <!-- Right Main Wrapper -->
+    <!-- Main Content Area -->
     <div class="main-wrapper">
         
         <!-- Sticky Header Banner -->
@@ -103,35 +117,33 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>ElimuTaifa</h1>
+                        <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
                     </div>
                 </div>
             </div>
             <div class="datetime-display">
-                <div class="clock-container">
-                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
-                    <div id="location-text" class="location-info">Inapakia eneo...</div>
-                </div>
-                <i class="fa-regular fa-clock"></i>
+                <span>Certificate of Secondary Education Examination (CSEE)</span>
             </div>
         </header>
 
-        <!-- Main Body Content -->
+        <!-- Dynamic Content Body -->
         <main class="content-container">
-            
-
-            <!-- Two Column Section -->
             <div class="grid-layout">
                 
                 <!-- Secondary Info Section -->
                 <section class="intro-card">
                     <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> CSEE Examination Results
+                        <i class="fa-solid fa-bolt"></i> 
+                        <span>CSEE Examination Results</span>
                     </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                    <h3 class="intro-title">Form Four <br> (Kidato cha Nne)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Kidato cha Nne (CSEE) kwa haraka na kwa urahisi. Ingiza namba yako ya mtihani kisha uchague mwaka uliofanya mtihani.</p>
+                    <h1 class="intro-title">Matokeo ya Form Four 2026 (CSEE)</h1>
+                    <section class="seo-content">
+                        <p>Angalia matokeo ya mtihani wa kidato cha pili
+                            (CSEE) mwaka 2026 kwa
+                            kuandika index  namba ya mtihani na mwaka.
+                        </p>
+                    </section>
                 </section>
 
                 <?php if (!empty($result)): ?>
@@ -243,17 +255,76 @@
 
         <!-- Footer Banner -->
         <footer class="footer">
-            <div class="footer-text">
-            <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
+            <div>
+                <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../../privacy/">Sera za Matumizi</a> |
-                <a href="../../privacy/">Faragha</a>
+                <a href="../privacy/">Sera za Matumizi</a> |
+                <a href="../privacy/">Faragha</a>
             </div>
         </footer>
     </div>
 
-    
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("index1");
+    const candidateInput = document.getElementById("candidate");
+    const alertEl = document.getElementById("alert-message");
+    let alertTimer = null;
 
+    // 1. Helper Function to Display Dynamic Alerts
+    function showAlert(message, type = "failed") {
+        if (!alertEl) return;
+
+        alertEl.classList.remove("failed", "warning", "success", "show");
+        alertEl.classList.add("in-alert", type);
+        alertEl.textContent = message;
+        
+        // Restart animation reset
+        alertEl.classList.remove("show");
+        void alertEl.offsetWidth; // Trigger reflow
+        alertEl.classList.add("show");
+
+        if (alertTimer) clearTimeout(alertTimer);
+        alertTimer = setTimeout(() => {
+            alertEl.classList.remove("show");
+        }, 4000);
+    }
+
+    // Simple CSEE index-number validation: S1234/0001 or P1234/0001.
+    function validateIndexNumber(val) {
+        const cleaned = val.trim().toUpperCase();
+        const nectaRegex = /^(?:[SP]Q?\d{4}\/\d{4})$/i;
+        return nectaRegex.test(cleaned);
+    }
+
+    // Validate before submitting the form.
+    if (!form || !candidateInput || !alertEl) return;
+
+    form.addEventListener("submit", function (e) {
+        const rawValue = candidateInput.value.trim();
+
+        if (!rawValue) {
+            e.preventDefault();
+            showAlert("Tafadhali ingiza Namba ya Mtihani (Index Number).", "failed");
+            candidateInput.focus();
+            return;
+        }
+        
+
+        // Auto format to uppercase
+        candidateInput.value = rawValue.toUpperCase();
+
+        if (!validateIndexNumber(candidateInput.value)) {
+            e.preventDefault();
+            showAlert("Format ya Index Number siyo sahihi! Mfano sahihi: S3743/0037 au P2173/0002", "warning");
+            candidateInput.focus();
+            return;
+        }
+
+        showAlert("Inathibitisha matokeo...", "success");
+    });
+});
+</script>
 </html>

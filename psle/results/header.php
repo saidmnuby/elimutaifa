@@ -15,7 +15,8 @@ if ($candidate !== '' && isset($url)) {
     $statusCode = $response['status'];
 
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
-        $_SESSION['error_message'] = "Taarifa hazipatikani katika kumbukumbu za mifumo, Tafathali jaribu taarifa nyingineee..";
+        $_SESSION['error_title'] = "Errorr_<H001>";
+        $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mifumo, Tafathali jaribu  baadae.";
         $_SESSION['style'] = "warning-alert";
         header("Location: ../error/");
         exit();
@@ -25,7 +26,8 @@ if ($candidate !== '' && isset($url)) {
         $dom = new DOMDocument();
         libxml_use_internal_errors(true);
         if (!@$dom->loadHTML($html)) {
-            $_SESSION['error_message'] = "Taarifa za matokeo hazijasomeka kwa sasa. Tafadhali jaribu tena baadaye.";
+        $_SESSION['error_title'] = "Errorr_<H001B>";
+            $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mifumo, Tafathali jaribu  baadae.";
             $_SESSION['style'] = "warning-alert";
             header("Location: ../error/");
             exit();
@@ -90,7 +92,8 @@ if ($candidate !== '' && isset($url)) {
 
 // Check if results were retrieved
 if (empty($result)) {
-    $_SESSION['error_message'] = "namba ya mtihani au ngazi ya Elimu siyo sahihi au haipatikani. Tafadhali hakiki namba, ngazi ya Elimu na mwaka kisha ujaribu tena.";
+    $_SESSION['error_title'] = "Errorr_<H002>";
+    $_SESSION['error_message'] = "Hakiki taarifa au tembelea official pages za NECTA";
     $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";
     $_SESSION['NECTA'] = "https://necta.go.tz";
     $_SESSION['style'] = "warning-alert";

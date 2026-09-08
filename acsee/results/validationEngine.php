@@ -19,7 +19,8 @@ $nectaPattern = '/^(?:[SP]Q?\d{4}\/\d{4})$/i';
 
 if (!preg_match($nectaPattern, $candidate) || !in_array($school_id, $valid_ids, true)) {
     // Handle invalid candidate number output
-    $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
+    $_SESSION['error_title'] = "Errorr_<V001>";
+    $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
     $_SESSION['style'] = "failed-alert";
         header("Location: ../error/");
         exit();
@@ -38,14 +39,16 @@ if (trim($parts[1]) >= '500' && in_array($school_id, $valid_ids, true)) {
     }
     
 } else {
-    $_SESSION['error_message'] = "namba ya mtihani au kidato siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
+    $_SESSION['error_title'] = "Errorr_<V002>";
+    $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
     $_SESSION['style'] = "failed-alert";
         header("Location: ../error/");
         exit();
 }
   
 if (!isset($url) || $url === '') {
-    $_SESSION['error_message'] = "Namba ya mwaka wa mtihani siyo sahihi. Tafadhali chagua mwaka kisha ujaribu tena.";
+    $_SESSION['error_title'] = "Errorr_<V003>";
+    $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
     $_SESSION['style'] = "failed-alert";
     header("Location: ../error/");
     exit();

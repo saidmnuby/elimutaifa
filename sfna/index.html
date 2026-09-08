@@ -3,7 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya Standard Four (SFNA) - NECTA | ElimuTaifa</title>
+    <title>Matokeo ya darasala pili Necta | ElimuTaifa</title>
+    
+    <meta
+    name="description"
+    content="Angalia matokeo ya Darasa la Pili (SFNA) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
+
+    <link
+    rel="canonical"
+    href="https://elimutafuta.example/sfna/">
+
+    <meta property="og:title"
+    content="Matokeo ya Darasa la pili 2026 - NECTA">
+
+    <meta property="og:description"
+    content="Angalia matokeo ya Darasa la pili mwaka 2026 na Elimutaifa.">
+
+    <meta property="og:type" content="website">
+    
+    <meta property="og:url"
+    content="https://elimutaifa.com/sfna/">
+
+    <meta property="og:image"
+    content="https://elimutaifa.com/assets/img/psle-results.jpg">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -15,7 +38,7 @@
     <script src="assets/js/script.js"></script>
 
 </head>
-<body class="education-page">
+<body class="education-page" data-exam="sfna">
 
     <!-- Alert Banner -->
     <div class="alert-box">
@@ -88,32 +111,32 @@
                 <div class="logo-section">
                     <i class="fa-solid fa-graduation-cap logo-icon"></i>
                     <div class="header-title">
-                        <h1>ElimuTaifa</h1>
+                        <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
                     </div>
                 </div>
             </div>
             <div class="datetime-display">
-                <div class="clock-container">
-                    <div id="live-clock" class="time" style="display: none;">00:00:00</div>
-                    <div id="location-text" class="location-info">Inapakia eneo...</div>
-                </div>
-                <i class="fa-regular fa-clock"></i>
+                <span>Standard Four National Assesment (SFNA)</span>
             </div>
         </header>
 
         <!-- Dynamic Content Body -->
         <main class="content-container">
             <div class="grid-layout">
-                
                 <!-- Secondary Info Section -->
                 <section class="intro-card">
                     <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i>  SFNA Examination Results
+                        <i class="fa-solid fa-bolt"></i> 
+                        <span></span>STNA Examination Results
                     </div>
-                    <h2 >MATOKEO YA NECTA</h2>
-                        <h3 class="intro-title">Standard Four <br>(Darasa la Nne)</h3>
-                    <p class="intro-desc">Pata matokeo yako ya mtihani wa Darasa la Nne (SFNA) kwa haraka na kwa urahisi. Ingiza namba yako ya mtihani kisha uchague mwaka uliofanya mtihani.</p>
+                    <h1 class="intro-title">Matokeo ya Darasa la pili 2026 (STNA)</h1>
+                    <section class="seo-content">
+                        <p>Angalia matokeo ya mtihani wa darasa la nne elimu ya msingi
+                            (SFNA) kwa mwaka 2026 kwa
+                            kuandika index  namba ya mtihani na mwaka  au kwa kuchagua mwaka mkoa na shule wilaya ili kuona matokeo yote ya shule.
+                        </p>
+                    </section>
                 </section>
 
                 <!-- Actionable Search Forms Column -->
@@ -121,102 +144,162 @@
                     
                     <!-- Search by Index Card -->
                     <div class="card">
-                        <!-- Direct Action to Standard Four (SFNA) endpoint -->
-                          <form id="index1" method="post" action="results/">
-    <!-- Hidden inputs submitted to PHP -->
+                        
+                        <!-- Direct Action to Standard Seven (PSLE) endpoint -->
+                        <form id="index1" method="post" action="results/">
+                            
+                            <!-- Hidden inputs submitted to PHP -->
+                            <div class="card-header">
+                                <div class="card-title-group">
+                                    <i class="fa-solid fa-list-check card-title-icon"></i>
+                                    <span class="card-title">ANGALIA KWA INDEX NUMBER</span>
 
-    <div class="card-header">
-        <div class="card-title-group">
-            <i class="fa-solid fa-list-check card-title-icon"></i>
-            <span class="card-title">ANGALIA KWA INDEX NUMBER</span>
-        </div>
-    </div>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span class="form-label" style="margin-bottom:0;">
+                                        <i class="fa-regular fa-pen-to-square" style="color:var(--primary-green);padding-right: 2px;"></i>Andika INDEX Namba ya Mtihani hapa...
+                                    </span>
+                                </div>
+                                
+                                <div class="dividexp">
+                                    <div class="example-hint">Mfano: <br> <span>PS010101-0001</span> <br> <span>PS123456-0001</span></div>
+                                    <div class="input-with-icon">
+                                        <i class="fa-regular fa-user"></i>
+                                        <input type="text" class="form-input" id="candidate" name="candidate"  maxlength="14" required>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+    
+                                <!-- Year Selector Chips --> 
+                                <label class="form-label"><i class="fa-regular fa-calendar-days" style="color:var(--primary-green); margin-right: 4px;"></i>Chagua mwaka</label>
+                                <div class="options" id="year-options" >
+                                    <label class="year-label" for="yearm" >Mwaka :</label>
+                                    <select id="year" name="examYear">
+                                        <option value="none" disabled>Chagua Mwaka</option>
+                                        <option value="2026" selected>2026</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
 
-    <div class="form-group">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span class="form-label" style="margin-bottom:0;">
-            <i class="fa-regular fa-pen-to-square" style="color:var(--primary-green);padding-right: 2px;"></i>Andika INDEX Namba ya Mtihani hapa...</span>
-        </div>
-        
-        <div class="dividexp">
-            <div class="example-hint">Mfano: <br> <span>PS010101-0001</span> <br> <span>PS123456-0001</span></div>
-            <div class="input-with-icon">
-                <i class="fa-regular fa-user"></i>
-                <input type="text" class="form-input" id="candidate" name="candidate"  maxlength="14" required>
-            </div>
-        </div>
-    </div>
+                                    </select>
+                                
+                                </div>
+    
+                                <button type="submit" class="btn btn-green">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <span>ANGALIA</span>
+                                    <i class="fa-solid fa-arrow-right" style="margin-left: auto;"></i>
+                                
+                                </button>
 
-    <!-- Year Selector Chips --> 
-    <label class="form-label"><i class="fa-regular fa-calendar-days" style="color:var(--primary-green); margin-right: 4px;"></i>Chagua mwaka</label>
-    <div class="options" id="year-options" >
-        <label class="year-label" for="year" >Mwaka :</label>
-        <select id="year" name="examYear">
-            <option value="none" disabled>Chagua Mwaka</option>
-            <option value="2026" selected>2026</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-green">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        ANGALIA
-        <i class="fa-solid fa-arrow-right" style="margin-left: auto;"></i>
-    </button>
-</form>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- Search School Card -->
                     <div class="card">
-                        <div class="school-card-header">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <span>ANGALIA MATOKEO KWA SHULE (STANDARD 4)</span>
-                        </div>
+                        <form action="" method="post">
+                            <div class="school-card-header">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <span>ANGALIA MATOKEO KWA SHULE (STANDARD 7)</span>
+                            </div>
+                        
+                            <label class="form-label">
+                                <i class="fa-regular fa-calendar-days" style="color:var(--primary-green); margin-right: 4px;"></i>
+                                <span>Chagua mwaka</span>
+                            </label>
+    
+                            <div class="options" id="year-options" >
+                                <label class="year-label" for="year" >Mwaka :</label>
+                                <select id="yearb" name="examYear">
+                                    <option value="none" disabled>Chagua Mwaka</option>
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>                                   
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                            
+                              </select>
+                            </div>
 
-                        <div class="select-grid">
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Chagua mkoa</label>
-                                <div class="custom-select-wrapper">
-                                    <i class="fa-solid fa-location-dot select-icon"></i>
-                                    <select class="custom-select" aria-label="Chagua mkoa">
-                                        <option value="dar" selected>Dar es Salaam</option>
-                                        <option value="arusha">Arusha</option>
-                                        <option value="dodoma">Dodoma</option>
-                                        <option value="mwanza">Mwanza</option>
-                                        <option value="mbeya">Mbeya</option>
-                                    </select>
+                            <div class="select-grid">
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label class="form-label">Chagua mkoa</label>
+                                    <div class="custom-select-wrapper">
+                                        <i class="fa-solid fa-location-dot select-icon"></i>
+                                        <select class="custom-select" id="region" name="region" aria-label="Chagua mkoa">
+                                            <option value="arusha">Arusha</option>
+                                            <option value="dar-es-salaam" selected>Dar es Salaam</option>
+                                            <option value="dodoma">Dodoma</option>
+                                            <option value="geita">Geita</option>
+                                            <option value="iringa">Iringa</option>
+                                            <option value="kagera">Kagera</option>
+                                            <option value="katavi">Katavi</option>
+                                            <option value="kigoma">Kigoma</option>
+                                            <option value="kilimanjaro">Kilimanjaro</option>
+                                            <option value="lindi">Lindi</option>
+                                            <option value="manyara">Manyara</option>
+                                            <option value="mara">Mara</option>
+                                            <option value="mbeya">Mbeya</option>
+                                            <option value="morogoro">Morogoro</option>
+                                            <option value="mtwara">Mtwara</option>
+                                            <option value="mwanza">Mwanza</option>
+                                            <option value="njombe">Njombe</option>
+                                            <option value="pwani">Pwani</option>
+                                            <option value="rukwa">Rukwa</option>
+                                            <option value="ruvuma">Ruvuma</option>
+                                            <option value="shinyanga">Shinyanga</option>
+                                            <option value="simiyu">Simiyu</option>
+                                            <option value="singida">Singida</option>
+                                            <option value="songwe">Songwe</option>
+                                            <option value="tabora">Tabora</option>
+                                            <option value="tanga">Tanga</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label class="form-label">Chagua halmashauri / wilaya</label>
+                                    <div class="custom-select-wrapper">
+                                        <i class="fa-solid fa-building-columns select-icon"></i>
+                                        <select class="custom-select" id="municipality" name="municipality" aria-label="Chagua halmashauri au wilaya">
+                                            <option value="">Chagua mkoa kwanza</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Chagua wilaya</label>
-                                <div class="custom-select-wrapper">
-                                    <i class="fa-solid fa-building-columns select-icon"></i>
-                                    <select class="custom-select" aria-label="Chagua wilaya">
-                                        <option value="ilala" selected>Ilala</option>
-                                        <option value="kinondoni">Kinondoni</option>
-                                        <option value="temeke">Temeke</option>
-                                        <option value="ubungo">Ubungo</option>
-                                        <option value="kigamboni">Kigamboni</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                            <button class="btn btn-blue" id="schoolResultsButton" type="button" style="margin-top: 16px;">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <span>ANGALIA ORODHA YA SHULE</span>
+                            </button>
+                        </form>
 
-                        <button class="btn btn-blue" style="margin-top: 16px;">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <span>ANGALIA ORODHA YA SHULE</span>
-                        </button>
+                        
                     </div>
 
                 </section>
@@ -289,4 +372,5 @@
     updateClock();
     setInterval(updateClock, 1000);
   </script>
+  <script src="../assets/js/region-municipalities.js"></script>
 </html>

@@ -5,21 +5,11 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Retrieve values from POST parameters
-$examYear  = isset($_POST['examYear']) ? filter_var($_POST['examYear'], FILTER_VALIDATE_INT) : false;
-$candidate = isset($_POST['candidate']) ? filter_var(trim($_POST['candidate']), FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+$examYear = isset($_POST['finalexamYear']) ? filter_var($_POST['finalexamYear'], FILTER_VALIDATE_INT) : false;
+$regiontz = isset($_POST['municipality']) ? filter_var(trim($_POST['candidate']), FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+$districtz = isset($_POST['municipality']) ? filter_var(trim($_POST['candidate']), FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
 
-$parts = explode('-', $candidate);
-$school_id = strtoupper(trim($parts[0]));
-$schoolCode = strtolower(trim($parts[0]));
-$code = str_replace('ps', 'p', $schoolCode);
 
-if ($examYear <= 2015) {
-    $schoolCode = $code;
-}
-
-// Validate NECTA format server-side
-$nectaPattern = '/^(PS\d{7}-\d{4})$/i';
-$nectaPb = '/^(PS\d{7}-\d{3})$/i';
 
 if (!preg_match($nectaPattern, $candidate)) {
     if (!preg_match($nectaPb, $candidate)) {

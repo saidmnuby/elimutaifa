@@ -7,7 +7,7 @@
             height: 100%;
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px); /* For Safari support */
-            z-index: 20; /* Keep the blurred page behind the error dialog */
+            z-index: 1000; /* Keep the blurred page behind the error dialog */
 
         }
 
@@ -21,7 +21,7 @@
             min-height: 150px; /* Adjust height as needed */
             background-color: #ffffff; /* Light background color */
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-            z-index: 30; /* Keep the error dialog above the blur background */
+            z-index: 1500; /* Keep the error dialog above the blur background */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.44); /* Optional shadow for depth */
             border-radius: 10px; /* Optional rounded corners */
             padding-bottom: 5vw; /* Optional padding for content */
@@ -65,7 +65,11 @@
             background-color: #fffdfe; /* Light red background for warning */
             border-radius: 8px; /* Optional rounded corners */
             text-align: center;
-            z-index: 400;
+            z-index: 1100 !important;
+        }
+
+        .alert-box{
+            z-index: 1100 !important; 
         }
 
         .commit-button {
