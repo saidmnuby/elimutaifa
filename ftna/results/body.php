@@ -90,7 +90,7 @@
                 </a>
             </li><br>
                 <a href="../../contribution/" class="sidebar-item">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>
@@ -148,7 +148,7 @@
                 <!-- Right Column Forms -->
                 <div class="right-column">
                     <div class="card">
-                    <h2 id="rh2">EXAMINATION RESULTS ACSEE<?php echo htmlspecialchars($examYear);?></h2>
+                    <h2 id="rh2">EXAMINATION RESULTS FTNA <?php echo htmlspecialchars($examYear);?></h2>
                     <h3 class="rh3"><?php echo htmlspecialchars($text);?></h3>
                     <h3 class="rh3" >CANDIDATE INDEX:<span style="text-decoration: underline;"><?php echo htmlspecialchars($candidate);?>/<?php echo htmlspecialchars($examYear); ?></span></h3>
                     <div class="card-one">

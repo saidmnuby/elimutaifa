@@ -13,11 +13,19 @@ if ($candidate != '') {
     $statusCode = $response['status'];
 
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
-        $_SESSION['error_title'] = "Errorr_<H001>";
-        $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mifumo, Tafathali jaribu baadae.";
-        $_SESSION['style'] = "warning-alert";
-        header("Location: ../error/");
-        exit();
+        if ($examYear === 2026) {
+            $_SESSION['error_title']   = "Error_<X001>";
+            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibun.Jaribu hivi baadae..";
+            $_SESSION['style']         = "warning-alert";
+            header("Location: ../error/");
+            exit();
+        }else{
+            $_SESSION['error_title']   = "Error_<H001>";
+            $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mfumo, Tafathali jaribu baadae.";
+            $_SESSION['style']         = "warning-alert";
+            header("Location: ../error/");
+            exit();
+        }
     }
 
     // Create DOM

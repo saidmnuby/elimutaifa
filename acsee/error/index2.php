@@ -48,7 +48,7 @@ include 'header.php'; // Include the header file
                 <span>Angalia Matokeo</span>
             </a>
             <a href="../../contribution/" class="sidebar-item">
-                <i class="fa-solid fa-circle-info"></i>
+                <i class="fa-solid fa-comments"></i>
                 <span>Maelekezo</span>
             </a>
             <a href="../../contribution/" class="sidebar-item">
@@ -77,7 +77,7 @@ include 'header.php'; // Include the header file
                 <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
                 <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.com</p></div>
             </div>
-            <div class="datetime-display"><i class="fa-solid fa-circle-info"></i><span>ABOUT-ELIMUTAIFA</span></div>
+            <div class="datetime-display"><i class="fa-solid fa-comments"></i><span>ABOUT-ELIMUTAIFA</span></div>
         </header>
 
         <!-- Main Body Content -->

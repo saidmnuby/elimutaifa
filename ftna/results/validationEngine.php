@@ -22,9 +22,6 @@ if (!preg_match($nectaPattern, $candidate) || $examYear === false || $examYear <
         exit();
 }
 
-$_SESSION['candidate'] = $candidate;
-$_SESSION['examYear'] = $examYear;
-
 // candidate number is is less than 500
 if (trim($parts[1]) <= '500' ) {
     if($examYear >= '2023'){

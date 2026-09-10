@@ -89,7 +89,7 @@
                 </a>
             </li><br>
                 <a href="../contribution/" class="sidebar-item">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>
@@ -278,5 +278,22 @@
         showAlert("Inathibitisha matokeo...", "success");
     });
 });
+</script>
+<script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarOverlay = document.getElementById("sidebarOverlay");
+            let alertTimer = null;
+
+            // 1. Mobile Sidebar Toggle
+            function toggleMenu() {
+                sidebar.classList.toggle("open");
+                sidebarOverlay.classList.toggle("active");
+            }
+
+            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
+            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
+        });
 </script>
 </html>

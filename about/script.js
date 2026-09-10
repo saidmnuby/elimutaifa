@@ -9,4 +9,3 @@
             overlay.addEventListener('click', toggleMenu);
             pendingLinks.forEach(function (link) { link.addEventListener('click', function (event) { event.preventDefault(); }); });
         });
-    

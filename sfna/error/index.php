@@ -12,17 +12,17 @@ include 'header.php'; // Include the header file
     
     <meta
     name="description"
-    content="Angalia matokeo ya Darasa la Pili (SFNA) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
+    content="Angalia matokeo ya Darasa la nne (SFNA) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
 
     <link
     rel="canonical"
     href="https://elimutafuta.example/sfna/">
 
     <meta property="og:title"
-    content="Matokeo ya Darasa la pili 2026 - NECTA">
+    content="Matokeo ya Darasa la nne 2026 - NECTA">
 
     <meta property="og:description"
-    content="Angalia matokeo ya Darasa la pili mwaka 2026 na Elimutaifa.">
+    content="Angalia matokeo ya Darasa la nne mwaka 2026 na Elimutaifa.">
 
     <meta property="og:type" content="website">
     
@@ -113,7 +113,7 @@ include 'header.php'; // Include the header file
                 </a>
             </li><br>
                 <a href="../contribution/" class="sidebar-item">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>
@@ -152,11 +152,11 @@ include 'header.php'; // Include the header file
                 <section class="intro-card">
                     <div class="badge-fast">
                         <i class="fa-solid fa-bolt"></i> 
-                        <span></span>STNA Examination Results
+                        <span></span>SFNA Examination Results
                     </div>
-                    <h1 class="intro-title">Matokeo ya Darasa la pili 2026 (STNA)</h1>
+                    <h1 class="intro-title">Matokeo ya Darasa la nne 2026 (SFNA)</h1>
                     <section class="seo-content">
-                        <p>Angalia matokeo ya mtihani wa darasa la nne elimu ya msingi
+                        <p>Angalia matokeo ya mtihani wa Darasa la nne elimu ya msingi
                             (SFNA) kwa mwaka 2026 kwa
                             kuandika index  namba ya mtihani na mwaka  au kwa kuchagua mwaka mkoa na shule wilaya ili kuona matokeo yote ya shule.
                         </p>

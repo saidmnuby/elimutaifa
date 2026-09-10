@@ -92,7 +92,7 @@
             </li><br>
             <li>
                 <a href="../../contribution/" class="sidebar-item">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>

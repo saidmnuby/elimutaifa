@@ -5,7 +5,7 @@ include "header.php";
 include "body.php";
 
 }else{
-    header("location: ../../psle");
+    header("location: ../../sfna");
 }
 
 ?>

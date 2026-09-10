@@ -1,8 +1,4 @@
-(() => {
-    "use strict";
-
-    // Tanzania Mainland local government authorities, grouped by region.
-    const municipalitiesByRegion = {
+const municipalitiesByRegion = {
         arusha: ["Arusha City", "Arusha District", "Karatu", "Longido", "Meru", "Monduli", "Ngorongoro"],
         "dar-es-salaam": ["Dar es Salaam City", "Ilala Municipal", "Kinondoni Municipal", "Kigamboni Municipal", "Temeke Municipal", "Ubungo Municipal"],
         dodoma: ["Bahi", "Chamwino", "Chemba", "Dodoma City", "Kondoa", "Kongwa", "Mpwapwa", "Kondoa TC"],
@@ -31,60 +27,39 @@
         tanga: ["Handeni District", "Handeni Town", "Kilindi", "Korogwe District", "Korogwe Town", "Lushoto", "Mkinga", "Muheza", "Pangani", "Tanga City"]
     };
 
-    const optionValue = (name) => name.toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
 
-    const populateMunicipalities = async () => {
-        const regionSelect = document.getElementById("region");
-        const municipalitySelect = document.getElementById("municipality");
-        if (!regionSelect || !municipalitySelect) return;
+const regionSelect = document.getElementById("region");
+const municipalitySelect = document.getElementById("municipality");
 
-        const yearSelect = document.getElementById("yearb");
-        const year = yearSelect?.value || "2025";
-        const exam = document.body.dataset.exam;
-        let districts = [];
+regionSelect.addEventListener("change", function () {
 
+    // Mkoa uliochaguliwa
+    const selectedRegion = this.value;
+
+    // Safisha options za municipality
+    municipalitySelect.innerHTML =
+        '<option value="">-- Chagua Wilaya --</option>';
+
+    // Kama hakuna region iliyochaguliwa
+    if (!selectedRegion) {
         municipalitySelect.disabled = true;
-        municipalitySelect.replaceChildren(new Option("Inapakia halmashauri...", ""));
+        return;
+    }
 
-        try {
-            const response = await fetch(`districts.php?year=${encodeURIComponent(year)}&region=${encodeURIComponent(regionSelect.value)}`);
-            const data = await response.json();
-            districts = Array.isArray(data.districts) ? data.districts : [];
-        } catch (error) {
-            districts = [];
-        }
+    // Chukua municipalities za region hiyo
+    const municipalities = municipalitiesByRegion[selectedRegion];
 
-        const municipalities = districts.length
-            ? districts
-            : (municipalitiesByRegion[regionSelect.value] || []).map((name) => ({ code: "", name }));
-        municipalitySelect.replaceChildren();
+    // Tengeneza options
+    municipalities.forEach(function (municipality) {
 
-        const placeholder = new Option(
-            municipalities.length ? "Chagua halmashauri" : "Chagua mkoa kwanza",
-            ""
-        );
-        placeholder.disabled = true;
-        placeholder.selected = true;
-        municipalitySelect.add(placeholder);
+        const option = document.createElement("option");
 
-        municipalities.forEach((municipality) => {
-            municipalitySelect.add(new Option(municipality.name, municipality.code || optionValue(municipality.name)));
-        });
-        municipalitySelect.disabled = municipalities.length === 0;
-    };
+        option.value = municipality;
+        option.textContent = municipality;
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const regionSelect = document.getElementById("region");
-        if (!regionSelect) return;
-        regionSelect.addEventListener("change", populateMunicipalities);
-        document.getElementById("schoolResultsButton")?.addEventListener("click", () => {
-            const municipalitySelect = document.getElementById("municipality");
-            const year = document.getElementById("year")?.value || "2025";
-            if (!municipalitySelect?.value) return;
-            window.location.href = `district-results.php?year=${encodeURIComponent(year)}&district=${encodeURIComponent(municipalitySelect.value)}&exam=${encodeURIComponent(exam)}`;
-        });
-        populateMunicipalities();
+        municipalitySelect.appendChild(option);
     });
-})();
+
+    // Enable second select
+    municipalitySelect.disabled = false;
+});

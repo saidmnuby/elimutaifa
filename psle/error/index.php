@@ -110,7 +110,7 @@ include 'header.php'; // Include the header file
                 </a>
             </li><br>
                 <a href="../contribution/" class="sidebar-item">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>

@@ -89,7 +89,7 @@
                 </a>
             </li><br>
                 <a href="../contribution/" class="sidebar-item">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>
@@ -215,7 +215,7 @@
 
                     <!-- Search School Card -->
                     <div class="card">
-                        <form action="" method="post">
+                        <form action="schools/" method="post">
                             <div class="school-card-header">
                                 <i class="fa-solid fa-building-columns"></i>
                                 <span>ANGALIA MATOKEO KWA SHULE (STANDARD 7)</span>
@@ -230,12 +230,13 @@
                                 <label class="year-label" for="year" >Mwaka :</label>
                                 <select id="yearb" name="finalexamYear">
                                     <option value="none" disabled>Chagua Mwaka</option>
-                                    <option value="2026" selected>2026</option>
-                                    <option value="2025">2025</option>
+                                    <option value="2026" >2026</option>
+                                    <option value="2025" selected>2025</option>
                                     <option value="2024">2024</option>
                                     <option value="2023">2023</option>
                                     <option value="2022">2022</option>
-                                    <option value="2021">2021</option>                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>                                    
+                                    <option value="2020">2020</option>
                                     <option value="2019">2019</option>
                                     <option value="2018">2018</option>
                                     <option value="2017">2017</option>
@@ -253,8 +254,9 @@
                                     <div class="custom-select-wrapper">
                                         <i class="fa-solid fa-location-dot select-icon"></i>
                                         <select class="custom-select" id="region" name="region" aria-label="Chagua mkoa">
+                                            <option value="arusha" disabled selected>--Mkoa--</option>
                                             <option value="arusha">Arusha</option>
-                                            <option value="dar-es-salaam" selected>Dar es Salaam</option>
+                                            <option value="dar-es-salaam">Dar es Salaam</option>
                                             <option value="dodoma">Dodoma</option>
                                             <option value="geita">Geita</option>
                                             <option value="iringa">Iringa</option>
@@ -287,17 +289,16 @@
                                     <label class="form-label">Chagua halmashauri / wilaya</label>
                                     <div class="custom-select-wrapper">
                                         <i class="fa-solid fa-building-columns select-icon"></i>
-                                        <select class="custom-select" id="municipality" name="municipality" aria-label="Chagua halmashauri">
-                                            <option value="">Chagua mkoa kwanza</option>
+                                        <select class="custom-select" id="municipality" name="municipality" disabled>
+                                            <option value="" >---Chagua mkoa kwanza---</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <button class="btn btn-blue" id="schoolResultsButton" type="button" style="margin-top: 16px;">
+                            <button class="btn btn-blue" type="submit" name="submit" style="margin-top: 16px;">
                                 <i class="fa-solid fa-building-columns"></i>
                                 <span>ANGALIA ORODHA YA SHULE</span>
-                            </button>
                         </form>
                         
                     </div>
@@ -339,38 +340,5 @@
         });
 
     </script>
-      <script>
-    function updateClock() {
-      const now = new Date();
-      
-      // 1. Inapata Timezone ya kifaa cha mtumiaji kulingana na eneo lake (mfano: Africa/Dar_es_Salaam)
-      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-      // 2. Inapanga muundo wa saa, tarehe na sekunde kulingana na Timezone hiyo
-      const timeFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false // Weka 'true' kama unataka AM/PM
-      });
-
-      const dateFormatter = new Intl.DateTimeFormat('sw-TZ', {
-        timeZone: userTimeZone,
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-
-      // 3. Inaweka matokeo kwenye HTML
-      document.getElementById('live-clock').textContent = timeFormatter.format(now);
-      document.getElementById('location-text').textContent = `${dateFormatter.format(now)} | ${userTimeZone}`;
-    }
-
-    // Isome mara moja na kuisasisha kila sekunde 1 (1000ms)
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
   <script src="../assets/js/region-municipalities.js"></script>
 </html>

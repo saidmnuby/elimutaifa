@@ -1,0 +1,49 @@
+@import url("../../../../acsee/results/assets/css/style.css");
+.schoolCard{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px ;
+}
+
+.oneSchool{
+    background-color: aqua;
+    border-radius: 10px;
+    padding: 8px;
+    height: fit-content;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    box-shadow: 3px 4px 10px 1px rgba(0, 0, 0, 0.553);
+
+}
+
+.oneSchool:hover{
+    transform: scale(1.02);
+    transition: ease-in-out;
+}
+
+.right-column-results{
+max-height: calc(100vh - 250px); /* Adjust 250px to match the header + green line height */
+  overflow-y: auto;                 /* Enables vertical scrolling */
+  overflow-x: hidden;
+}
+
+@media (min-width: 800px) {
+    .schoolCard{
+        grid-template-columns: repeat(4,1fr);
+    }
+
+
+}
+
+@media (min-width: 1000px) {
+    .schoolCard{
+        grid-template-columns: repeat(5,1fr);
+    }
+
+
+}
+
+
+
+
+

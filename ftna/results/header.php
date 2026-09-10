@@ -44,10 +44,10 @@ if ($candidate != '') {
         $cno = trim(preg_replace('/\s+/', ' ', $cells->item($i)->textContent));
 
         if ($cno === $candidate) {
-            $sex = trim($cells->item($i + 3)->textContent);
-            $aggt = trim($cells->item($i + 4)->textContent);
-            $div = trim($cells->item($i + 5)->textContent);
-            $subjects = trim(preg_replace('/\s+/', ' ', $cells->item($i + 6)->textContent));
+            $sex = trim($cells->item($i + 2)->textContent);
+            $aggt = trim($cells->item($i + 3)->textContent);
+            $div = trim($cells->item($i + 4)->textContent);
+            $subjects = trim(preg_replace('/\s+/', ' ', $cells->item($i + 5)->textContent));
 
                 // Extract subjects and grades
                 preg_match_all(

@@ -21,9 +21,9 @@ $searchKey     = mb_strtolower($districtz, 'UTF-8');
 $code = $normalizedMap[$searchKey] ?? 'N/A';
 
 if ($examYear > 2023) {
-    $url = "https://onlinesys.necta.go.tz/results/$examYear/psle/results/distr_$code.htm";
+    $url = "https://onlinesys.necta.go.tz/results/$examYear/sfna/results/distr_ps$code.htm";
 } elseif ($examYear !== null && $examYear <= 2023) {
-    $url = "https://maktaba.tetea.org/exam-results/PSLE$examYear/distr_$code.htm";
+    $url = "https://maktaba.tetea.org/exam-results/SFNA$examYear/distr_ps$code.htm";
 }
 
 

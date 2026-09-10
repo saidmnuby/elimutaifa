@@ -57,7 +57,7 @@
                 </a>
             </li><br>
                 <a href="" class="sidebar-item active">
-                   <i class="fa-solid fa-circle-info"></i>
+                   <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
             </li>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="datetime-display">
-                <i class="fa-regular fa-clock"></i>
+                <i class="fa-solid fa-comments"></i>
                 <span id="current-datetime">Ask, Contribute, Comment</span>
             </div>
         </header>
@@ -85,7 +85,7 @@
                 <section class="contribution-intro">
                     <div class="badge-fast"><i class="fa-solid fa-comments"></i> Community Desk</div>
                     <h2>Ask, Contribute, Comment</h2>
-                    <p>Tuambie unachohitaji, pendekeza maboresho, au shiriki maoni yako kuhusu huduma za ElimuTaifaTaifaTaifaTaifa.</p>
+                    <p>Tuambie unachohitaji, pendekeza maboresho, au shiriki maoni yako kuhusu huduma za ElimuTaifa.</p>
                     <div class="contribution-points">
                         <div class="contribution-point"><i class="fa-solid fa-circle-question"></i><span>Uliza kuhusu matokeo na matumizi ya tovuti</span></div>
                         <div class="contribution-point"><i class="fa-solid fa-lightbulb"></i><span>Pendekeza wazo au huduma mpya</span></div>
@@ -139,4 +139,22 @@
     <script src="../assets/js/script.js"></script>
     <script src="script.js"></script>
 </body>
+
+<script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarOverlay = document.getElementById("sidebarOverlay");
+            let alertTimer = null;
+
+            // 1. Mobile Sidebar Toggle
+            function toggleMenu() {
+                sidebar.classList.toggle("open");
+                sidebarOverlay.classList.toggle("active");
+            }
+
+            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
+            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
+        });
+</script>
 </html>
