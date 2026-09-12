@@ -3,6 +3,13 @@
  * It loads after each level's legacy stylesheet to provide one responsive UI.
  */
 
+html.school-results-page,
+html.school-results-page body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .education-page {
     --education-navy: #031B4E;
     --education-navy-soft: #0A2B62;
@@ -596,6 +603,36 @@
     font-size: 12px;
 }
 
+/* Candidate result tables must stay inside the result card on narrow screens. */
+.education-page.level-results .card-one {
+    overflow-x: hidden;
+}
+
+.education-page.level-results .card-one table {
+    min-width: 0;
+    table-layout: fixed;
+}
+
+.education-page.level-results .card-one th,
+.education-page.level-results .card-one td {
+    overflow-wrap: anywhere;
+}
+
+.education-page.level-results .result-subject-table th:nth-child(1),
+.education-page.level-results .result-subject-table td:nth-child(1) {
+    width: 58%;
+}
+
+.education-page.level-results .result-subject-table th:nth-child(2),
+.education-page.level-results .result-subject-table td:nth-child(2) {
+    width: 18%;
+}
+
+.education-page.level-results .result-subject-table th:nth-child(3),
+.education-page.level-results .result-subject-table td:nth-child(3) {
+    width: 24%;
+}
+
 .education-page .card-one th,
 .education-page .card-one td {
     padding: 12px 13px;
@@ -651,6 +688,34 @@
     min-width: 0;
     gap: 14px;
     align-self: start;
+}
+
+/* Keep school-result lists inside the mobile viewport, including long names. */
+.education-page.level-schools .content-container,
+.education-page.level-schools .grid-layout-results,
+.education-page.level-schools .school-context-column,
+.education-page.level-schools .right-column-results,
+.education-page.level-schools .school-search,
+.education-page.level-schools .right-column-results .card,
+.education-page.level-schools .schoolCard,
+.education-page.level-schools .schoolCard > a,
+.education-page.level-schools .oneSchool,
+.education-page.level-schools .school-history,
+.education-page.level-schools .recent-school-link {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.education-page.level-schools .right-column-results {
+    overflow-x: clip;
+}
+
+.education-page.level-schools .schoolCard > a,
+.education-page.level-schools .oneSchool,
+.education-page.level-schools .recent-school-link strong {
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .education-page.level-schools .school-context-column .intro-card {
@@ -1058,6 +1123,11 @@
         top: 82px;
     }
 
+    /* Prevent mobile Safari from zooming the page when school search gets focus. */
+    .education-page.level-schools .school-search-control input {
+        font-size: 16px;
+    }
+
     .education-page .mobile-menu-btn {
         position: static;
         display: grid;
@@ -1202,6 +1272,17 @@
 
     .education-page .card-one {
         margin-right: -2px;
+    }
+
+    .education-page.level-results .card-one th,
+    .education-page.level-results .card-one td {
+        padding: 10px 6px;
+        font-size: 9px;
+    }
+
+    .education-page.level-results .card-one th {
+        font-size: 8px;
+        letter-spacing: 0.2px;
     }
 
     .education-page.level-error .alert-panel {

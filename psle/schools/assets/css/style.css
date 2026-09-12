@@ -1,4 +1,3 @@
-@import url("../../../../acsee/results/assets/css/style.css");
 .schoolCard{
     display: grid;
     grid-template-columns: repeat(3,1fr);

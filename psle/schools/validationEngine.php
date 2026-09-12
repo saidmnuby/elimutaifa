@@ -10,6 +10,7 @@ $schools = []; // Array to store extracted school objects
 $examYear  = isset($_POST['finalexamYear']) ? filter_var($_POST['finalexamYear'], FILTER_VALIDATE_INT) : null;
 $regiontz  = isset($_POST['region']) ? trim($_POST['region']) : '';
 $districtz = isset($_POST['municipality']) ? trim($_POST['municipality']) : '';
+$searchKey = $districtz;
 
 
 $code = grf_district_code_for_selection($regiontz, $districtz);
