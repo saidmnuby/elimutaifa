@@ -1,8 +1,8 @@
 <?php
 // Ensure session is started cleanly at the very top
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once dirname(__DIR__, 2) . '/includes/session.php';
+require_once dirname(__DIR__, 2) . '/includes/validation.php';
+grf_start_session();
 
 // Retrieve values from POST parameters
 $examYear  = isset($_POST['examYear']) ? filter_var($_POST['examYear'], FILTER_VALIDATE_INT) : false;
@@ -18,17 +18,12 @@ if ($examYear <= 2015) {
 }
 
 // Validate NECTA format server-side
-$nectaPattern = '/^(PS\d{7}-\d{4})$/i';
-$nectaPb = '/^(PS\d{7}-\d{3})$/i';
-
-if (!preg_match($nectaPattern, $candidate)) {
-    if (!preg_match($nectaPb, $candidate)) {
+if (!grf_is_valid_primary_candidate($candidate) || !grf_is_valid_exam_year($examYear)) {
     $_SESSION['error_title'] = "Errorr_<V001>";
     $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, mwaka kisha ujaribu tena.";
     $_SESSION['style'] = "failed-alert";
     header("Location: ../error/");
     exit();
-    }
 }
 
 // Proceed with URL generation

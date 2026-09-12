@@ -34,6 +34,7 @@ if ($candidate !== '' && isset($url)) {
         $dom = new DOMDocument();
         libxml_use_internal_errors(true);
         if (!@$dom->loadHTML($html)) {
+        et_record_system_event('result_html_parse_failed', 'The upstream result page could not be parsed as HTML.', 'error', ['target_url' => $url ?? '', 'exam_type' => 'PSLE']);
         $_SESSION['error_title'] = "Errorr_<H001B>";
             $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mifumo, Tafathali jaribu  baadae.";
             $_SESSION['style'] = "warning-alert";
@@ -100,6 +101,7 @@ if ($candidate !== '' && isset($url)) {
 
 // Check if results were retrieved
 if (empty($result)) {
+    et_record_system_event('result_parse_empty', 'No candidate row was found; the upstream layout or requested record may have changed.', 'warning', ['target_url' => $url ?? '', 'exam_type' => 'PSLE']);
     $_SESSION['error_title'] = "Errorr_<H002>";
     $_SESSION['error_message'] = "Hakiki taarifa au tembelea official pages za NECTA";
     $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";

@@ -95,6 +95,7 @@ if ($candidate != '') {
 
 
     if(empty($result)){
+    et_record_system_event('result_parse_empty', 'No candidate row was found; the upstream layout or requested record may have changed.', 'warning', ['target_url' => $url ?? '', 'exam_type' => 'CSEE']);
     $_SESSION['error_title'] = "Errorr_<H002>";
     $_SESSION['error_message'] = "Hakiki taarifa au tembelea official pages za NECTA";
     $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";

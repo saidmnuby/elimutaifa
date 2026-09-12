@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /includes/
+Disallow: /scripts/
+Disallow: /tests/
+
+Sitemap: https://elimutaifa.com/sitemap.xml

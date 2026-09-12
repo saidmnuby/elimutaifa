@@ -11,29 +11,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya darasa la saba Necta | ElimuTaifa</title>
-    
-    <meta
-    name="description"
-    content="Angalia matokeo ya Darasa la Saba (PSLE) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
-
-    <link
-    rel="canonical"
-    href="https://elimutafuta.com/psle/">
-
-    <meta property="og:title"
-    content="Matokeo ya Darasa la Saba 2026 - NECTA">
-
-    <meta property="og:description"
-    content="Angalia matokeo ya dalasa la saba kwa mwaka 2026 na Elimutaifa.">
-
-    <meta property="og:type" content="website">
-    
-    <meta property="og:url"
-    content="https://elimutaifa.com/psle/">
-
-    <meta property="og:image"
-    content="https://elimutaifa.com/assets/images/psle-results.jpg">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="same-origin">
+    <meta name="theme-color" content="#031B4E">
+    <meta name="application-name" content="ElimuTaifa">
+    <title>Matokeo ya PSLE | ElimuTaifa</title>
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="../../assets/img/brand/favicon32px.ico">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="../../assets/img/brand/favicon16px.ico">
+    <link rel="apple-touch-icon" href="../../assets/img/brand/circle_logo.png">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -43,11 +28,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
+    <script src="../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../../assets/css/education.css">
     <script src="../../assets/js/script.js"></script>
 
 </head>
-<body class="education-page" data-exam="psle">
+<body class="education-page level-results" data-exam="psle">
     
 
     <!-- Custom Dynamic Alert Container -->
@@ -119,7 +105,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
                     <div class="header-title">
                         <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
@@ -128,7 +114,7 @@
             </div>
 
             <div class="datetime-display">
-                <span>Primary School Living Examination (PSLE)</span>
+                <span>Primary School Leaving Examination (PSLE)</span>
             </div>
         </header>
 
@@ -271,7 +257,7 @@
                     <?php endif; ?>
 
                     </div>
-                    <a href="<?php echo htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">Please Visit NECTA pages for confirmation ▶▷</a>
+                    <a href="<?php echo htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">Thibitisha taarifa hizi kwenye ukurasa wa chanzo ▶</a>
 
                     </div>
 
@@ -285,8 +271,8 @@
                 <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../privacy/">Sera za Matumizi</a> |
-                <a href="../privacy/">Faragha</a>
+                <a href="../../privacy/">Sera za Matumizi</a> |
+                <a href="../../privacy/">Faragha</a>
             </div>
         </footer>
     </div>
@@ -345,5 +331,5 @@
     updateClock();
     setInterval(updateClock, 1000);
   </script>
-  <script src="../assets/js/region-municipalities.js"></script>
+  <script src="../../assets/js/region-municipalities.js"></script>
 </html>

@@ -2,9 +2,19 @@
 Options -Indexes
 
 # 2. Zuia watu kufungua mafaili ya siri moja kwa moja.
-<FilesMatch "\.(env|json|log|sql|git|md)$">
+<FilesMatch "\.(env|json|log|sql|sqlite|sqlite3|db|git|md)$">
     Require all denied
 </FilesMatch>
+
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^announcements(?:/|$) - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ errors/404.php [END]
+</IfModule>
 
 # 3. Zuia error zinazo pelekea kuonyesha path za mafail.
 php_flag display_errors off
@@ -27,4 +37,10 @@ php_flag display_startup_errors off
 
 <IfModule mod_headers.c>
     Header append Vary Accept-Encoding
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; connect-src 'self'; img-src 'self' data: https:; frame-src 'self' https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
 </IfModule>

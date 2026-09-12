@@ -7,6 +7,8 @@ include 'header.php'; // Include the header file
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://elimutaifa.com/acsee/">
     <title>Matokeo ya Form Six (ACSEE) - NECTA | ElimuTaifa</title>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,12 +17,14 @@ include 'header.php'; // Include the header file
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
+    <script src="../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/education.css">
     <script src="../assets/js/script.js"></script>
 
 
 </head>
-<body>
+<body class="education-page level-error" data-exam="acsee">
     <section class="right-columnb">
         <section class="alert-panel <?php echo htmlspecialchars($style, ENT_QUOTES, 'UTF-8'); ?>">
             <p><?php echo htmlspecialchars($error); ?><br><a href="<?php echo htmlspecialchars($necta); ?>" target="_blank" rel="noopener noreferrer"><?php echo htmlspecialchars($nectaStatement); ?></a></p>
@@ -75,6 +79,7 @@ include 'header.php'; // Include the header file
         <header class="header-banner home-header">
             <div class="header-left">
                 <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
+                <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
                 <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.com</p></div>
             </div>
             <div class="datetime-display"><i class="fa-solid fa-comments"></i><span>ABOUT-ELIMUTAIFA</span></div>

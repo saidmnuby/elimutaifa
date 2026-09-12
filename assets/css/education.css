@@ -1,136 +1,1222 @@
-/* Shared education-level landing page refinements */
+/*
+ * Shared layout for ACSEE, CSEE, FTNA, PSLE and SFNA pages.
+ * It loads after each level's legacy stylesheet to provide one responsive UI.
+ */
+
 .education-page {
-    background: #F4F7FB;
+    --education-navy: #031B4E;
+    --education-navy-soft: #0A2B62;
+    --education-green: #058249;
+    --education-green-dark: #04683A;
+    --education-blue: #0F4BB8;
+    --education-surface: #FFFFFF;
+    --education-bg: #F3F6FB;
+    --education-border: #D9E3EF;
+    --education-text: #17243A;
+    --education-muted: #617087;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--education-text);
+    background:
+        radial-gradient(circle at 86% 8%, rgba(15, 75, 184, 0.07), transparent 24rem),
+        var(--education-bg);
 }
 
 .education-page .main-wrapper {
+    width: calc(100% - 260px);
+    min-width: 0;
     min-height: 100vh;
+    margin-left: 260px;
+    padding-top: 76px;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Fixed application header */
+.education-page .header-banner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 260px;
+    z-index: 300;
+    min-height: 76px;
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #FFFFFF;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--education-navy);
+    box-shadow: 0 10px 30px rgba(3, 27, 78, 0.13);
+}
+
+.education-page .header-left,
+.education-page .logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.education-page .header-left {
+    gap: 12px;
+}
+
+.education-page .logo-section {
+    gap: 11px;
+    margin-left: 0;
+}
+
+.education-page .brand-logo {
+    display: block;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+}
+
+.education-page .header-title {
+    min-width: 0;
+}
+
+.education-page .header-title h1,
+.education-page .header-title .site-name {
+    display: block;
+    margin: 0;
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0.3px;
+}
+
+.education-page .header-title p {
+    margin-top: 3px;
+    color: #B9C9E6;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.education-page .datetime-display {
+    max-width: 48%;
+    padding: 8px 13px;
+    color: #E0E9F7;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: 0.55px;
+    text-align: right;
+}
+
+.education-page .mobile-menu-btn {
+    color: #FFFFFF;
+}
+
+/* Sidebar refinements */
+.education-page .sidebar {
+    width: 260px;
+    padding: 24px 0;
+    background: linear-gradient(180deg, #031B4E 0%, #04183E 100%);
+    box-shadow: 10px 0 32px rgba(3, 27, 78, 0.08);
+}
+
+.education-page .sidebar-menu {
+    margin-top: 60px;
+}
+
+.education-page .sidebar-item {
+    min-height: 46px;
+    padding: 12px 22px;
+    color: #AFC4E5;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+}
+
+.education-page .sidebar-item i {
+    width: 20px;
+    color: #7E9BC8;
+    text-align: center;
+}
+
+.education-page .sidebar-item:hover,
+.education-page .sidebar-item:focus-visible {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.education-page .sidebar-item.active {
+    margin-right: 16px;
+    color: #FFFFFF;
+    border-radius: 0 9px 9px 0;
+    background: var(--education-green);
+    box-shadow: 0 8px 20px rgba(5, 130, 73, 0.24);
+}
+
+.education-page .sidebar-item.active i {
+    color: #FFFFFF;
+}
+
+.education-page .sidebar-quote {
+    color: #8EA8CE;
+    font-size: 11px;
+}
+
+/* Main level layout */
 .education-page .content-container {
-    width: min(1180px, 100%);
+    width: min(1220px, 100%);
+    min-width: 0;
     max-width: none;
-    padding: 42px 34px 30px;
+    margin: 0 auto;
+    padding: 34px 34px 42px;
+    flex: 1;
 }
 
-.education-page .grid-layout {
+.education-page .grid-layout,
+.education-page .grid-layout-results {
     display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1.15fr);
-    gap: 44px;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
     align-items: start;
 }
 
 .education-page .intro-card {
-    gap: 14px;
-    padding: 26px 0 0;
+    position: sticky;
+    top: 108px;
+    isolation: isolate;
+    display: flex;
+    min-width: 0;
+    min-height: 310px;
+    padding: 34px;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    background: linear-gradient(135deg, #031B4E 0%, #0B376A 100%);
+    box-shadow: 0 20px 46px rgba(3, 27, 78, 0.17);
 }
 
-.education-page .intro-card .intro-title {
-    max-width: 520px;
-    padding: 12px 0 12px 18px;
-    border-left: 5px solid var(--primary-green);
-    border-bottom: 0;
-    font-size: clamp(30px, 4vw, 48px);
-    line-height: 1.08;
+.education-page .intro-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -100px;
+    bottom: -128px;
+    width: 290px;
+    height: 290px;
+    border: 1px solid rgba(100, 220, 159, 0.24);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 42px rgba(100, 220, 159, 0.045),
+        0 0 0 84px rgba(100, 220, 159, 0.025);
 }
 
-.education-page .intro-card .intro-desc {
-    max-width: 480px;
-    font-size: 15px;
+.education-page .badge-fast {
+    display: inline-flex;
+    width: fit-content;
+    padding: 7px 11px;
+    align-items: center;
+    gap: 7px;
+    color: #BDF5D7;
+    border: 1px solid rgba(100, 220, 159, 0.38);
+    border-left: 3px solid #64DC9F;
+    border-radius: 6px;
+    background: rgba(5, 130, 73, 0.24);
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
 }
 
-.education-page .right-column {
+.education-page .intro-card .intro-title,
+.education-page .intro-card > h2,
+.education-page .intro-card > h3 {
     position: relative;
+    z-index: 1;
+    max-width: 620px;
+    margin: 0;
+    padding: 0 0 0 15px;
+    color: #FFFFFF;
+    border: 0;
+    border-left: 4px solid #64DC9F;
+    font-size: clamp(30px, 3.5vw, 47px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.2px;
+}
+
+.education-page .intro-card > h2 {
+    padding: 0;
+    color: #BDF5D7;
+    border-left: 0;
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: 0.55px;
+    text-transform: uppercase;
+}
+
+.education-page .intro-card .seo-content,
+.education-page .intro-card .intro-desc {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+}
+
+.education-page .intro-card .seo-content p,
+.education-page .intro-card .intro-desc {
+    margin: 0;
+    color: #D5E2F2;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Search and result panels */
+.education-page .right-column,
+.education-page .right-column-results {
+    position: static;
     top: auto;
     right: auto;
-    width: auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    max-height: none;
     display: grid;
-    gap: 14px;
+    gap: 18px;
+    overflow: visible;
 }
 
-.education-page .right-column .card {
-    margin-top: 0;
-    padding: 20px;
-    border-radius: 10px;
+.education-page .right-column .card,
+.education-page .right-column-results .card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 22px;
+    overflow: hidden;
+    border: 1px solid var(--education-border);
+    border-radius: 18px;
+    background: var(--education-surface);
+    box-shadow: 0 14px 34px rgba(3, 27, 78, 0.08);
 }
 
 .education-page .right-column .card + .card {
     margin-top: 0;
 }
 
+.education-page .card-header {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E8EEF5;
+}
+
+.education-page .card-title-group {
+    gap: 11px;
+}
+
 .education-page .card-title-icon {
-    padding: 7px;
-    font-size: 16px;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    place-items: center;
+    color: var(--education-green);
+    border-radius: 10px;
+    background: #EAF8F0;
+    font-size: 15px;
 }
 
 .education-page .card-title {
-    font-size: 13px;
+    color: var(--education-text);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+}
+
+.education-page .school-card-header {
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    color: #17448F;
+    border: 1px solid #D9E5FB;
+    border-radius: 10px;
+    background: #F1F6FF;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.4;
+    letter-spacing: 0.25px;
+}
+
+/* Forms */
+.education-page .form-group {
+    min-width: 0;
+    margin-bottom: 18px;
+}
+
+.education-page form,
+.education-page .dividexp > *,
+.education-page .options > *,
+.education-page .select-grid > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.education-page .form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #35445B;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.education-page .dividexp {
+    display: grid;
+    grid-template-columns: minmax(118px, auto) minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+}
+
+.education-page .input-with-icon {
+    width: 100%;
+}
+
+.education-page .input-with-icon i {
+    left: 15px;
+    color: #7B8BA2;
 }
 
 .education-page .form-input,
-.education-page select {
-    min-height: 42px;
+.education-page select,
+.education-page .custom-select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 13px;
+    color: #17385F;
+    border: 1px solid #BCCBE0;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(3, 27, 78, 0.03);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.education-page .form-input {
+    padding-left: 42px;
+    text-transform: uppercase;
+}
+
+.education-page select,
+.education-page .custom-select {
+    height: auto;
+    cursor: pointer;
+    appearance: auto;
+}
+
+.education-page .custom-select {
+    padding-left: 38px;
+    padding-right: 32px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.education-page select:disabled {
+    color: #8A98AA;
+    cursor: not-allowed;
+    background: #F3F6FA;
+}
+
+.education-page option {
+    color: #17385F;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .education-page .form-input:focus,
-.education-page select:focus,
-.education-page .option:focus-visible,
+.education-page select:focus {
+    outline: 0;
+    border: 1px solid var(--education-green);
+    box-shadow: 0 0 0 3px rgba(5, 130, 73, 0.14);
+}
+
+.education-page .example-hint {
+    min-width: 118px;
+    padding: 0;
+    color: #728197;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.education-page .example-hint br:first-of-type {
+    display: none;
+}
+
+.education-page .example-hint span {
+    color: #235FAF;
+    font-style: normal;
+    font-weight: 800;
+}
+
+.education-page .options {
+    display: grid;
+    grid-template-columns: minmax(100px, 0.3fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.education-page .options > select {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.education-page .year-label {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+    margin: 0;
+    padding: 8px 0 8px 10px;
+    color: #36516F;
+    border: 0;
+    border-left: 3px solid var(--education-green);
+    font-size: 12px;
+    font-weight: 800;
+    text-align: left;
+}
+
+.education-page .select-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.education-page .select-icon {
+    z-index: 1;
+    color: var(--education-green);
+}
+
+.education-page .custom-select-wrapper::after {
+    display: none;
+}
+
+.education-page .btn {
+    min-height: 48px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(3, 27, 78, 0.1);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.55px;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.education-page .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(3, 27, 78, 0.14);
+}
+
+.education-page .btn-green {
+    background: var(--education-green);
+}
+
+.education-page .btn-green:hover {
+    background: var(--education-green-dark);
+}
+
+.education-page .btn-blue {
+    background: var(--education-blue);
+}
+
+.education-page .form-input:focus-visible,
+.education-page select:focus-visible,
 .education-page .btn:focus-visible,
-.education-page a:focus-visible {
-    outline: 3px solid rgba(5, 130, 73, 0.3);
-    outline-offset: 2px;
+.education-page .sidebar-item:focus-visible,
+.education-page a:focus-visible,
+.education-page button:focus-visible {
+    outline: 3px solid rgba(5, 130, 73, 0.28);
+    outline-offset: 3px;
 }
 
+/* Candidate result presentation */
+.education-page #rh2 {
+    margin: 0 0 10px;
+    padding: 11px 13px;
+    color: #123764;
+    border: 1px solid #D8E5F6;
+    border-radius: 10px;
+    background: #F2F7FD;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.4;
+    letter-spacing: 0.35px;
+}
+
+.education-page .rh3 {
+    margin: 7px 0;
+    color: #45566E;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.education-page .rh3 span {
+    margin-left: 5px;
+    color: var(--education-green-dark);
+    font-weight: 900;
+    text-decoration: none !important;
+}
+
+.education-page .card-one {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 16px;
+    padding: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    border: 1px solid var(--education-border);
+    border-radius: 12px;
+    background: #FFFFFF;
+}
+
+.education-page .card-one table {
+    width: 100%;
+    min-width: 420px;
+    border-collapse: collapse;
+    color: #293A50;
+    font-size: 12px;
+}
+
+.education-page .card-one th,
+.education-page .card-one td {
+    padding: 12px 13px;
+    border-bottom: 1px solid #E8EEF5;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.education-page .card-one th {
+    color: #4A5B70;
+    background: #F6F8FB !important;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.education-page .card-one tr:last-child td {
+    border-bottom: 0;
+}
+
+.education-page .card-one tr:hover {
+    color: inherit;
+    background: #F2F8F5;
+}
+
+.education-page .card-one .center,
+.education-page .card-one th.center,
+.education-page .card-one td.center {
+    text-align: center;
+}
+
+.education-page .right-column a[target="_blank"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 15px;
+    color: #245FAD;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.5;
+    text-decoration: none;
+}
+
+.education-page .right-column a[target="_blank"]:hover {
+    text-decoration: underline;
+}
+
+/* District school search and recent selections */
+.education-page .school-context-column {
+    position: sticky;
+    top: 108px;
+    display: grid;
+    min-width: 0;
+    gap: 14px;
+    align-self: start;
+}
+
+.education-page.level-schools .school-context-column .intro-card {
+    position: static;
+}
+
+.education-page .school-search {
+    position: sticky;
+    top: 92px;
+    z-index: 20;
+    margin: 0;
+    padding: 16px 18px 11px;
+    align-self: start;
+    border: 1px solid var(--education-border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 12px 30px rgba(3, 27, 78, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.education-page .school-search > label {
+    display: block;
+    margin-bottom: 8px;
+    color: #263A56;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.education-page .school-search-control {
+    position: relative;
+}
+
+.education-page .school-search-control i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    z-index: 1;
+    color: var(--education-green);
+    font-size: 13px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.education-page .school-search-control input {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 11px 42px;
+    color: #17385F;
+    border: 1px solid #BCCBE0;
+    border-radius: 11px;
+    background: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    outline: 0;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.education-page .school-search-control input:focus {
+    border-color: var(--education-green);
+    box-shadow: 0 0 0 3px rgba(5, 130, 73, 0.14);
+}
+
+.education-page .school-search-control input:disabled {
+    color: #8491A3;
+    background: #F3F6FA;
+    cursor: not-allowed;
+}
+
+.education-page .school-search-summary {
+    min-height: 16px;
+    margin-top: 7px;
+    color: #6D7D92;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.education-page .school-search-empty,
+.education-page .no-results {
+    grid-column: 1 / -1;
+    margin: 12px 0;
+    padding: 15px;
+    color: #7B4F0B;
+    border: 1px solid #F0D7A5;
+    border-radius: 10px;
+    background: #FFF9ED;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.55;
+    text-align: center;
+}
+
+.education-page .school-search-empty[hidden],
+.education-page .schoolCard > a[hidden] {
+    display: none;
+}
+
+.education-page .school-history {
+    width: 100%;
+    padding: 17px;
+    border: 1px solid var(--education-border);
+    border-radius: 14px;
+    background: #FFFFFF;
+    box-shadow: 0 10px 28px rgba(3, 27, 78, 0.07);
+}
+
+.education-page .school-history h4 {
+    display: flex;
+    margin: 0 0 10px;
+    align-items: center;
+    gap: 7px;
+    color: #245073;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.55px;
+    text-transform: uppercase;
+}
+
+.education-page .school-history h4 i {
+    color: var(--education-green);
+}
+
+.education-page .recent-schools {
+    display: grid;
+    gap: 7px;
+}
+
+.education-page .recent-schools-empty {
+    margin: 0;
+    color: #718096;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.education-page .recent-school-link {
+    display: block;
+    padding: 9px 10px;
+    color: #17385F;
+    border: 1px solid #D8E4F1;
+    border-left: 3px solid var(--education-green);
+    border-radius: 8px;
+    background: #F8FAFD;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.education-page .recent-school-link:hover,
+.education-page .recent-school-link:focus-visible {
+    border-color: #9BC8AF;
+    background: #EFF9F3;
+}
+
+.education-page .recent-school-link strong,
+.education-page .recent-school-link small {
+    display: block;
+}
+
+.education-page .recent-school-link strong {
+    color: #17385F;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.education-page .recent-school-link small {
+    margin-top: 3px;
+    overflow: hidden;
+    color: #718096;
+    font-size: 8px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* District school lists */
+.education-page .schoolCard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.education-page .schoolCard > a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.education-page .oneSchool {
+    display: flex;
+    min-height: 62px;
+    height: 100%;
+    padding: 13px 14px;
+    align-items: center;
+    color: #17385F;
+    border: 1px solid #D8E4F1;
+    border-left: 4px solid var(--education-green);
+    border-radius: 10px;
+    background: #F8FAFD;
+    box-shadow: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.education-page .schoolCard > a:hover .oneSchool,
+.education-page .schoolCard > a:focus-visible .oneSchool {
+    transform: translateY(-2px);
+    border-color: #9BC8AF;
+    background: #EFF9F3;
+}
+
+/* Error dialog */
+.education-page.level-error .blur-background {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    width: auto;
+    height: auto;
+    background: rgba(3, 17, 42, 0.52);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.education-page.level-error .right-columnb {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    z-index: 500;
+    display: block;
+    width: min(520px, calc(100vw - 32px));
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #DFE6EF;
+    border-radius: 16px;
+    background: #FFFFFF;
+    box-shadow: 0 28px 80px rgba(3, 17, 42, 0.34);
+    transform: translate(-50%, -50%);
+}
+
+.education-page.level-error .alert-panel {
+    width: 100%;
+    height: auto;
+    min-height: 210px;
+    margin: 0;
+    padding: 30px 28px 78px;
+    border: 0;
+    border-top: 5px solid #C58A10;
+    border-radius: 0;
+    background: #FFFFFF;
+    text-align: left;
+}
+
+.education-page.level-error .alert-panel.failed-alert {
+    border-top-color: #B91C1C;
+}
+
+.education-page.level-error .alert-panel p {
+    color: #45566E;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.7;
+}
+
+.education-page.level-error .alert-panel p > a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #1D5DAF;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.education-page.level-error .alert-panel h6 {
+    margin-top: 16px !important;
+    color: #7C5A13 !important;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.education-page.level-error .commit-button {
+    position: absolute;
+    right: 28px;
+    bottom: 24px;
+    min-width: 96px;
+    padding: 11px 17px;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 9px;
+    background: var(--education-green);
+    box-shadow: 0 8px 18px rgba(5, 130, 73, 0.2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.education-page.level-error .commit-button:hover {
+    background: var(--education-green-dark);
+}
+
+/* Footer */
 .education-page .footer {
-    margin-left: 0;
+    width: 100%;
+    margin: auto 0 0;
+    padding: 18px 34px;
+    color: #627086;
+    border-top: 1px solid #DCE4EE;
+    background: #E8EDF4;
+    font-size: 11px;
 }
 
-@media (max-width: 900px) {
-    .education-page .content-container {
-        padding: 30px 20px 24px;
+.education-page .footer-links {
+    gap: 12px;
+}
+
+.education-page .footer-links a {
+    color: #425875;
+    font-weight: 700;
+}
+
+@media (min-width: 1180px) {
+    .education-page .schoolCard {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .education-page .header-banner {
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr) 44px;
     }
 
-    .education-page .grid-layout {
-        grid-template-columns: 1fr;
-        gap: 24px;
+    .education-page .header-banner .header-left,
+    .education-page .header-banner .logo-section {
+        display: contents;
+    }
+
+    .education-page .header-banner .header-title {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+        justify-self: center;
+        text-align: center;
+    }
+
+    .education-page .header-banner .brand-logo {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+    }
+
+    .education-page .datetime-display {
+        display: none;
+    }
+
+    .education-page .grid-layout,
+    .education-page .grid-layout-results {
+        grid-template-columns: minmax(250px, 0.85fr) minmax(0, 1.15fr);
+    }
+}
+
+@media (max-width: 1020px) {
+    .education-page .grid-layout,
+    .education-page .grid-layout-results {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
     }
 
     .education-page .intro-card {
-        padding-top: 10px;
+        position: relative;
+        top: auto;
+        min-height: 250px;
     }
 
-    .education-page .right-column {
-        width: 100%;
+    .education-page .school-context-column {
+        position: static;
+    }
+
+    .education-page .right-column,
+    .education-page .right-column-results {
+        width: min(680px, 100%);
+        justify-self: end;
     }
 }
 
-@media (max-width: 560px) {
-    .education-page .intro-card .intro-title {
-        font-size: 34px;
-    }
-
-    .education-page .right-column .card {
-        padding: 16px;
-    }
-
-    .education-page .dividexp {
-        align-items: stretch;
-        flex-direction: column-reverse;
-        gap: 8px;
-    }
-
-    .education-page .input-with-icon {
+@media (max-width: 900px) {
+    .education-page .main-wrapper {
         width: 100%;
+        margin-left: 0;
+        padding-top: 68px;
     }
 
-    .education-page .select-grid {
+    .education-page .header-banner {
+        left: 0;
+        min-height: 68px;
+        padding: 10px 20px;
+    }
+
+    .education-page .school-search {
+        top: 82px;
+    }
+
+    .education-page .mobile-menu-btn {
+        position: static;
+        display: grid;
+        grid-column: 1;
+        grid-row: 1;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        place-items: center;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .education-page .brand-logo {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+    }
+
+    .education-page .sidebar {
+        top: 68px;
+        bottom: auto;
+        width: min(290px, 84vw);
+        height: calc(100vh - 68px);
+        padding: 12px 0 24px;
+        overflow-y: auto;
+        transform: translateX(-100%);
+    }
+
+    .education-page .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .education-page .sidebar-menu {
+        margin-top: 0;
+    }
+
+    .education-page .sidebar-overlay.active {
+        display: block;
+    }
+
+    .education-page .content-container {
+        padding: 24px 20px 34px;
+    }
+
+    .education-page .grid-layout,
+    .education-page .grid-layout-results {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .education-page .intro-card {
+        position: relative;
+        top: auto;
+        min-height: 235px;
+        padding: 30px;
+    }
+
+    .education-page .intro-card .intro-title,
+    .education-page .intro-card > h3 {
+        font-size: clamp(29px, 7vw, 42px);
     }
 
     .education-page .footer {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 620px) {
+    .education-page .header-banner {
+        padding: 9px 14px;
+    }
+
+    .education-page .brand-logo {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+    }
+
+    .education-page .header-title p {
+        display: none;
+    }
+
+    .education-page .content-container {
+        padding: 16px 14px 28px;
+    }
+
+    .education-page .intro-card {
+        min-height: 220px;
+        padding: 27px 22px;
+        border-radius: 15px;
+    }
+
+    .education-page .intro-card .intro-title,
+    .education-page .intro-card > h3 {
+        padding-left: 12px;
+        font-size: clamp(27px, 9vw, 36px);
+        letter-spacing: -0.8px;
+    }
+
+    .education-page .right-column .card,
+    .education-page .right-column-results .card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .education-page .school-search {
+        top: 78px;
+        padding: 13px 14px 8px;
+        border-radius: 12px;
+    }
+
+    .education-page .dividexp {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .education-page .options,
+    .education-page .select-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .education-page .options > select,
+    .education-page .year-label {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .education-page .options > select {
+        order: 2;
+    }
+
+    .education-page .year-label {
+        order: 1;
+        padding: 3px 0 3px 8px;
+    }
+
+    .education-page .schoolCard {
+        grid-template-columns: 1fr;
+    }
+
+    .education-page .card-one {
+        margin-right: -2px;
+    }
+
+    .education-page.level-error .alert-panel {
+        padding: 25px 20px 76px;
+    }
+
+    .education-page.level-error .commit-button {
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .education-page .footer {
+        padding: 17px 20px;
         align-items: flex-start;
         flex-direction: column;
-        gap: 10px;
-        padding: 16px 20px;
+        gap: 9px;
     }
 }

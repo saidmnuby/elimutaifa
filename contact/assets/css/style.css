@@ -4,13 +4,12 @@
             margin: 0 auto;
             padding: 54px 34px 34px;
         }
-
         .contact-intro {
             max-width: 680px;
             padding: 20px 0 34px;
         }
 
-        .contact-intro h2 {
+        .contact-intro h1 {
             margin-top: 18px;
             padding-left: 18px;
             border-left: 5px solid var(--primary-green);
@@ -19,7 +18,7 @@
             line-height: 1;
         }
 
-        .contact-intro h2 span {
+        .contact-intro h1 span {
             color: var(--primary-green);
         }
 
@@ -43,6 +42,7 @@
             background: #FFFFFF;
             border: 1px solid #DDE5F0;
             border-top: 3px solid var(--primary-green);
+            border-radius: 14px;
             box-shadow: 0 8px 22px rgba(3, 27, 78, 0.05);
         }
 
@@ -122,6 +122,7 @@
             color: var(--text-dark);
             background: #F7F9FC;
             border: 1px solid #E2E8F0;
+            border-radius: 10px;
             text-decoration: none;
             transition: border-color 0.2s, transform 0.2s;
         }
@@ -172,4 +173,3 @@
                 grid-template-columns: 1fr;
             }
         }
-    

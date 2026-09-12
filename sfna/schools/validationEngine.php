@@ -1,9 +1,8 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once dirname(__DIR__, 2) . '/includes/session.php';
+grf_start_session();
 
-include "district.php";
+require_once dirname(__DIR__, 2) . '/includes/district_directory.php';
 include_once dirname(__DIR__, 2) . '/includes/result_request.php';
 
 $schools = []; // Array to store extracted school objects
@@ -13,12 +12,15 @@ $regiontz  = isset($_POST['region']) ? trim($_POST['region']) : '';
 $districtz = isset($_POST['municipality']) ? trim($_POST['municipality']) : '';
 
 
-// Create a lookup array with lowercase keys for case-insensitive matching
-$normalizedMap = array_change_key_case($municipalitiesByRegion ?? [], CASE_LOWER);
-$searchKey     = mb_strtolower($districtz, 'UTF-8');
+$code = grf_district_code_for_selection($regiontz, $districtz);
 
-// Lookup using the normalized key
-$code = $normalizedMap[$searchKey] ?? 'N/A';
+if ($examYear === null || $examYear < 2010 || $examYear > 2026 || $code === null) {
+    $_SESSION['error_title'] = 'Error_<V001>';
+    $_SESSION['error_message'] = 'Chagua mwaka na halmashauri halali kisha ujaribu tena.';
+    $_SESSION['style'] = 'failed-alert';
+    header('Location: ../error/');
+    exit();
+}
 
 if ($examYear > 2023) {
     $url = "https://onlinesys.necta.go.tz/results/$examYear/sfna/results/distr_ps$code.htm";

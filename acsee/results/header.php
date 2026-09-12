@@ -10,12 +10,12 @@ if ($candidate != '') {
 
     $response = grf_fetch_result($url);
     $html = is_array($response) && isset($response['html']) ? trim($response['html']) : false;
-    $statusCode = is_array($response) && isset($response['statusCode']) ? (int)$response['statusCode'] : 0;
+    $statusCode = is_array($response) && isset($response['status']) ? (int)$response['status'] : 0;
 
     // Mlango uliosasishwa:
     // 1. Unakubali status code 200–399 au status code 0 ikiwa bado kulikuwa na maudhui (HTML) yaliyopatikana.
     // 2. Unahakikisha $html siyo false na siyo tupu.
-    if ($html === false || $html === '' || ($statusCode >= 400 && empty($html))) {
+    if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
         $_SESSION['error_title'] = "Errorr_<H001>";
         $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mifumo, Tafathali jaribu  baadae.";
         $_SESSION['style'] = "warning-alert";
@@ -90,6 +90,7 @@ if ($candidate != '') {
 
 
 if(empty($result)){
+    et_record_system_event('result_parse_empty', 'No candidate row was found; the upstream layout or requested record may have changed.', 'warning', ['target_url' => $url ?? '', 'exam_type' => 'ACSEE']);
     $_SESSION['error_title'] = "Errorr_<H002>";
     $_SESSION['error_message'] = "Hakiki taarifa au tembelea official pages za NECTA";
     $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";

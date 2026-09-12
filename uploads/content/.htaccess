@@ -1,0 +1,6 @@
+Options -Indexes
+
+# Only randomly named image files created by the application are public here.
+<FilesMatch "^(?![a-f0-9]{32}\.(?:jpg|png|webp)$).+">
+    Require all denied
+</FilesMatch>

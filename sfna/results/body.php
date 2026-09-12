@@ -12,29 +12,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya darasala pili Necta | ElimuTaifa</title>
-    
-    <meta
-    name="description"
-    content="Angalia matokeo ya Darasa la nne (SFNA) ya NECTA kwa mwaka 2026. Tafuta matokeo kwa namba ya mtihani au angalia matokeo ya shule.">
-
-    <link
-    rel="canonical"
-    href="https://elimutafuta.example/sfna/">
-
-    <meta property="og:title"
-    content="Matokeo ya Darasa la nne 2026 - NECTA">
-
-    <meta property="og:description"
-    content="Angalia matokeo ya Darasa la nne mwaka 2026 na Elimutaifa.">
-
-    <meta property="og:type" content="website">
-    
-    <meta property="og:url"
-    content="https://elimutaifa.com/sfna/">
-
-    <meta property="og:image"
-    content="https://elimutaifa.com/assets/img/psle-results.jpg">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="same-origin">
+    <meta name="theme-color" content="#031B4E">
+    <meta name="application-name" content="ElimuTaifa">
+    <title>Matokeo ya SFNA | ElimuTaifa</title>
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="../../assets/img/brand/favicon32px.ico">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="../../assets/img/brand/favicon16px.ico">
+    <link rel="apple-touch-icon" href="../../assets/img/brand/circle_logo.png">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,11 +29,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
+    <script src="../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../../assets/css/education.css">
     <script src="../../assets/js/script.js"></script>
 
 </head>
-<body class="education-page" data-exam="sfna">
+<body class="education-page level-results" data-exam="sfna">
     
     <!--this is   -->
     <div class="alert-box" >
@@ -124,7 +110,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
                     <div class="header-title">
                         <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
@@ -145,9 +131,9 @@
                         <i class="fa-solid fa-bolt"></i> 
                         <span></span>SFNA Examination Results
                     </div>
-                    <h1 class="intro-title">Matokeo ya Darasa la nne 2026 (SFNA)</h1>
+                    <h1 class="intro-title">Matokeo ya Darasa la Nne 2026 (SFNA)</h1>
                     <section class="seo-content">
-                        <p>Angalia matokeo ya mtihani wa Darasa la nne elimu ya msingi
+                        <p>Angalia matokeo ya upimaji wa Darasa la Nne wa elimu ya msingi
                             (SFNA) kwa mwaka 2026 kwa
                             kuandika index  namba ya mtihani na mwaka  au kwa kuchagua mwaka mkoa na shule wilaya ili kuona matokeo yote ya shule.
                         </p>
@@ -157,7 +143,7 @@
                 <!-- Right Column Forms -->
                 <div class="right-column">
                     <div class="card">
-                    <h2 id="rh2">EXAMINATION RESULTS PSLE <?php echo htmlspecialchars($examYear);?></h2>
+                    <h2 id="rh2">MATOKEO YA SFNA <?php echo htmlspecialchars($examYear);?></h2>
                     <h3 class="rh3"><?php echo htmlspecialchars($text);?></h3>
                     <h3 class="rh3" >CANDIDATE INDEX:<span style="text-decoration: underline;"><?php echo htmlspecialchars($candidate); ?>-<?php echo htmlspecialchars($examYear);?></span></h3>
                     <div class="card-one">
@@ -270,7 +256,7 @@
                     <?php endif; ?>
 
                     </div>
-                    <a href="<?php echo htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">Please Visit NECTA pages for confirmation ▶▷</a>
+                    <a href="<?php echo htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">Thibitisha taarifa hizi kwenye ukurasa wa chanzo ▶</a>
 
                     </div>
 
@@ -286,8 +272,8 @@
                 <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../privacy/">Sera za Matumizi</a> |
-                <a href="../privacy/">Faragha</a>
+                <a href="../../privacy/">Sera za Matumizi</a> |
+                <a href="../../privacy/">Faragha</a>
             </div>
         </footer>
     </div>
@@ -346,5 +332,5 @@
     updateClock();
     setInterval(updateClock, 1000);
   </script>
-  <script src="../assets/js/region-municipalities.js"></script>
+  <script src="../../assets/js/region-municipalities.js"></script>
 </html>

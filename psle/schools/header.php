@@ -28,6 +28,7 @@ if ($districtz !== '' && isset($url)) {
     libxml_use_internal_errors(true);
     
     if (!@$dom->loadHTML($html)) {
+        et_record_system_event('district_html_parse_failed', 'The upstream district page could not be parsed as HTML.', 'error', ['target_url' => $url ?? '', 'exam_type' => 'PSLE']);
         $_SESSION['error_title'] = "Errorr_<H001B>";
         $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mfumo, Tafathali jaribu baadae.";
         $_SESSION['style'] = "warning-alert";
@@ -52,5 +53,8 @@ if ($districtz !== '' && isset($url)) {
         ];
     }
 }
+    if (empty($schools)) {
+        et_record_system_event('district_school_list_empty', 'No school links were found; the district directory layout may have changed.', 'warning', ['target_url' => $url ?? '', 'exam_type' => 'PSLE']);
+    }
 }
 ?>

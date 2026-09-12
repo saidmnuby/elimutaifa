@@ -3,23 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About ElimuTaifa and Edutech.">
-    <title>About Us | ElimuTaifa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Learn about ElimuTaifa, an independent platform that helps students, parents, teachers and schools access education information and announcements in Tanzania.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <title>About ElimuTaifa | Independent Education Information Platform</title>
+    <meta name="theme-color" content="#031B4E">
+    <link rel="canonical" href="https://elimutaifa.com/about/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_TZ">
+    <meta property="og:site_name" content="ElimuTaifa">
+    <meta property="og:title" content="About ElimuTaifa | Independent Education Information Platform">
+    <meta property="og:description" content="Learn how ElimuTaifa helps education communities access results, announcements, selection and admission information.">
+    <meta property="og:url" content="https://elimutaifa.com/about/">
+    <meta property="og:image" content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="579">
+    <meta property="og:image:alt" content="About ElimuTaifa">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About ElimuTaifa">
+    <meta name="twitter:description" content="An independent education information and announcements platform for Tanzania.">
+    <meta name="twitter:image" content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
+    <link rel="icon" type="image/x-icon" href="../assets/img/brand/favicon32px.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ElimuTaifa", "item": "https://elimutaifa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://elimutaifa.com/about/" }
+        ]
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../assets/css/consent.css">
     <script src="script.js"></script>
     <script src="../assets/js/consent.js"></script>
+    <script src="../assets/js/monitoring.js" defer></script>
 </head>
-<body class="home-page">
+<body class="home-page info-page">
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <aside class="sidebar home-sidebar" id="sidebar">
         <div>
             <a class="home-brand" href="../" aria-label="ElimuTaifa home">
-                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
                 <span><strong>ElimuTaifa</strong><small>ElimuTaifa</small></span>
             </a>
             <nav aria-label="Main navigation">
@@ -27,11 +56,12 @@
                     <li><a href="../" class="sidebar-item"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
                     <li class="results-menu">
                         <details open>
-                            <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Results</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
+                            <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Matokeo</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
                             <div class="results-submenu">
                                 <a href="../acsee/">ACSEE <small>Form Six</small></a>
                                 <a href="../csee/">CSEE <small>Form Four</small></a>
                                 <a href="../ftna/">FTNA <small>Form Two</small></a>
+                                <a href="../psle/">PSLE <small>Standard Seven</small></a>
                                 <a href="../sfna/">SFNA <small>Standard Four</small></a>
                             </div>
                         </details>
@@ -40,60 +70,64 @@
                     <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
                     <li><a href="./" class="sidebar-item active" aria-current="page"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
                     <li><a href="../contact/" class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+                    <li><a href="../contribution/" class="sidebar-item"><i class="fa-solid fa-comments"></i><span>Maoni</span></a></li>
                     <li><a href="../privacy/" class="sidebar-item"><i class="fa-solid fa-shield-halved"></i><span>Privacy Policy</span></a></li>
                 </ul>
             </nav>
         </div>
-        <p class="sidebar-quote">“#position for success”</p>
+        <p class="sidebar-quote">“#Prepare for success”</p>
     </aside>
 
     <div class="main-wrapper home-wrapper">
         <header class="header-banner home-header">
             <div class="header-left">
                 <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
-                <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.com</p></div>
+                <a class="home-header-brand" href="../" aria-label="ElimuTaifa home">
+                    <span class="logo-icon brand-logo" aria-hidden="true"></span>
+                    <span class="header-title"><strong>ElimuTaifa</strong><small>#Prepare for success</small></span>
+                </a>
             </div>
-            <div class="datetime-display"><i class="fa-solid fa-circle-info"></i><span>ABOUT-ELIMUTAIFA</span></div>
+            <div class="datetime-display"><i class="fa-solid fa-circle-info"></i><span>ABOUT ELIMUTAIFA</span></div>
         </header>
 
         <main class="about-content">
             <section class="about-intro">
-                <span class="home-eyebrow"><i class="fa-solid fa-circle-info"></i> ABOUT-ELIMUTAIFA</span>
-                <h2>WE MAKE RESULTS<br><span>EASIER</span></h2>
-                <p>ElimuTaifa helps students, parents, and schools access national examination results quickly and clearly.</p>
+                <span class="home-eyebrow"><i class="fa-solid fa-circle-info"></i> ABOUT ELIMUTAIFA</span>
+                <h1>EDUCATION INFORMATION<br><span>MADE EASIER</span></h1>
+                <p>ElimuTaifa helps students, parents, teachers, schools and organisations find useful education information and announcements in one clear place.</p>
             </section>
 
             <section class="about-layout">
                 <div class="about-panel">
                     <h3>About ElimuTaifa</h3>
-                    <p>ElimuTaifa is a focused result-access platform designed to simplify the process of finding published examination results. We bring the main education levels into one clear starting point with a straightforward search experience.</p>
+                    <p>ElimuTaifa is an independent education-information platform. It brings together education announcements, examination results, selection information, admission updates and other useful learning opportunities through a simple experience.</p>
                 </div>
                 <div class="about-panel mission-panel">
                     <h3>Our mission</h3>
-                    <p>To make Education informations access faster, simpler, and more reliable for everyone.</p>
+                    <p>To make education information easier to find, understand and use for everyone.</p>
                 </div>
             </section>
 
             <section class="about-features" aria-label="What we provide">
-                <div class="about-feature"><i class="fa-solid fa-bolt"></i><strong>Fast access</strong><small>Reach result pages with fewer steps.</small></div>
-                <div class="about-feature"><i class="fa-solid fa-layer-group"></i><strong>Multiple levels</strong><small>ACSEE, CSEE, FTNA, PSLE, and SFNA.</small></div>
-                <div class="about-feature"><i class="fa-solid fa-route"></i><strong>Simple experience</strong><small>Clear navigation built for repeated use.</small></div>
-                <div class="about-feature"><i class="fa-solid fa-circle-check"></i><strong>Reliable information</strong><small>Access published results from official and trusted sources.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-bullhorn"></i><strong>Education announcements</strong><small>Important updates presented clearly and on time.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-chart-column"></i><strong>Examination results</strong><small>Access ACSEE, CSEE, FTNA, PSLE and SFNA result sources.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-list-check"></i><strong>Selection and admission</strong><small>Dedicated information sections are being prepared.</small></div>
+                <div class="about-feature"><i class="fa-solid fa-route"></i><strong>Simple experience</strong><small>Clear navigation for every member of the education community.</small></div>
             </section>
 
             <section class="about-steps" aria-label="How it works">
-                <div class="about-step"><b>01</b><span><strong>Choose a level</strong><small>Select the examination from Results.</small></span></div>
-                <div class="about-step"><b>02</b><span><strong>Enter details</strong><small>Provide the index number and year.</small></span></div>
-                <div class="about-step"><b>03</b><span><strong>View results</strong><small>Review the retrieved result information.</small></span></div>
+                <div class="about-step"><b>01</b><span><strong>Choose a service</strong><small>Open announcements, results, selections or admissions.</small></span></div>
+                <div class="about-step"><b>02</b><span><strong>Follow simple guidance</strong><small>Use the instructions provided for that information.</small></span></div>
+                <div class="about-step"><b>03</b><span><strong>Verify important details</strong><small>Confirm critical information with its original provider.</small></span></div>
             </section>
 
             <section class="about-action">
-                <span><strong>Have a question or suggestion?</strong><small>Contact the ElimuTaifaTaifaTaifa team through Edutech.</small></span>
+                <span><strong>Have a question or suggestion?</strong><small>Contact the independent ElimuTaifa team.</small></span>
                 <a href="../contact/">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
             </section>
         </main>
 
-        <footer class="footer home-footer about-footer"><span>&copy; 2026 ElimuTaifaTaifa <b>·</b> Techware47</span><span><a href="../privacy/">Privacy Policy</a><a href="../privacy/#terms">Terms of Use</a></span></footer>
+        <footer class="footer home-footer about-footer"><span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span><span><a href="../privacy/">Privacy Policy</a><a href="../privacy/#terms">Terms of Use</a></span></footer>
     </div>
 
 </body>

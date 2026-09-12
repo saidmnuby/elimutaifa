@@ -1,8 +1,7 @@
 <?php
 // Ensure session is active for error propagation
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once dirname(__DIR__, 2) . '/includes/session.php';
+grf_start_session();
 
 include_once dirname(__DIR__, 2) . '/includes/result_request.php';
 
@@ -44,6 +43,7 @@ if ($districtz !== '' && !empty($url)) {
     $loaded = $dom->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     
     if (!$loaded) {
+        et_record_system_event('district_html_parse_failed', 'The upstream district page could not be parsed as HTML.', 'error', ['target_url' => $url ?? '', 'exam_type' => 'SFNA']);
         $_SESSION['error_title']   = "Error_<H001B>";
         $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mfumo, Tafathali jaribu baadae.";
         $_SESSION['style']         = "warning-alert";
@@ -75,6 +75,9 @@ if ($districtz !== '' && !empty($url)) {
             'name' => $schoolText,
             'url'  => $fullUrl
         ];
+    }
+    if (empty($schools)) {
+        et_record_system_event('district_school_list_empty', 'No school links were found; the district directory layout may have changed.', 'warning', ['target_url' => $url ?? '', 'exam_type' => 'SFNA']);
     }
 }
 ?>

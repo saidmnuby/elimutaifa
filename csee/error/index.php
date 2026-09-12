@@ -9,7 +9,8 @@ include 'header.php'; // Include the header file
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matokeo ya Form Five Necta | ElimuTaifa</title>
+    <meta name="robots" content="noindex, follow">
+    <title>Matokeo ya Form Four (CSEE) | ElimuTaifa</title>
     
     <meta
     name="description"
@@ -17,13 +18,13 @@ include 'header.php'; // Include the header file
 
     <link
     rel="canonical"
-    href="https://elimutafuta.com/csee/">
+    href="https://elimutaifa.com/csee/">
 
     <meta property="og:title"
     content="Matokeo ya Form Four 2026 - NECTA">
 
     <meta property="og:description"
-    content="Angalia matokeo ya Foem Four mwaka 2026 na Elimutaifa.">
+    content="Angalia matokeo ya Form Four mwaka 2026 na ElimuTaifa.">
 
     <meta property="og:type" content="website">
     
@@ -31,7 +32,7 @@ include 'header.php'; // Include the header file
     content="https://elimutaifa.com/csee/">
 
     <meta property="og:image"
-    content="https://elimutaifa.com/assets/images/psle-results.jpg">
+    content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -41,11 +42,12 @@ include 'header.php'; // Include the header file
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
+    <script src="../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../../assets/css/education.css">
     <script src="../../assets/js/script.js"></script>
 
 </head>
-<body class="education-page">
+<body class="education-page level-error" data-exam="csee">
     
 
     <!-- Custom Dynamic Alert Container -->
@@ -63,7 +65,7 @@ include 'header.php'; // Include the header file
                 <h6 style="color:black;margin-top:4px;text-align:left;"><?php echo htmlspecialchars($error_title); ?></h6>
 
             </p>
-            <button class="commit-button" onclick="window.location.href='../error/'">OK ▶</button>
+            <button class="commit-button" onclick="window.location.href='../'">RUDI ▶</button>
         </section>
     </section>
     <main class="blur-background">
@@ -77,43 +79,43 @@ include 'header.php'; // Include the header file
     <aside class="sidebar" id="sidebar">
         <ul class="sidebar-menu">
             <li>
-                <a href="../" class="sidebar-item">
+                <a href="../../" class="sidebar-item">
                     <i class="fa-solid fa-house"></i>
                     <span>Nyumbani</span>
                 </a>
             </li>
-                <a href="../acsee/" class="sidebar-item">
+                <a href="../../acsee/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
                     <span>FORM SIX (ACSEE)</span>
                 </a>
             </li>
             <li>
-                <a href="../csee/" class="sidebar-item active" >
+                <a href="../../csee/" class="sidebar-item active" >
                    <i class="fa-solid fa-list-check"></i>
                     <span>FORM FOUR (CSEE)</span>
                 </a>
             </li>
             <li>
             <li>
-                <a href="../ftna" class="sidebar-item">
+                <a href="../../ftna/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
                     <span>FORM TWO (FTNA)</span>
                 </a>
             </li>
             <li>
-                <a href="../psle/" class="sidebar-item">
+                <a href="../../psle/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
                     <span>STANDARD 7 (PSLE)</span>
                 </a>
             </li>
             <li>
             <li>
-                <a href="../sfna/" class="sidebar-item">
+                <a href="../../sfna/" class="sidebar-item">
                    <i class="fa-solid fa-list-check"></i>
                     <span>STANDARD 4 (SFNA)</span>
                 </a>
             </li><br>
-                <a href="../contribution/" class="sidebar-item">
+                <a href="../../contribution/" class="sidebar-item">
                    <i class="fa-solid fa-comments"></i>
                     <span>Ask, Contribute, Comment</span>
                 </a>
@@ -134,7 +136,7 @@ include 'header.php'; // Include the header file
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
                     <div class="header-title">
                         <span class="site-name">ElimuTaifa</span>
                         <p>#position for success</p>
@@ -158,7 +160,7 @@ include 'header.php'; // Include the header file
                     </div>
                     <h1 class="intro-title">Matokeo ya Form Four 2026 (CSEE)</h1>
                     <section class="seo-content">
-                        <p>Angalia matokeo ya mtihani wa kidato cha pili
+                        <p>Angalia matokeo ya mtihani wa kidato cha nne
                             (CSEE) mwaka 2026 kwa
                             kuandika index  namba ya mtihani na mwaka.
                         </p>
@@ -171,7 +173,7 @@ include 'header.php'; // Include the header file
                     <!-- Search by Index Card -->
                     <div class="card">
                         <!-- Direct Action to Form Four (CSEE) endpoint -->
-    <form id="index1" method="post" action="results/">
+    <form id="index1" method="post" action="../results/">
     <!-- Hidden inputs submitted to PHP -->
 
     <div class="card-header">
@@ -183,15 +185,15 @@ include 'header.php'; // Include the header file
 
     <div class="form-group">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span class="form-label" style="margin-bottom:0;">
-            <i class="fa-regular fa-pen-to-square" style="color:var(--primary-green);padding-right: 2px;"></i>Andika INDEX Namba ya Mtihani hapa...</span>
+            <label class="form-label" for="candidate" style="margin-bottom:0;">
+            <i class="fa-regular fa-pen-to-square" style="color:var(--primary-green);padding-right: 2px;"></i>Andika namba ya mtihani</label>
         </div>
         
         <div class="dividexp">
             <div class="example-hint">Mfano: <br> <span>P3743/0037</span> <br> <span>P2173/0002 </span></div>
             <div class="input-with-icon">
                 <i class="fa-regular fa-user"></i>
-                <input type="text" class="form-input" id="candidate" name="candidate" maxlength="14" required>
+                <input type="text" class="form-input" id="candidate" name="candidate" maxlength="14" autocomplete="off" required>
             </div>
         </div>
     </div>
@@ -236,8 +238,8 @@ include 'header.php'; // Include the header file
                 <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             </div>
             <div class="footer-links">
-                <a href="../privacy/">Sera za Matumizi</a> |
-                <a href="../privacy/">Faragha</a>
+                <a href="../../privacy/">Sera za Matumizi</a> |
+                <a href="../../privacy/">Faragha</a>
             </div>
         </footer>
     </div>

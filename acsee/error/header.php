@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once dirname(__DIR__, 2) . '/includes/session.php';
+grf_start_session();
 if (isset($_SESSION['error_message'])) {
     $error_title = $_SESSION['error_title'];
     $style = isset($_SESSION['style']) ? $_SESSION['style'] : 'failed-alert';

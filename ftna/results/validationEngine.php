@@ -1,5 +1,7 @@
 <?php
-session_start();
+require_once dirname(__DIR__, 2) . '/includes/session.php';
+require_once dirname(__DIR__, 2) . '/includes/validation.php';
+grf_start_session();
 $examYear = isset($_POST['examYear']) ? filter_var($_POST['examYear'], FILTER_VALIDATE_INT) : false;
 $candidate = isset($_POST['candidate']) ? filter_var(trim($_POST['candidate']), FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
 
@@ -11,9 +13,7 @@ $schoolCode = $school_id;
 
 
 // Validate NECTA format server-side
-$nectaPattern = '/^(?:[SP]Q?\d{4}\/\d{4}|\d{})$/i';
-
-if (!preg_match($nectaPattern, $candidate) || $examYear === false || $examYear < 2010 || $examYear > 2026) {
+if (!grf_is_valid_secondary_candidate($candidate) || !grf_is_valid_exam_year($examYear)) {
     // Handle invalid candidate number output
     $_SESSION['error_title'] = "Errorr_<V001>";
     $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";

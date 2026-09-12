@@ -3,89 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask, Contribute, Comment | ElimuTaifa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Tuma swali, taarifa ya elimu, marekebisho, pendekezo au maoni kwa ElimuTaifa ili kusaidia kuboresha taarifa kwa wanafunzi, wazazi, walimu na shule.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <title>Tuma Swali, Taarifa au Maoni | ElimuTaifa</title>
+    <meta name="theme-color" content="#031B4E">
+    <link rel="canonical" href="https://elimutaifa.com/contribution/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="sw_TZ">
+    <meta property="og:site_name" content="ElimuTaifa">
+    <meta property="og:title" content="Tuma Swali, Taarifa au Maoni | ElimuTaifa">
+    <meta property="og:description" content="Shiriki taarifa ya elimu, marekebisho, pendekezo au maoni na ElimuTaifa.">
+    <meta property="og:url" content="https://elimutaifa.com/contribution/">
+    <meta property="og:image" content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="579">
+    <meta property="og:image:alt" content="Tuma taarifa au maoni kwa ElimuTaifa">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tuma Swali, Taarifa au Maoni | ElimuTaifa">
+    <meta name="twitter:description" content="Shiriki taarifa ya elimu, marekebisho, pendekezo au maoni.">
+    <meta name="twitter:image" content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
+    <link rel="icon" type="image/x-icon" href="../assets/img/brand/favicon32px.ico">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ElimuTaifa", "item": "https://elimutaifa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Tuma taarifa au maoni", "item": "https://elimutaifa.com/contribution/" }
+        ]
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../assets/css/consent.css">
     <script src="../assets/js/consent.js"></script>
+    <script src="../assets/js/monitoring.js" defer></script>
+    <script src="style.js" defer></script>
 </head>
-<body>
+<body class="home-page info-page">
     <div class="alert-box" aria-live="polite">
         <div id="alert-message" class="in-alert"></div>
     </div>
 
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <aside class="sidebar" id="sidebar">
-        <ul class="sidebar-menu">
-            <li>
-                <a href="../" class="sidebar-item">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Nyumbani</span>
-                </a>
-            </li>
-                <a href="../acsee/" class="sidebar-item">
-                   <i class="fa-solid fa-list-check"></i>
-                    <span>FORM SIX (ACSEE)</span>
-                </a>
-            </li>
-            <li>
-                <a href="../csee/" class="sidebar-item" >
-                   <i class="fa-solid fa-list-check"></i>
-                    <span>FORM FOUR (CSEE)</span>
-                </a>
-            </li>
-            <li>
-            <li>
-                <a href="../ftna" class="sidebar-item">
-                   <i class="fa-solid fa-list-check"></i>
-                    <span>FORM TWO (FTNA)</span>
-                </a>
-            </li>
-            <li>
-                <a href="../psle/" class="sidebar-item">
-                   <i class="fa-solid fa-list-check"></i>
-                    <span>STANDARD 7 (PSLE)</span>
-                </a>
-            </li>
-            <li>
-            <li>
-                <a href="../sfna/" class="sidebar-item">
-                   <i class="fa-solid fa-list-check"></i>
-                    <span>STANDARD 4 (SFNA)</span>
-                </a>
-            </li><br>
-                <a href="" class="sidebar-item active">
-                   <i class="fa-solid fa-comments"></i>
-                    <span>Ask, Contribute, Comment</span>
-                </a>
-            </li>
-        </ul>
-        <div class="sidebar-quote"><p>“#position for success”</p></div>
+    <aside class="sidebar home-sidebar" id="sidebar">
+        <div>
+            <a class="home-brand" href="../" aria-label="ElimuTaifa home">
+                <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
+                <span><strong>ElimuTaifa</strong><small>www.elimutaifa.com</small></span>
+            </a>
+            <nav aria-label="Main navigation">
+                <ul class="sidebar-menu home-menu">
+                    <li><a href="../" class="sidebar-item"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
+                    <li class="results-menu">
+                        <details open>
+                            <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Matokeo</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
+                            <div class="results-submenu">
+                                <a href="../acsee/">ACSEE <small>Form Six</small></a>
+                                <a href="../csee/">CSEE <small>Form Four</small></a>
+                                <a href="../ftna/">FTNA <small>Form Two</small></a>
+                                <a href="../psle/">PSLE <small>Standard Seven</small></a>
+                                <a href="../sfna/">SFNA <small>Standard Four</small></a>
+                            </div>
+                        </details>
+                    </li>
+                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-list-check"></i><span>Selection</span><em>soon</em></a></li>
+                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
+                    <li><a href="../about/" class="sidebar-item"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
+                    <li><a href="../contact/" class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+                    <li><a href="./" class="sidebar-item active" aria-current="page"><i class="fa-solid fa-comments"></i><span>Maoni</span></a></li>
+                    <li><a href="../privacy/" class="sidebar-item"><i class="fa-solid fa-shield-halved"></i><span>Privacy Policy</span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <p class="sidebar-quote">“#Prepare for success”</p>
     </aside>
 
-    <div class="main-wrapper">
-        <header class="header-banner">
+    <div class="main-wrapper home-wrapper">
+        <header class="header-banner home-header">
             <div class="header-left">
-                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua Menyu"><i class="fa-solid fa-bars"></i></button>
-                <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
-                    <div class="header-title"><h1>ElimuTaifa</h1><p>#position for success</p></div>
-                </div>
+                <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
+                <a class="home-header-brand" href="../" aria-label="ElimuTaifa home">
+                    <span class="logo-icon brand-logo" aria-hidden="true"></span>
+                    <span class="header-title"><strong>ElimuTaifa</strong><small>#Prepare for success</small></span>
+                </a>
             </div>
             <div class="datetime-display">
                 <i class="fa-solid fa-comments"></i>
-                <span id="current-datetime">Ask, Contribute, Comment</span>
+                <span>COMMUNITY DESK</span>
             </div>
         </header>
 
-        <main class="content-container">
+        <main class="contribution-content">
             <div class="contribution-layout">
                 <section class="contribution-intro">
                     <div class="badge-fast"><i class="fa-solid fa-comments"></i> Community Desk</div>
-                    <h2>Ask, Contribute, Comment</h2>
-                    <p>Tuambie unachohitaji, pendekeza maboresho, au shiriki maoni yako kuhusu huduma za ElimuTaifa.</p>
+                    <h1>Ask, Contribute, Comment</h1>
+                    <p>Tuambie unachohitaji, tuma tangazo au taarifa ya elimu, pendekeza maboresho, au shiriki maoni yako kuhusu ElimuTaifa.</p>
                     <div class="contribution-points">
                         <div class="contribution-point"><i class="fa-solid fa-circle-question"></i><span>Uliza kuhusu matokeo na matumizi ya tovuti</span></div>
                         <div class="contribution-point"><i class="fa-solid fa-lightbulb"></i><span>Pendekeza wazo au huduma mpya</span></div>
@@ -100,61 +117,44 @@
                             <span class="card-title">Tuma ujumbe</span>
                         </div>
                     </div>
-                    <form class="contribution-form" id="contribution-form">
+                    <form class="contribution-form" id="contribution-form" action="../api/submissions.php" method="post" novalidate>
+                        <div class="form-group" aria-hidden="true" style="position:absolute;left:-9999px"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
                         <div class="form-group">
                             <label class="form-label" for="topic">Aina ya ujumbe</label>
                             <select id="topic" name="topic" required>
                                 <option value="" selected disabled>Chagua aina ya ujumbe</option>
                                 <option value="question">Swali</option>
+                                <option value="announcement">Taarifa au tangazo la elimu</option>
                                 <option value="contribution">Pendekezo</option>
                                 <option value="comment">Maoni</option>
                                 <option value="report">Ripoti tatizo</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="name">Your Position(Eg:Teacher, student,  any officer of any organisation or Other) </label>
+                            <label class="form-label" for="name">Nafasi yako</label>
+                            <small class="field-help">Mfano: mwanafunzi, mzazi, mwalimu, shule au shirika.</small>
                             <input id="name" name="name" type="text" maxlength="80" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="contact">Phone or Email</label>
+                            <label class="form-label" for="contact">Simu au barua pepe <span>(si lazima)</span></label>
                             <input id="contact" name="contact" type="text" maxlength="120" >
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="message">Message, Opinion and suggestions</label>
+                            <label class="form-label" for="message">Ujumbe, maoni au pendekezo</label>
                             <textarea id="message" name="message" maxlength="1000"  required></textarea>
                         </div>
-                        <p class="form-note">It should be non-privacy informations</p>
+                        <p class="form-note"><i class="fa-solid fa-shield-halved"></i> Usitume nenosiri, namba ya kitambulisho au taarifa nyingine nyeti.</p>
                         <button type="submit" class="btn btn-green"><i class="fa-solid fa-paper-plane"></i><span>Tuma ujumbe</span><i class="fa-solid fa-arrow-right" style="margin-left:auto"></i></button>
                     </form>
                 </section>
             </div>
         </main>
 
-        <footer class="footer">
+        <footer class="footer home-footer contribution-footer">
             <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
             <div class="footer-links"><a href="../privacy/">Sera za Matumizi</a> | <a href="../privacy/">Faragha</a></div>
         </footer>
     </div>
 
-    <script src="../assets/js/script.js"></script>
-    <script src="script.js"></script>
 </body>
-
-<script>
-            document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebar = document.getElementById("sidebar");
-            const sidebarOverlay = document.getElementById("sidebarOverlay");
-            let alertTimer = null;
-
-            // 1. Mobile Sidebar Toggle
-            function toggleMenu() {
-                sidebar.classList.toggle("open");
-                sidebarOverlay.classList.toggle("active");
-            }
-
-            if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
-            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleMenu);
-        });
-</script>
 </html>

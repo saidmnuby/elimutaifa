@@ -4,18 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angalia Matokeo ya Standard Seven (PSLE)</title>
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="same-origin">
+    <meta name="theme-color" content="#031B4E">
+    <meta name="application-name" content="ElimuTaifa">
+    <title>Shule za PSLE | ElimuTaifa</title>
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="../../assets/img/brand/favicon32px.ico">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="../../assets/img/brand/favicon16px.ico">
+    <link rel="apple-touch-icon" href="../../assets/img/brand/circle_logo.png">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/consent.css">
     <script src="../../assets/js/consent.js"></script>
+    <script src="../../assets/js/monitoring.js" defer></script>
+    <link rel="stylesheet" href="../../assets/css/education.css">
     <script src="assets/js/script.js"></script>
+    <script src="../../assets/js/school-search.js" defer></script>
     
 </head>
-<body>
+<body class="education-page level-schools" data-exam="psle">
 
     <!--this is   -->
     <div class="alert-box" >
@@ -93,7 +104,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="logo-section">
-                    <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                    <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
                     <div class="header-title">
                         <h1>ElimuTaifa</h1>
                         <p>#position for success</p>
@@ -101,7 +112,7 @@
                 </div>
             </div>
             <div class="datetime-display">
-                <span>Primary School Living Examination (PSLE)</span>
+                <span>Primary School Leaving Examination (PSLE)</span>
             </div>
         </header>
 
@@ -113,21 +124,38 @@
             <div class="grid-layout-results">
                 
                 <!-- Secondary Info Section -->
-                <section class="intro-card">
-                    <div class="badge-fast">
-                        <i class="fa-solid fa-bolt"></i> PSLE Examination Results
-                    </div>
-                    <h2 >MATOKEO YA NECTA -Darasa la Saba (PSLE) <?php echo htmlspecialchars($examYear, ENT_QUOTES, 'UTF-8'); ?></h2>
-                    <h3 class="intro-title">
-                        <?php echo htmlspecialchars(ucwords($searchKey), ENT_QUOTES, 'UTF-8'); ?>,
-                        <?php echo htmlspecialchars(ucwords($regiontz), ENT_QUOTES, 'UTF-8'); ?>
-                    </h3>
-                </section>
+                <div class="school-context-column">
+                    <section class="intro-card">
+                        <div class="badge-fast">
+                            <i class="fa-solid fa-bolt"></i> PSLE Examination Results
+                        </div>
+                        <h2>ORODHA YA SHULE · DARASA LA SABA (PSLE) <?php echo htmlspecialchars($examYear, ENT_QUOTES, 'UTF-8'); ?></h2>
+                        <h3 class="intro-title">
+                            <?php echo htmlspecialchars(ucwords($searchKey), ENT_QUOTES, 'UTF-8'); ?>,
+                            <?php echo htmlspecialchars(ucwords($regiontz), ENT_QUOTES, 'UTF-8'); ?>
+                        </h3>
+                    </section>
+                    <section class="school-history" aria-labelledby="recent-schools-title">
+                        <h4 id="recent-schools-title"><i class="fa-solid fa-clock-rotate-left"></i> zimetefutwa hivi karibuni</h4>
+                        <div class="recent-schools" id="recentSchools">
+                            <p class="recent-schools-empty">Hakuna shule iliyochaguliwa bado.</p>
+                        </div>
+                    </section>
+                </div>
                 
 
                 <div class="right-column-results">
+                    <section class="school-search" role="search" aria-labelledby="school-search-label">
+                        <label id="school-search-label" for="schoolSearch">Tafuta jina la shule</label>
+                        <div class="school-search-control">
+                            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                            <input id="schoolSearch" type="search" placeholder="Anza kuandika jina la shule..." autocomplete="off" spellcheck="false" aria-controls="schoolList" aria-describedby="schoolSearchSummary">
+                        </div>
+                        <p class="school-search-summary" id="schoolSearchSummary" aria-live="polite"></p>
+                    </section>
                     <div class="card">
-                            <div class="schoolCard">
+                            <p class="school-search-empty" id="schoolSearchEmpty" hidden>Hakuna shule inayolingana na jina uliloandika.</p>
+                            <div class="schoolCard" id="schoolList">
                                         <?php if (!empty($schools)): ?>
                                                 <?php foreach ($schools as $school): ?>
                                                     
@@ -140,7 +168,7 @@
                                                         }
                                                     ?>
 
-                                                    <a href="<?php echo htmlspecialchars($resultsurl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                                                    <a href="<?php echo htmlspecialchars($resultsurl, ENT_QUOTES, 'UTF-8'); ?>" data-school-name="<?php echo htmlspecialchars($school['full'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
                                                         <div class="oneSchool">
                                                             <?php echo htmlspecialchars($school['full'], ENT_QUOTES, 'UTF-8'); ?>
                                                     
@@ -148,7 +176,7 @@
                                                     </a>
                                                 <?php endforeach; ?>
                                         <?php else: ?>
-                                            <p>No schools found.</p>
+                                            <p class="no-results">Hakuna shule zilizopatikana.</p>
                                         <?php endif; ?>
                             </div>
                     </div>
