@@ -153,7 +153,7 @@
                         </div>
                         <p class="school-search-summary" id="schoolSearchSummary" aria-live="polite"></p>
                     </section>
-                    <div class="card">
+                    <div class="card" tabindex="0" role="region" aria-label="Orodha ya shule">
                             <p class="school-search-empty" id="schoolSearchEmpty" hidden>Hakuna shule inayolingana na jina uliloandika.</p>
                             <div class="schoolCard" id="schoolList">
                                         <?php if (!empty($schools)): ?>
