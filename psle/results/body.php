@@ -150,7 +150,7 @@
                     <div class="card-one">
                         <?php if ($examYear <= '2020') { ?>
                             
-                        <table class="center result-summary-table">
+                        <table class="center">
                             <tr style="background-color: transparent;">
                                 <th>CNO</th>
                                 <th>SEX</th>
@@ -166,7 +166,7 @@
                             </tr>
                         <?php }else{?>
                             
-                        <table class="center result-summary-table">
+                        <table class="center">
                             <tr style="background-color: transparent;">
                                 <th>CNO</th>
                                 <th>PREM NO</th>
@@ -190,7 +190,7 @@
                     
                     <div class="card-one">
 
-                        <table class="left result-subject-table">
+                        <table class="left">
                             <tr  style="background-color: transparent;">
                                 <th>SUBJECT</th>
                                 <th class="center">GRADE</th>

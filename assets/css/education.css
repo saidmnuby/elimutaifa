@@ -603,36 +603,6 @@ html.school-results-page body {
     font-size: 12px;
 }
 
-/* Candidate result tables must stay inside the result card on narrow screens. */
-.education-page.level-results .card-one {
-    overflow-x: hidden;
-}
-
-.education-page.level-results .card-one table {
-    min-width: 0;
-    table-layout: fixed;
-}
-
-.education-page.level-results .card-one th,
-.education-page.level-results .card-one td {
-    overflow-wrap: anywhere;
-}
-
-.education-page.level-results .result-subject-table th:nth-child(1),
-.education-page.level-results .result-subject-table td:nth-child(1) {
-    width: 58%;
-}
-
-.education-page.level-results .result-subject-table th:nth-child(2),
-.education-page.level-results .result-subject-table td:nth-child(2) {
-    width: 18%;
-}
-
-.education-page.level-results .result-subject-table th:nth-child(3),
-.education-page.level-results .result-subject-table td:nth-child(3) {
-    width: 24%;
-}
-
 .education-page .card-one th,
 .education-page .card-one td {
     padding: 12px 13px;
@@ -1272,17 +1242,6 @@ html.school-results-page body {
 
     .education-page .card-one {
         margin-right: -2px;
-    }
-
-    .education-page.level-results .card-one th,
-    .education-page.level-results .card-one td {
-        padding: 10px 6px;
-        font-size: 9px;
-    }
-
-    .education-page.level-results .card-one th {
-        font-size: 8px;
-        letter-spacing: 0.2px;
     }
 
     .education-page.level-error .alert-panel {
