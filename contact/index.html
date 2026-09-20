@@ -41,6 +41,7 @@
     <script src="assets/js/script.js"></script>
     <script src="../assets/js/consent.js"></script>
     <script src="../assets/js/monitoring.js" defer></script>
+    <script src="../assets/js/placements.js" defer></script>
 </head>
 <body class="home-page info-page">
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -58,21 +59,29 @@
                 <ul class="sidebar-menu home-menu">
                     <li><a href="../" class="sidebar-item"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
                     <li class="results-menu">
-                        <details open>
+                        <details>
                             <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Matokeo</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
                             <div class="results-submenu">
-                                <a href="../acsee/">ACSEE <small>Form Six</small></a>
-                                <a href="../csee/">CSEE <small>Form Four</small></a>
-                                <a href="../ftna/">FTNA <small>Form Two</small></a>
-                                <a href="../psle/">PSLE <small>Standard Seven</small></a>
-                                <a href="../sfna/">SFNA <small>Standard Four</small></a>
+                                <a href="../results/acsee/">ACSEE <small>Form Six</small></a>
+                                <a href="../results/csee/">CSEE <small>Form Four</small></a>
+                                <a href="../results/ftna/">FTNA <small>Form Two</small></a>
+                                <a href="../results/psle/">PSLE <small>Standard Seven</small></a>
+                                <a href="../results/sfna/">SFNA <small>Standard Four</small></a>
                             </div>
                         </details>
                     </li>
-                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-list-check"></i><span>Selection</span><em>soon</em></a></li>
-                    <li><a href="#" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
-                    <li><a href="../about/" class="sidebar-item"><i class="fa-solid fa-comments"></i><span>About Us</span></a></li>
-                    <li><a href="./" class="sidebar-item active" aria-current="page"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+                    
+                    <li class="results-menu selections-menu">
+                        <details>
+                            <summary class="sidebar-item"><i class="fa-solid fa-list-check"></i><span>Selections</span><i class="fa-solid fa-chevron-down menu-chevron" aria-hidden="true"></i></summary>
+                            <div class="results-submenu">
+                                <a href="../selection/form-one/">Form One <small>Darasa la Saba → Kidato cha Kwanza</small></a>
+                                <a href="../selection/form-five/">Form Five / Vyuo vya kati <small>Kidato cha Nne → Kidato cha Tano / Chuo</small></a>
+                            </div>
+                        </details>
+                    </li>
+                    <li><a href="../about" class="sidebar-item" aria-current="page"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
+                    <li><a href="./" class="sidebar-item active"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
                     <li><a href="../contribution/" class="sidebar-item"><i class="fa-solid fa-comments"></i><span>Maoni</span></a></li>
                     <li><a href="../privacy/" class="sidebar-item"><i class="fa-solid fa-shield-halved"></i><span>Privacy Policy</span></a></li>
                 </ul>
@@ -93,6 +102,7 @@
             <div class="datetime-display"><span><i class="fa-solid fa-envelope"></i> ELIMUTAIFA CONTACT DESK</span></div>
         </header>
 
+        <div data-et-placement-slot="top" data-et-placement-page="contact" hidden></div>
         <main class="contact-content">
             <section class="contact-intro">
                 <span class="home-eyebrow"><i class="fa-solid fa-envelope"></i> ELIMUTAIFA CONTACT DESK</span>
@@ -120,7 +130,7 @@
                     </div>
                 </div>
             </section>
-        </main>
+        </main><div data-et-placement-slot="bottom" data-et-placement-page="contact" hidden></div>
 
         <footer class="footer home-footer contact-footer"><span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span><span><a href="../privacy/">Privacy Policy</a><a href="../privacy/#terms">Terms of Use</a></span></footer>
     </div>

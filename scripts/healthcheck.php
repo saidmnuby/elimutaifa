@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-$requiredExtensions = ['curl', 'dom', 'fileinfo', 'libxml', 'pdo', 'pdo_sqlite'];
+require_once dirname(__DIR__) . '/includes/admin_db.php';
+$requiredExtensions = ['curl', 'dom', 'fileinfo', 'libxml', 'pdo',
+    et_database_config()['driver'] === 'mysql' ? 'pdo_mysql' : 'pdo_sqlite'];
 $missing = array_filter($requiredExtensions, static fn (string $extension): bool => !extension_loaded($extension));
 
 if ($missing !== []) {
@@ -21,4 +23,13 @@ if (!is_dir($uploadDirectory) || !is_writable($uploadDirectory)) {
     exit(1);
 }
 
-echo "PASS: required PHP extensions, storage, and content uploads are available\n";
+try {
+    et_db()->query('SELECT COUNT(*) FROM admin_users')->fetchColumn();
+    foreach (['form_one_cycles','form_five_cycles'] as $table) {
+        et_db()->query('SELECT cycle_key,status,verified_at FROM '.$table.' LIMIT 1')->fetch();
+    }
+} catch (Throwable $exception) {
+    fwrite(STDERR, "Database connection/schema check failed. Check protected database configuration and server logs.\n");
+    exit(1);
+}
+echo "PASS: required PHP extensions, database, storage, and content uploads are available\n";

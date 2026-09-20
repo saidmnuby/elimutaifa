@@ -11,21 +11,18 @@ $basePath = $markerPosition === false ? '' : substr($scriptName, 0, $markerPosit
 $siteHome = ($basePath === '' ? '' : $basePath) . '/';
 $announcementHome = ($basePath === '' ? '' : $basePath) . '/announcements/';
 $database = et_db();
-if (et_refresh_content_states($database) > 0) {
-    et_rebuild_sitemap($database);
-}
 $slug = et_slugify((string) ($_GET['slug'] ?? ''));
 $item = null;
 $isDetail = $slug !== '';
 if ($isDetail) {
     $statement = $database->prepare(<<<'SQL'
 SELECT * FROM content_items
-WHERE slug=:slug AND status='published' AND destination_type='internal'
+WHERE slug=:slug AND status IN ('published','scheduled') AND destination_type='internal'
   AND published_at IS NOT NULL AND published_at <= :now
-  AND (expires_at IS NULL OR expires_at > :now)
+  AND (expires_at IS NULL OR expires_at > :expires_now)
 LIMIT 1
 SQL);
-    $statement->execute(['slug' => $slug, 'now' => et_utc_now()]);
+    $statement->execute(['slug' => $slug, 'now' => et_utc_now(), 'expires_now' => et_utc_now()]);
     $item = $statement->fetch();
     if (!$item) {
         http_response_code(404);
@@ -56,9 +53,11 @@ $socialImage = $imageUrl !== '' ? $imageUrl : ($youtubeCoverUrl !== '' ? $youtub
     <link rel="icon" href="<?= htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8') ?>/assets/img/brand/favicon32px.ico"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="<?= htmlspecialchars($announcementHome, ENT_QUOTES, 'UTF-8') ?>style.css">
     <?php if ($youtubeId !== null): ?><script src="<?= htmlspecialchars($announcementHome, ENT_QUOTES, 'UTF-8') ?>media.js" defer></script><?php endif; ?>
     <?php if ($item): ?><script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Article','headline'=>$item['title'],'description'=>$item['excerpt'],'datePublished'=>str_replace(' ','T',$item['published_at']).'Z','dateModified'=>str_replace(' ','T',$item['updated_at']).'Z','mainEntityOfPage'=>$canonical,'publisher'=>['@type'=>'Organization','name'=>'ElimuTaifa','url'=>'https://elimutaifa.com/']], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script><?php endif; ?>
+    <script src="../assets/js/placements.js" defer></script>
 </head>
 <body>
 <header class="public-header"><a class="public-brand" href="<?= htmlspecialchars($siteHome, ENT_QUOTES, 'UTF-8') ?>"><img src="<?= htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8') ?>/assets/img/brand/circle_logo.png" alt=""><span>ElimuTaifa</span></a><nav><a href="<?= htmlspecialchars($siteHome, ENT_QUOTES, 'UTF-8') ?>#exam-levels">Matokeo</a><a href="<?= htmlspecialchars($siteHome, ENT_QUOTES, 'UTF-8') ?>#announcements">Matangazo</a><a href="<?= htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8') ?>/contact/">Msaada</a></nav></header>
+        <div data-et-placement-slot="top" data-et-placement-page="announcements" hidden></div>
 <main class="public-main">
 <?php if ($item): ?>
     <a class="back-link" href="<?= htmlspecialchars($siteHome, ENT_QUOTES, 'UTF-8') ?>">← Rudi nyumbani</a>
@@ -90,5 +89,5 @@ $socialImage = $imageUrl !== '' ? $imageUrl : ($youtubeCoverUrl !== '' ? $youtub
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-</main><footer class="public-footer">ElimuTaifa ni jukwaa huru la taarifa za elimu. <a href="<?= htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8') ?>/privacy/">Privacy Policy na Terms</a></footer>
+</main><div data-et-placement-slot="bottom" data-et-placement-page="announcements" hidden></div><footer class="public-footer">ElimuTaifa ni jukwaa huru la taarifa za elimu. <a href="<?= htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8') ?>/privacy/">Privacy Policy na Terms</a></footer>
 </body></html>

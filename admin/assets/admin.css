@@ -186,6 +186,15 @@ a { color: inherit; }
 }
 .form-field textarea { min-height: 130px; resize: vertical; line-height: 1.55; }
 .form-field textarea.body-editor { min-height: 280px; }
+.placement-editor { max-width: 1040px; }
+.placement-editor .form-section { padding: 18px; }
+.placement-editor .form-section h2 { margin-bottom: 12px; }
+.placement-editor .placement-description textarea { min-height: 84px; }
+.placement-targets { min-width: 0; margin: 0; padding: 12px; border: 1px solid #dce5ed; border-radius: 9px; }
+.placement-targets legend { padding: 0 6px; font-size: 13px; font-weight: 800; }
+.placement-target-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px 12px; }
+.placement-target-grid label { display: flex; align-items: center; gap: 7px; min-width: 0; font-size: 12px; font-weight: 700; }
+.placement-target-grid input { flex: 0 0 auto; width: auto; margin: 0; }
 .form-error { color: var(--danger); font-size: 12px; font-weight: 700; }
 .check-row { display: flex; gap: 20px; flex-wrap: wrap; }
 .check-row label { display: inline-flex; gap: 8px; align-items: center; font-weight: 700; }
@@ -271,6 +280,7 @@ a { color: inherit; }
     .admin-page-heading { align-items: flex-start; flex-direction: column; }
     .stat-grid, .form-grid { grid-template-columns: 1fr; }
     .form-field.full { grid-column: auto; }
+    .placement-target-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .admin-table th:nth-child(3), .admin-table td:nth-child(3) { display: none; }
     .media-choice-grid { grid-template-columns: 1fr; }
     .media-choice { min-height: 68px; }

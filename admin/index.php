@@ -21,17 +21,19 @@ $trafficStart = (new DateTimeImmutable('today', new DateTimeZone('Africa/Dar_es_
 $trafficStatement = $database->prepare('SELECT COALESCE(SUM(views),0) FROM traffic_daily WHERE day>=:start_day');
 $trafficStatement->execute(['start_day'=>$trafficStart]);
 $views7 = (int) $trafficStatement->fetchColumn();
-$popupTitle = $database->query(<<<'SQL'
+$popupStatement = $database->prepare(<<<'SQL'
 SELECT title FROM content_items
-WHERE status = 'published' AND is_popup = 1 AND published_at <= datetime('now')
-  AND (expires_at IS NULL OR expires_at > datetime('now'))
+WHERE status = 'published' AND is_popup = 1 AND published_at <= :published_now
+  AND (expires_at IS NULL OR expires_at > :expires_now)
 ORDER BY published_at DESC LIMIT 1
-SQL)->fetchColumn();
+SQL);
+$popupStatement->execute(['published_now' => et_utc_now(), 'expires_now' => et_utc_now()]);
+$popupTitle = $popupStatement->fetchColumn();
 $recentContent = $database->query(
     'SELECT id, title, status, category, updated_at FROM content_items ORDER BY updated_at DESC LIMIT 10'
 )->fetchAll();
 $recentAudit = $database->query(
-    'SELECT action, entity_type, details, created_at FROM audit_logs ORDER BY id DESC LIMIT 3'
+    'SELECT action, entity_type, details, created_at FROM audit_logs WHERE ' . et_audit_visibility_sql($user) . ' ORDER BY id DESC LIMIT 3'
 )->fetchAll();
 
 et_admin_header('Dashboard', $user);
@@ -45,14 +47,14 @@ et_admin_header('Dashboard', $user);
 <div class="admin-grid dashboard-grid">
     <section class="admin-card dashboard-recent-card"><h2>Maudhui ya karibuni</h2>
         <?php if ($recentContent): ?><ul class="admin-list dashboard-recent-list">
-            <?php foreach ($recentContent as $item): ?><li><div><strong><?= et_e($item['title']) ?></strong><small><?= et_e(ET_CONTENT_CATEGORIES[$item['category']] ?? $item['category']) ?> · <?= et_e($item['updated_at']) ?> UTC</small></div><div><?= et_admin_status_badge($item['status']) ?> <a href="content/edit.php?id=<?= (int) $item['id'] ?>">Hariri</a></div></li><?php endforeach; ?>
+            <?php foreach ($recentContent as $item): ?><li><div><strong><?= et_e($item['title']) ?></strong><small><?= et_e(ET_CONTENT_CATEGORIES[$item['category']] ?? $item['category']) ?> · <?= et_e(et_admin_datetime($item['updated_at'])) ?></small></div><div><?= et_admin_status_badge($item['status']) ?> <a href="content/edit.php?id=<?= (int) $item['id'] ?>">Hariri</a></div></li><?php endforeach; ?>
         </ul><?php else: ?><div class="empty-state">Bado hakuna maudhui. Anza kwa kuongeza tangazo.</div><?php endif; ?>
     </section>
     <div>
         <section class="admin-card"><h2>System health</h2><p><strong><?= number_format($openSystemEvents) ?></strong> open events.</p><a href="monitoring/">Angalia traffic na errors →</a></section>
         <section class="admin-card" style="margin-top:18px"><h2>Current pop-up</h2><p><?= $popupTitle ? et_e($popupTitle) : 'Hakuna pop-up inayotumika sasa.' ?></p></section>
         <section class="admin-card" style="margin-top:18px"><h2>Recent activity</h2>
-            <?php if ($recentAudit): ?><ul class="admin-list"><?php foreach ($recentAudit as $log): ?><li><div><strong><?= et_e(str_replace('_', ' ', $log['action'])) ?></strong><small><?= et_e($log['created_at']) ?> UTC</small></div></li><?php endforeach; ?></ul><?php else: ?><p>Hakuna shughuli.</p><?php endif; ?>
+            <?php if ($recentAudit): ?><ul class="admin-list"><?php foreach ($recentAudit as $log): ?><li><div><strong><?= et_e(str_replace('_', ' ', $log['action'])) ?></strong><small><?= et_e(et_admin_datetime($log['created_at'])) ?></small></div></li><?php endforeach; ?></ul><?php else: ?><p>Hakuna shughuli.</p><?php endif; ?>
         </section>
     </div>
 </div>

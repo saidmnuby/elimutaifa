@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 et_admin_header('Account', $user, 'account');
 ?>
 <div class="admin-page-heading"><div><p>Badilisha nenosiri la admin aliyeingia.</p></div></div>
+<section class="form-section"><h2>Ulinzi wa akaunti</h2><a class="admin-button secondary" href="two-factor.php">Simamia Authenticator (2FA)</a></section>
 <?php if ($error !== ''): ?><div class="admin-alert error" role="alert"><?= et_e($error) ?></div><?php endif; ?>
 <form method="post" class="admin-form" style="max-width:680px">
     <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>">

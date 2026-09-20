@@ -10,8 +10,9 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
     $navItems = [
         'dashboard' => ['Dashboard', $base . 'index.php'],
         'content' => ['Maudhui', $base . 'content/'],
+        'placements' => ['Banners & Sponsors', $base . 'placements/'],
         'submissions' => ['Ujumbe', $base . 'submissions/'],
-        'sources' => ['Result Sources', $base . 'sources.php'],
+        'sources' => ['Result Pages', $base . 'sources.php'],
         'monitoring' => ['Traffic & Errors', $base . 'monitoring/'],
         'audit' => ['Audit Log', $base . 'audit.php'],
         'account' => ['Account', $base . 'account.php'],
@@ -60,6 +61,9 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
             <h1 class="admin-topbar-title"><?= et_e($title) ?></h1>
         </header>
         <main class="admin-content">
+            <?php if ($user['role'] === 'owner' && et_local_development_access() && !et_mfa_state((int) $user['id'])): ?>
+                <div class="admin-alert" role="status">Development ya localhost: 2FA setup imeruhusiwa kuahirishwa kwa muda. Password bado inahitajika; production inahitaji 2FA.</div>
+            <?php endif; ?>
             <?php if ($flash): ?>
                 <div class="admin-alert <?= et_e($flash['type'] ?? 'info') ?>" role="status"><?= et_e($flash['message'] ?? '') ?></div>
             <?php endif; ?>

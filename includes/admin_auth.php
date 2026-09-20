@@ -4,10 +4,27 @@ declare(strict_types=1);
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/admin_db.php';
 require_once __DIR__ . '/monitoring.php';
+require_once __DIR__ . '/two_factor.php';
+require_once __DIR__ . '/development.php';
 et_register_fatal_error_monitoring();
 
 const ET_ADMIN_IDLE_TIMEOUT = 1800;
 const ET_ADMIN_ABSOLUTE_TIMEOUT = 28800;
+
+/** Database timestamps remain UTC; display admin timestamps in Tanzania time. */
+function et_admin_datetime(?string $value): string
+{
+    if ($value === null || trim($value) === '') {
+        return '—';
+    }
+    try {
+        return (new DateTimeImmutable($value, new DateTimeZone('UTC')))
+            ->setTimezone(new DateTimeZone('Africa/Dar_es_Salaam'))
+            ->format('Y-m-d H:i:s') . ' EAT';
+    } catch (Exception) {
+        return '—';
+    }
+}
 
 function et_admin_boot(): void
 {
@@ -54,6 +71,16 @@ function et_admin_user(): ?array
         return null;
     }
 
+    $mfa = et_mfa_state($userId);
+    if (!$mfa && isset($_SESSION['et_admin_mfa'])) {
+        et_admin_logout();
+        return null;
+    }
+    if ($mfa && !hash_equals(hash('sha256', $mfa['secret']), (string) ($_SESSION['et_admin_mfa'] ?? ''))) {
+        et_admin_logout();
+        return null;
+    }
+
     return $user;
 }
 
@@ -72,6 +99,7 @@ function et_require_admin(): array
         et_redirect('../login.php');
     }
 
+    et_require_mfa_setup($user);
     return $user;
 }
 
@@ -82,7 +110,19 @@ function et_require_admin_at_root(): array
         et_redirect('login.php');
     }
 
+    et_require_mfa_setup($user);
     return $user;
+}
+
+function et_require_mfa_setup(array $user): void
+{
+    if (et_mfa_state((int) $user['id'])) { return; }
+    if (et_owner_development_exception($user)) { return; }
+    $script = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    if (str_ends_with($script, '/admin/two-factor.php')) { return; }
+    $position = strpos($script, '/admin/');
+    $base = $position === false ? '' : substr($script, 0, $position);
+    et_redirect($base . '/admin/two-factor.php');
 }
 
 function et_attempt_admin_login(string $username, string $password): array
@@ -128,7 +168,29 @@ function et_attempt_admin_login(string $username, string $password): array
             ]);
     }
 
+    $mfa = et_mfa_state((int) $user['id']);
+    if ($mfa) {
+        if (!et_mfa_rate_allowed((int) $user['id'])) {
+            return ['ok' => false, 'message' => '2FA imezuiwa kwa muda kwa chanzo hiki. Subiri hadi dakika 5 kisha ujaribu tena.'];
+        }
+        et_admin_logout();
+        $_SESSION['et_mfa_pending'] = ['id' => (int) $user['id'], 'expires' => time() + 300,
+            'secret_hash' => hash('sha256', $mfa['secret']), 'failures' => 0,
+            'source_key' => et_mfa_rate_key((int) $user['id'])];
+        return ['ok' => true, 'mfa_required' => true, 'message' => ''];
+    }
+    et_complete_admin_login($user);
+    return ['ok' => true, 'message' => ''];
+}
+
+function et_complete_admin_login(array $user, ?string $mfaHash = null): void
+{
+    $database = et_db();
+    $now = time();
     session_regenerate_id(true);
+    unset($_SESSION['et_mfa_pending'], $_SESSION['et_mfa_setup']);
+    if ($mfaHash !== null) { $_SESSION['et_admin_mfa'] = $mfaHash; }
+    else { unset($_SESSION['et_admin_mfa']); }
     $_SESSION['et_admin_id'] = (int) $user['id'];
     $_SESSION['et_admin_started_at'] = $now;
     $_SESSION['et_admin_last_activity'] = $now;
@@ -136,12 +198,10 @@ function et_attempt_admin_login(string $username, string $password): array
         ->execute(['last_login_at' => et_utc_now(), 'id' => (int) $user['id']]);
     et_audit((int) $user['id'], 'login_succeeded', 'admin_user', (int) $user['id']);
 
-    return ['ok' => true, 'message' => ''];
 }
 
-function et_record_login_failure(PDO $database, string $attemptKey, array|false $attempt, int $now): void
+function et_record_login_failure(PDO $database, string $attemptKey, array|false $attempt, int $now, int $window = 900): void
 {
-    $window = 900;
     $firstAttempt = $attempt ? (int) $attempt['first_attempt_at'] : $now;
     $attempts = $attempt ? (int) $attempt['attempts'] + 1 : 1;
     if ($now - $firstAttempt > $window) {
@@ -150,14 +210,14 @@ function et_record_login_failure(PDO $database, string $attemptKey, array|false 
     }
 
     $blockedUntil = $attempts >= 5 ? $now + $window : 0;
-    $statement = $database->prepare(<<<'SQL'
+    $statement = $database->prepare(et_conflict_sql($database, <<<'SQL'
 INSERT INTO login_attempts (attempt_key, attempts, first_attempt_at, blocked_until)
 VALUES (:attempt_key, :attempts, :first_attempt_at, :blocked_until)
 ON CONFLICT(attempt_key) DO UPDATE SET
     attempts = excluded.attempts,
     first_attempt_at = excluded.first_attempt_at,
     blocked_until = excluded.blocked_until
-SQL);
+SQL));
     $statement->execute([
         'attempt_key' => $attemptKey,
         'attempts' => $attempts,
@@ -172,6 +232,10 @@ function et_admin_logout(): void
         $_SESSION['et_admin_id'],
         $_SESSION['et_admin_started_at'],
         $_SESSION['et_admin_last_activity'],
+        $_SESSION['et_admin_mfa'],
+        $_SESSION['et_mfa_pending'],
+        $_SESSION['et_mfa_setup'],
+        $_SESSION['et_mfa_recovery'],
         $_SESSION['et_csrf_token']
     );
     session_regenerate_id(true);
@@ -206,6 +270,18 @@ SQL);
         'details' => mb_substr($details, 0, 500),
         'created_at' => et_utc_now(),
     ]);
+}
+
+/** Explicit operational allow-list: new or account/security events default to owner-only. */
+function et_audit_visibility_sql(array $user): string
+{
+    if (($user['role'] ?? '') === 'owner') { return '1=1'; }
+    if (($user['role'] ?? '') !== 'admin') { return '1=0'; }
+    return "((audit_logs.entity_type='content_item' AND audit_logs.action IN
+        ('content_created','content_updated','content_archived','content_deleted'))
+        OR (audit_logs.entity_type='submission' AND audit_logs.action='submission_updated')
+        OR (audit_logs.entity_type='system_event' AND audit_logs.action IN ('system_event_open','system_event_resolved'))
+        OR (audit_logs.entity_type='placement_item' AND audit_logs.action IN ('placement_created','placement_updated')))";
 }
 
 function et_flash(string $type, string $message): void

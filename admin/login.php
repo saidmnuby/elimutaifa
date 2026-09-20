@@ -10,13 +10,15 @@ if (et_admin_user() !== null) {
 
 $database = et_db();
 $hasAdmin = (int) $database->query('SELECT COUNT(*) FROM admin_users')->fetchColumn() > 0;
-$error = '';
+$flash = et_take_flash();
+$error = $flash && $flash['type'] === 'error' ? (string) $flash['message'] : '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!et_verify_csrf($_POST['csrf_token'] ?? null)) {
         $error = 'Ombi limeisha muda. Pakia ukurasa upya.';
     } else {
         $result = et_attempt_admin_login((string) ($_POST['username'] ?? ''), (string) ($_POST['password'] ?? ''));
         if ($result['ok']) {
+            if (!empty($result['mfa_required'])) { et_redirect('verify.php'); }
             et_redirect('index.php');
         }
         $error = $result['message'];

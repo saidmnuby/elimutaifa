@@ -52,6 +52,7 @@ html.school-results-page {
 
 .education-page.level-schools .right-column-results > .card {
     min-height: 0;
+    scrollbar-width: none;
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scrollbar-gutter: stable;
@@ -707,7 +708,7 @@ html.school-results-page {
     max-width: 100%;
     margin-top: 16px;
     padding: 0;
-    overflow-x: auto;
+    overflow-x: hidden;
     overscroll-behavior-x: contain;
     border: 1px solid var(--education-border);
     border-radius: 12px;

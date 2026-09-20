@@ -55,6 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showPopup() {
         if (!popup) return;
+        if (document.documentElement.dataset.etPlacementPopup === '1') {
+            popup.hidden = true;
+            return;
+        }
         popup.hidden = false;
         window.requestAnimationFrame(function () { popup.classList.add('is-visible'); });
     }
@@ -70,6 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function configurePopup(item) {
         if (!popup || !popupLink || !popupTitle || !popupText) return;
+        if (document.documentElement.dataset.etPlacementPopup === '1') {
+            popup.hidden = true;
+            return;
+        }
         if (!item) {
             popup.hidden = true;
             return;

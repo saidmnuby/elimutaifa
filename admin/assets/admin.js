@@ -1,4 +1,46 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const recoveryDownload = document.querySelector('[data-download-recovery]');
+    const recoveryCodes = document.getElementById('recoveryCodes');
+    if (recoveryDownload && recoveryCodes) {
+        recoveryDownload.addEventListener('click', function () {
+            const content = 'ElimuTaifa — 2FA recovery codes\n\n'
+                + 'Keep this file private. Each code can be used once. New recovery codes invalidate old ones.\n\n'
+                + recoveryCodes.textContent.trim() + '\n';
+            const url = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'elimutaifa-backup-codes.txt';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+            const status = document.querySelector('[data-recovery-download-status]');
+            if (status) status.textContent = ' Download imeombwa. Hakikisha faili limehifadhiwa sehemu salama.';
+        });
+    }
+    document.querySelectorAll('[data-mfa-countdown]').forEach(function (box) {
+        const remaining = Number(box.dataset.mfaCountdown);
+        if (!Number.isFinite(remaining) || remaining <= 0) return;
+        const deadline = performance.now() + remaining * 1000;
+        const label = box.querySelector('[data-mfa-time]');
+        const buttons = Array.from(document.querySelectorAll('form[method="post"]'))
+            .filter(function (form) { return form.querySelector('input[name="code"], input[name="password"]'); })
+            .flatMap(function (form) { return Array.from(form.querySelectorAll('button')); });
+        const enabledButtons = buttons.filter(function (button) { return !button.disabled; });
+        enabledButtons.forEach(function (button) { button.disabled = true; });
+        function update() {
+            const seconds = Math.max(0, Math.ceil((deadline - performance.now()) / 1000));
+            if (seconds === 0) {
+                box.textContent = 'Lock imeisha. Unaweza kujaribu tena; kama setup au login imeisha muda, anza tena.';
+                enabledButtons.forEach(function (button) { button.disabled = false; });
+                clearInterval(timer);
+                return;
+            }
+            if (label) label.textContent = String(Math.floor(seconds / 60)).padStart(2, '0') + ':' + String(seconds % 60).padStart(2, '0');
+        }
+        const timer = setInterval(update, 1000);
+        update();
+    });
     const menuButton = document.getElementById('adminMenuButton');
     const sidebar = document.getElementById('adminSidebar');
     if (menuButton && sidebar) {

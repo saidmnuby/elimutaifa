@@ -10,6 +10,10 @@ require_once dirname(__DIR__) . '/admin/_layout.php';
 
 $failures = [];
 
+expect(et_admin_datetime('2026-09-15 21:30:00') === '2026-09-16 00:30:00 EAT', 'Admin timestamps must convert UTC to EAT across midnight.');
+expect(et_admin_datetime(null) === '—', 'Missing admin timestamps should display a placeholder.');
+expect(et_admin_datetime('not-a-date') === '—', 'Invalid admin timestamps should not break the page.');
+
 function expect(bool $condition, string $message): void
 {
     global $failures;
@@ -93,7 +97,7 @@ expect($videoContent['media_url'] === 'https://www.youtube.com/watch?v=dQw4w9WgX
 expect(isset($invalidContentErrors['title'], $invalidContentErrors['excerpt'], $invalidContentErrors['body']), 'Invalid admin content must return field errors.');
 $sitemapXml = et_build_sitemap_xml($testDatabase, '2026-09-12');
 $parsedSitemap = simplexml_load_string($sitemapXml);
-expect($parsedSitemap !== false && count($parsedSitemap->url) === 11, 'Generated sitemap should contain all base public pages.');
+expect($parsedSitemap !== false && count($parsedSitemap->url) === 13, 'Generated sitemap should include both selection landing pages.');
 $testPasswordHash = password_hash('Test-Admin-Password-2026!', PASSWORD_DEFAULT);
 $testDatabase->prepare(<<<'SQL'
 INSERT INTO admin_users (username, display_name, password_hash, is_active, created_at, updated_at)
@@ -110,7 +114,7 @@ SQL)->execute(['published_at' => et_utc_now(), 'admin_id' => $adminId, 'created_
 $publicContent = et_public_content($testDatabase, 6);
 expect(count($publicContent) === 1 && $publicContent[0]['slug'] === 'test-announcement', 'Published content should be returned to the public announcement feed.');
 $dynamicSitemap = simplexml_load_string(et_build_sitemap_xml($testDatabase, '2026-09-12'));
-expect($dynamicSitemap !== false && count($dynamicSitemap->url) === 12, 'Published internal announcements should be added to the sitemap.');
+expect($dynamicSitemap !== false && count($dynamicSitemap->url) === 14, 'Published internal announcements should be added alongside both selection modules.');
 $testDatabase = null;
 foreach ([$testDatabasePath, $testDatabasePath . '-shm', $testDatabasePath . '-wal'] as $temporaryDatabaseFile) {
     if (is_file($temporaryDatabaseFile)) {

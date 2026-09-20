@@ -1,0 +1,119 @@
+<?php
+include 'validationEngine.php'; 
+include_once dirname(__DIR__, 3) . '/includes/result_request.php';
+// Include the file with that validate input candidate ID and exam details and year.
+$result = [];
+$text   = '';
+$sex    = 'N/A';
+$div    = 'N/A';
+$aggt   = 'N/A';
+
+if ($candidate !== '' && isset($url)) {
+
+    $response = grf_fetch_result($url);
+    $html = $response['html'];
+    $statusCode = $response['status'];
+
+    if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
+        if ($examYear === 2026) {
+            $_SESSION['error_title']   = "Error_<X001>";
+            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibun.Jaribu hivi baadae..";
+            $_SESSION['style']         = "warning-alert";
+            header("Location: ../error/");
+            exit();
+        }else{
+            $_SESSION['error_title']   = "Error_<H001>";
+            $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mfumo, Tafathali jaribu baadae.";
+            $_SESSION['style']         = "warning-alert";
+            header("Location: ../error/");
+            exit();
+        }
+    }
+
+    if ($html !== false) {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        if (!@$dom->loadHTML($html)) {
+            et_record_system_event('result_html_parse_failed', 'The upstream result page could not be parsed as HTML.', 'error', ['target_url' => $url ?? '', 'exam_type' => 'SFNA']);
+            $_SESSION['error_message'] = "Taarifa za matokeo hazijasomeka kwa sasa. Tafadhali jaribu tena baadaye.";
+            $_SESSION['style'] = "warning-alert";
+            header("Location: ../error/");
+            exit();
+        }
+        libxml_clear_errors();
+
+        // Only accept a school heading ending with this candidate's school code.
+        $text = $school_id;
+        $schoolPattern = '/^(.+?)\s*[-\x{2013}\x{2014}]\s*'
+            . preg_quote($school_id, '/') . '$/iu';
+        $xpath = new DOMXPath($dom);
+        $headings = $xpath->query('//p | //h1 | //h2 | //h3 | //h4 | //h5 | //h6');
+        foreach ($headings as $heading) {
+            $headingText = trim(preg_replace('/[\s\x{00A0}]+/u', ' ', $heading->textContent));
+            if (preg_match($schoolPattern, $headingText, $schoolMatch)
+                && preg_match('/\p{L}/u', $schoolMatch[1])) {
+                $text = $headingText;
+                break;
+            }
+        }
+
+        // Parse Table Rows
+        $rows = $dom->getElementsByTagName("tr");
+
+        foreach ($rows as $row) {
+            $cells = $row->getElementsByTagName("td");
+
+            if ($cells->length >= 4) {
+                $cno = strtoupper(trim($cells->item(0)->textContent));
+
+                if ($cno === strtoupper($candidate)) {
+                    $prem_no  = trim($cells->item(1)->textContent);
+                    $sex      = trim($cells->item(2)->textContent);
+                    $subjects = trim($cells->item($cells->length - 1)->textContent);
+                    if ($examYear <= '2021') {
+                    $subjects = trim($cells->item($cells->length - 2)->textContent);
+                    }
+
+                    // Extract Subjects & Grades
+                    preg_match_all("/([A-Za-z\s &. [A-Za-z\s]+)\s*-\s*([A-F])/i", $subjects, $matches);
+
+                    for ($i = 0; $i < count($matches[1]); $i++) {
+                        $subjName = trim($matches[1][$i]);
+
+                        if (strcasecmp($subjName, 'Average Grade') === 0) {
+                            continue;
+                        }
+
+
+                        $result[] = [
+                            "subject" => $subjName,
+                            "grade"   => strtoupper($matches[2][$i])
+                        ];
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+}
+
+// Check if results were retrieved
+if (empty($result)) {
+    et_record_system_event('result_parse_empty', 'No candidate row was found; the upstream layout or requested record may have changed.', 'warning', ['target_url' => $url ?? '', 'exam_type' => 'SFNA']);
+    $_SESSION['error_title'] = "Errorr_<H002>";
+    $_SESSION['error_message'] = "Hakiki taarifa au tembelea official pages za NECTA";
+    $_SESSION['nectaStatement'] = "visit NECTA pages ▶▷";
+    $_SESSION['NECTA'] = "https://necta.go.tz";
+    $_SESSION['style'] = "warning-alert";
+    header("Location: ../error/");
+    exit();
+}
+
+$_SESSION['success_message'] = "Matokeo ya $candidate mwaka $examYear yamepatikana";
+$_SESSION['style'] = "success";
+
+$successMessage = $_SESSION['success_message'];
+$style          = $_SESSION['style'];
+unset($_SESSION['success_message'], $_SESSION['style']);
+?>

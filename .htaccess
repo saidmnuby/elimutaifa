@@ -10,6 +10,12 @@ DirectoryIndex index.php index.html
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    # Preserve legacy bookmarks and POST bodies while modules use grouped URLs.
+    RewriteCond %{REQUEST_URI} ^(.*?)/(?:acsee|csee|ftna|psle|sfna)(?:/|$)
+    RewriteRule ^(acsee|csee|ftna|psle|sfna)(/.*)?$ %1/results/$1$2 [R=307,L]
+    RewriteCond %{REQUEST_URI} ^(.*?)/(?:form-one|form-five)(?:/|$)
+    RewriteRule ^(form-one|form-five)(/.*)?$ %1/selection/$1$2 [R=307,L]
+    RewriteRule ^vendor(?:/|$) - [F,L]
     RewriteRule ^announcements(?:/|$) - [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

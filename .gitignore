@@ -1,5 +1,11 @@
 /storage/*.sqlite
 /storage/*.sqlite-shm
 /storage/*.sqlite-wal
+/storage/database.php
+/storage/*.sql
+/storage/two-factor-key.php
+/storage/development.php
+/storage/composer.phar
+/vendor/
 /uploads/content/*
 !/uploads/content/.htaccess

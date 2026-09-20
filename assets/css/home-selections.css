@@ -1,0 +1,56 @@
+.home-page .selection-grid .exam-card { grid-column: span 3; }
+.home-page .home-whatsapp-action { color: #075e36; border-color: #a9d9bc; background: #eefaf2; }
+.home-page .home-whatsapp-action:hover { color: #064d2d; background: #def3e6; }
+.home-page #selections .section-heading { flex-wrap: wrap; gap: 10px; }
+@media (max-width: 800px) {
+    .home-page .selection-grid { grid-template-columns: 1fr; }
+    .home-page .selection-grid .exam-card { grid-column: auto; }
+}
+
+/* Keep mobile content compact without changing the fixed header or desktop. */
+@media (max-width: 600px) {
+    .home-page .home-content { padding: 12px 12px 22px; }
+    .home-page .home-hero { padding: 22px 16px; gap: 18px; }
+    .home-page .home-hero-copy { min-width: 0; }
+    .home-page .home-hero h1 { font-size: clamp(27px, 7.8vw, 35px); line-height: 1.18; letter-spacing: -.7px; }
+    .home-page .home-hero-copy > p { margin-top: 12px; font-size: 13px; line-height: 1.6; }
+    .home-page .home-eyebrow { font-size: 10px; letter-spacing: .6px; }
+    .home-page .home-hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+    .home-page .home-hero-actions > a {
+        width: 100%; min-width: 0; min-height: 46px; margin: 0; padding: 10px 8px;
+        justify-content: center; gap: 6px; font-size: 12px; line-height: 1.4; text-align: center; box-sizing: border-box;
+    }
+    .home-page .home-hero-actions .home-primary-action,
+    .home-page .home-hero-actions .home-whatsapp-action { grid-column: 1 / -1; }
+    .home-page .home-trust-list { display: flex; flex-wrap: wrap; gap: 7px 12px; margin-top: 14px; }
+    .home-page .home-trust-list li { font-size: 11px; }
+    .home-page .home-hero-panel { padding: 16px; min-width: 0; }
+    .home-page .home-hero-panel h2 { margin-bottom: 12px; font-size: 17px; }
+    .home-page .home-hero-panel ol { gap: 12px; }
+    .home-page .home-hero-panel li { gap: 10px; }
+    .home-page .home-hero-panel strong { font-size: 13px; }
+    .home-page .home-hero-panel small { font-size: 11px; line-height: 1.45; }
+    .home-page .home-services, .home-page .home-announcements { margin-top: 24px; }
+    .home-page .section-heading { flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .home-page .section-heading > div { min-width: 0; }
+    .home-page .section-heading h2 { font-size: 21px; line-height: 1.3; }
+    .home-page .service-count { font-size: 10px; letter-spacing: .6px; }
+    .home-page .exam-grid { gap: 10px; }
+    .home-page .exam-card { min-width: 0; min-height: 86px; padding: 12px; gap: 10px; }
+    .home-page .exam-card-code { min-width: 48px; height: 48px; padding: 0 5px; font-size: 10px; }
+    .home-page .exam-card-copy { min-width: 0; overflow-wrap: anywhere; }
+    .home-page .exam-card-copy strong { font-size: 14px; line-height: 1.35; }
+    .home-page .exam-card-copy small { font-size: 11px; line-height: 1.5; }
+    .home-page .home-support-grid { gap: 12px; margin-top: 24px; }
+    .home-page .home-guide-card, .home-page .home-contact-card { padding: 16px; min-width: 0; }
+    .home-page .home-guide-card h2, .home-page .home-contact-card h2 { font-size: 19px; }
+    .home-page .home-guide-card p, .home-page .home-contact-card p { font-size: 13px; line-height: 1.6; }
+    .home-page .announcement-bar { padding: 12px; gap: 10px; }
+    .home-page .announcement-copy { min-width: 0; overflow-wrap: anywhere; }
+    .home-page .announcement-copy h3 { font-size: 15px; line-height: 1.4; }
+    .home-page .announcement-copy p { font-size: 12px; line-height: 1.6; }
+    .home-page .announcement-button { min-height: 44px; grid-column: 1 / -1; width: 100%; }
+    .home-page .home-footer { padding: 16px 12px; gap: 10px; text-align: center; }
+    .home-page .home-footer > span { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 12px; }
+    .home-page .home-footer a { margin: 0; padding: 6px 0; }
+}

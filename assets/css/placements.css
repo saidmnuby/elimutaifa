@@ -1,0 +1,38 @@
+.et-placement-slot[hidden]{display:none!important}
+.et-placement-slot{box-sizing:border-box;width:calc(100% - 32px);max-width:1100px;min-width:0;margin:18px auto;display:flex;flex-wrap:wrap;gap:14px;clear:both;flex-shrink:0}
+.et-placement{box-sizing:border-box;min-width:0;flex:1 1 320px;border:1px solid #dbe3ef;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 3px 12px #031b4e08;color:#172b4d}
+.et-placement--banner{flex-basis:100%}
+.et-placement-link{display:flex!important;align-items:center;gap:18px;color:inherit!important;text-decoration:none!important;height:100%;min-width:0}
+.et-placement-link:focus-visible{outline:3px solid #1976d2;outline-offset:-3px}
+.et-placement-link img{display:block;width:35%;max-width:360px;max-height:190px;object-fit:contain;flex-shrink:0;background:#f4f7fb}
+.et-placement--card .et-placement-link{flex-direction:column;align-items:stretch;gap:0}
+.et-placement--card img{width:100%;max-width:none;height:170px}
+.et-placement-copy{padding:16px;min-width:0;overflow-wrap:anywhere;text-align:left;font-family:inherit}
+.et-placement-copy small{display:block;color:#65738b;font-size:12px;margin-bottom:7px}
+.et-placement-copy strong{display:block;font-size:18px;line-height:1.4;color:#031b4e}
+.et-placement-copy p{font-size:14px;line-height:1.6;margin:8px 0}
+.et-placement-copy span{display:block;font-size:13px;color:#175cb5;margin-top:8px}
+/* School pages have a fixed shell: compact ads leave the search and school list usable. */
+.level-schools .et-placement-slot{margin:6px auto;flex-wrap:nowrap;max-height:105px;overflow-y:auto}
+.level-schools .et-placement{flex:1 1 0}
+.level-schools .et-placement-link,.level-schools .et-placement--card .et-placement-link{flex-direction:row;align-items:center;gap:6px}
+.level-schools .et-placement-link img{width:70px;height:65px;max-height:65px;object-fit:contain}
+.level-schools .et-placement-copy{padding:8px}
+.level-schools .et-placement-copy strong{font-size:14px}
+.level-schools .et-placement-copy small{font-size:10px;margin-bottom:3px}
+.level-schools .et-placement-copy p{display:none}
+.level-schools .et-placement-copy span{font-size:11px;margin-top:3px}
+.et-placement-popup{position:fixed;right:18px;bottom:18px;z-index:1200;width:min(420px,calc(100% - 28px));box-sizing:border-box;background:#fff;border:1px solid #cdd9ea;border-radius:14px;box-shadow:0 18px 48px #031b4e42;padding:38px 10px 10px;animation:et-placement-popup-in .22s ease-out;color:#172b4d}
+.et-placement-popup .et-placement{border:0;box-shadow:none}
+.et-placement-popup .et-placement-link{flex-direction:column;align-items:stretch;gap:0}
+.et-placement-popup .et-placement-link img{width:100%;max-width:none;max-height:180px}
+.et-placement-popup-close{position:absolute;top:8px;right:8px;width:32px;height:32px;border:0;border-radius:50%;background:#eaf0f8;color:#031b4e;font-size:22px;line-height:1;cursor:pointer}
+.et-placement-popup-close:focus-visible{outline:3px solid #1976d2}
+.et-placement-popup--interstitial{inset:0;width:auto;border:0;border-radius:0;background:#031b4eb8;padding:clamp(52px,8vh,90px) 16px;display:grid;place-items:center;overflow-y:auto}
+.et-placement-popup--interstitial .et-placement{width:min(620px,100%);max-height:none;box-shadow:0 24px 70px #0008}
+.et-placement-popup--interstitial .et-placement-link img{max-height:320px}
+.et-placement-popup--interstitial .et-placement-popup-close{position:fixed;top:18px;right:18px;width:auto;min-width:120px;height:38px;padding:0 14px;border-radius:20px;font-size:13px;font-weight:800}
+.et-placement-popup-close:disabled{cursor:not-allowed;opacity:.72}
+.et-placement-modal-open{overflow:hidden}
+@keyframes et-placement-popup-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.et-placement-slot{width:calc(100% - 20px);margin:12px auto}.et-placement--banner .et-placement-link{flex-direction:column;align-items:stretch;gap:0}.et-placement-link img{width:100%;max-width:none;max-height:160px}.et-placement-copy{padding:12px}.et-placement-copy strong{font-size:16px}}

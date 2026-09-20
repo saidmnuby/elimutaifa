@@ -1,0 +1,14 @@
+.selection-student-search { margin-bottom: 14px; }
+.selection-student-search .form-input { width: 100%; box-sizing: border-box; }
+.selection-student-search p { margin: 7px 0 0; font-size: 12px; color: #617087; }
+.fo-table tr[data-selection-student][hidden] { display: none !important; }
+.education-page .fo-column .selection-student-search { position: static; margin-bottom: 0; }
+.education-page .fo-column .selection-student-list {
+    max-height: 58vh;
+    max-height: 58dvh;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+}
+.selection-student-list:focus-visible { outline: 3px solid #175ca6; outline-offset: 2px; }

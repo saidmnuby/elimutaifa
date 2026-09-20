@@ -57,9 +57,10 @@ if (
 
 $ipHash = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . '|elimutaifa-submission-v1');
 $database = et_db();
-$database->exec("UPDATE submissions SET ip_hash='' WHERE ip_hash<>'' AND created_at < datetime('now', '-1 hour')");
-$rateStatement = $database->prepare("SELECT COUNT(*) FROM submissions WHERE ip_hash=:ip_hash AND created_at >= datetime('now', '-1 hour')");
-$rateStatement->execute(['ip_hash' => $ipHash]);
+$cutoff = gmdate('Y-m-d H:i:s', time() - 3600);
+$database->prepare("UPDATE submissions SET ip_hash='' WHERE ip_hash<>'' AND created_at < :cutoff")->execute(['cutoff' => $cutoff]);
+$rateStatement = $database->prepare('SELECT COUNT(*) FROM submissions WHERE ip_hash=:ip_hash AND created_at >= :cutoff');
+$rateStatement->execute(['ip_hash' => $ipHash, 'cutoff' => $cutoff]);
 if ((int) $rateStatement->fetchColumn() >= 5) {
     et_submission_response(429, false, 'Umetuma ujumbe mara nyingi. Jaribu tena baada ya muda.');
 }

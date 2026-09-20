@@ -8,7 +8,9 @@ function grf_fetch_result(string $url): array
     $allowedHosts = [
         'onlinesys.necta.go.tz',
         'matokeo.necta.go.tz',
-        'maktaba.tetea.org'
+        'maktaba.tetea.org',
+        'selection.tamisemi.go.tz',
+        'selform.tamisemi.go.tz'
     ];
 
     if (
@@ -18,7 +20,19 @@ function grf_fetch_result(string $url): array
     ) {
         return ['html' => false, 'status' => 400];
     }
+    if (strtolower($parsedUrl['host']) === 'selection.tamisemi.go.tz'
+        && (!empty($parsedUrl['user']) || !empty($parsedUrl['pass']) || isset($parsedUrl['port'])
+            || !preg_match('#^/allocations/20[0-9]{2}/(?:[a-z0-9-]+/|jis/)#', $parsedUrl['path'] ?? '')
+            || str_contains(rawurldecode($parsedUrl['path'] ?? ''), '..'))) {
+        return ['html' => false, 'status' => 400];
+    }
 
+    if (strtolower($parsedUrl['host']) === 'selform.tamisemi.go.tz'
+        && (isset($parsedUrl['user']) || isset($parsedUrl['pass']) || isset($parsedUrl['port']) || isset($parsedUrl['query']) || isset($parsedUrl['fragment'])
+            || !preg_match('#^/[Cc]ontent/selection-and-allocation/20[0-9]{2}/[a-z0-9-]+/(?:[a-zA-Z0-9% _-]+/)*[Ii]ndex\\.html$#D', $parsedUrl['path'] ?? '')
+            || str_contains(rawurldecode($parsedUrl['path'] ?? ''), '..'))) {
+        return ['html' => false, 'status' => 400];
+    }
     $cacheDirectory = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'grf-result-cache';
     if (!is_dir($cacheDirectory)) {
         if (!mkdir($cacheDirectory, 0700, true) && !is_dir($cacheDirectory)) {
@@ -103,7 +117,7 @@ function grf_fetch_result(string $url): array
     if (is_file($cacheFile) && filemtime($cacheFile) >= $now - 300) {
         $cachedHtml = file_get_contents($cacheFile);
         if ($cachedHtml !== false && $cachedHtml !== '') {
-            return ['html' => $cachedHtml, 'status' => 200];
+            return ['html' => $cachedHtml, 'status' => 200, 'fetched_at' => filemtime($cacheFile)];
         }
     }
 
@@ -155,5 +169,5 @@ function grf_fetch_result(string $url): array
         }
     }
 
-    return ['html' => $html, 'status' => $statusCode];
+    return ['html' => $html, 'status' => $statusCode, 'fetched_at' => $now];
 }

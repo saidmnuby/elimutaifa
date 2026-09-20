@@ -18,11 +18,11 @@ function et_monitoring_secret(PDO $database): string
     }
 
     $secret = bin2hex(random_bytes(32));
-    $statement = $database->prepare(<<<'SQL'
+    $statement = $database->prepare(et_conflict_sql($database, <<<'SQL'
 INSERT INTO app_settings (setting_key, setting_value, updated_at)
 VALUES ('monitoring_secret', :setting_value, :updated_at)
 ON CONFLICT(setting_key) DO NOTHING
-SQL);
+SQL));
     $statement->execute(['setting_value' => $secret, 'updated_at' => et_utc_now()]);
     $statement = $database->query("SELECT setting_value FROM app_settings WHERE setting_key='monitoring_secret' LIMIT 1");
     return (string) $statement->fetchColumn();
@@ -51,6 +51,9 @@ function et_normalize_upstream_target(string $url): string
 
 function et_detect_exam_type(string $value): string
 {
+    foreach (['form-one'=>'FORM ONE','form-five'=>'FORM FIVE'] as $path=>$label) {
+        if (stripos($value, $path) !== false) return $label;
+    }
     foreach (['acsee', 'csee', 'ftna', 'psle', 'sfna'] as $exam) {
         if (stripos($value, $exam) !== false) {
             return strtoupper($exam);
@@ -91,33 +94,33 @@ function et_record_page_view(string $path): void
         $day = (new DateTimeImmutable('now', new DateTimeZone('Africa/Dar_es_Salaam')))->format('Y-m-d');
         $now = et_utc_now();
         $database->beginTransaction();
-        $database->prepare(<<<'SQL'
+        $database->prepare(et_conflict_sql($database, <<<'SQL'
 INSERT INTO traffic_recent (visitor_hash, path, last_recorded_at)
 VALUES (:visitor_hash, :path, :last_recorded_at)
 ON CONFLICT(visitor_hash, path) DO UPDATE SET last_recorded_at=excluded.last_recorded_at
-SQL)->execute(['visitor_hash' => $visitorHash, 'path' => $path, 'last_recorded_at' => $nowTimestamp]);
+SQL))->execute(['visitor_hash' => $visitorHash, 'path' => $path, 'last_recorded_at' => $nowTimestamp]);
 
-        $uniqueStatement = $database->prepare(<<<'SQL'
+        $uniqueStatement = $database->prepare(et_conflict_sql($database, <<<'SQL'
 INSERT OR IGNORE INTO traffic_unique_visitors (day, path, visitor_hash)
 VALUES (:day, :path, :visitor_hash)
-SQL);
+SQL));
         $uniqueStatement->execute(['day' => $day, 'path' => $path, 'visitor_hash' => $visitorHash]);
         $uniqueIncrement = $uniqueStatement->rowCount() === 1 ? 1 : 0;
 
-        $dailyStatement = $database->prepare(<<<'SQL'
+        $dailyStatement = $database->prepare(et_conflict_sql($database, <<<'SQL'
 INSERT INTO traffic_daily (day, path, views, unique_visitors, last_view_at)
 VALUES (:day, :path, 1, :unique_increment, :last_view_at)
 ON CONFLICT(day, path) DO UPDATE SET
     views = traffic_daily.views + 1,
     unique_visitors = traffic_daily.unique_visitors + excluded.unique_visitors,
     last_view_at = excluded.last_view_at
-SQL);
+SQL));
         $dailyStatement->execute(['day' => $day, 'path' => $path, 'unique_increment' => $uniqueIncrement, 'last_view_at' => $now]);
         $database->commit();
 
         if (random_int(1, 100) === 1) {
-            $database->exec("DELETE FROM traffic_unique_visitors WHERE day < date('now', '-90 days')");
-            $database->exec("DELETE FROM traffic_daily WHERE day < date('now', '-730 days')");
+            $database->prepare('DELETE FROM traffic_unique_visitors WHERE day < :cutoff')->execute(['cutoff' => gmdate('Y-m-d', $nowTimestamp - 90 * 86400)]);
+            $database->prepare('DELETE FROM traffic_daily WHERE day < :cutoff')->execute(['cutoff' => gmdate('Y-m-d', $nowTimestamp - 730 * 86400)]);
             $database->prepare('DELETE FROM traffic_recent WHERE last_recorded_at < :cutoff')->execute(['cutoff' => $nowTimestamp - 86400]);
         }
     } catch (Throwable $exception) {
@@ -149,7 +152,8 @@ function et_record_system_event(
     $now = et_utc_now();
 
     try {
-        $statement = et_db()->prepare(<<<'SQL'
+        $database = et_db();
+        $statement = $database->prepare(et_conflict_sql($database, <<<'SQL'
 INSERT INTO system_events
 (fingerprint,severity,event_type,exam_type,request_path,target,http_status,error_code,message,occurrences,status,first_seen_at,last_seen_at,resolved_at)
 VALUES
@@ -161,7 +165,7 @@ ON CONFLICT(fingerprint) DO UPDATE SET
     status='open',
     last_seen_at=excluded.last_seen_at,
     resolved_at=NULL
-SQL);
+SQL));
         $statement->execute([
             'fingerprint' => $fingerprint,
             'severity' => $severity,

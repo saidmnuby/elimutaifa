@@ -34,10 +34,69 @@ function et_db(): PDO
 {
     static $database = null;
     if (!$database instanceof PDO) {
-        $database = et_open_database(et_database_path());
+        if (is_file(dirname(__DIR__) . '/storage/database-migration.lock')) {
+            throw new RuntimeException('Database maintenance is in progress. Please try again shortly.');
+        }
+        $config = et_database_config();
+        $database = $config['driver'] === 'mysql'
+            ? et_open_mysql_database($config)
+            : et_open_database(et_database_path());
     }
 
     return $database;
+}
+
+function et_database_config(): array
+{
+    $file = dirname(__DIR__) . '/storage/database.php';
+    $config = is_file($file) ? require $file : [];
+    if (!is_array($config)) {
+        throw new RuntimeException('Invalid database configuration.');
+    }
+    foreach (['driver', 'host', 'port', 'name', 'user', 'password'] as $key) {
+        $value = getenv('ELIMUTAIFA_DB_' . strtoupper($key));
+        if ($value !== false) {
+            $config[$key] = $value;
+        }
+    }
+    $config += ['driver' => 'sqlite', 'host' => '127.0.0.1', 'port' => '3306', 'name' => 'elimutaifa', 'user' => '', 'password' => ''];
+    if (!in_array($config['driver'], ['sqlite', 'mysql'], true)) {
+        throw new RuntimeException('Unsupported database driver.');
+    }
+    return $config;
+}
+
+function et_open_mysql_database(array $config): PDO
+{
+    if (!preg_match('/^[a-zA-Z0-9_]+$/D', (string) $config['name'])
+        || !ctype_digit((string) $config['port'])
+        || !preg_match('/^[a-zA-Z0-9.:-]+$/D', (string) $config['host'])) {
+        throw new RuntimeException('Invalid MySQL connection settings.');
+    }
+    $database = new PDO(
+        'mysql:host=' . $config['host'] . ';port=' . $config['port'] . ';dbname=' . $config['name'] . ';charset=utf8mb4',
+        $config['user'], $config['password'],
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+         PDO::ATTR_EMULATE_PREPARES => false]
+    );
+    $database->exec("SET time_zone = '+00:00'");
+    return $database;
+}
+
+/** Translate the application's conflict statements; keep SQLite available for isolated tests. */
+function et_conflict_sql(PDO $database, string $sql): string
+{
+    if ($database->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'mysql') {
+        return $sql;
+    }
+    $sql = preg_replace('/ON CONFLICT\(([^)]+)\) DO NOTHING/', 'ON DUPLICATE KEY UPDATE $1=$1', $sql);
+    $sql = preg_replace('/ON CONFLICT\([^)]+\) DO UPDATE SET/', 'ON DUPLICATE KEY UPDATE', $sql);
+    $sql = preg_replace('/excluded\.([a-z_]+)/i', 'VALUES($1)', $sql);
+    // No-op duplicate update reports zero affected rows, unlike INSERT IGNORE it does not hide invalid data.
+    if (str_contains($sql, 'INSERT OR IGNORE INTO traffic_unique_visitors')) {
+        $sql = str_replace('INSERT OR IGNORE', 'INSERT', $sql) . ' ON DUPLICATE KEY UPDATE visitor_hash=visitor_hash';
+    }
+    return $sql;
 }
 
 function et_migrate_database(PDO $database): void

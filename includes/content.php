@@ -314,23 +314,21 @@ function et_utc_datetime_to_local(?string $value): string
 
 function et_public_content(PDO $database, int $limit = 6): array
 {
-    if (et_refresh_content_states($database) > 0) {
-        et_rebuild_sitemap($database);
-    }
     $limit = max(1, min($limit, 20));
     $statement = $database->prepare(<<<'SQL'
 SELECT id, category, title, slug, excerpt, body, audience, source_name, source_url,
        media_type, media_url, media_caption, destination_type, external_url,
        is_featured, is_popup, published_at, expires_at, updated_at
 FROM content_items
-WHERE status = 'published'
+WHERE status IN ('published', 'scheduled')
   AND published_at IS NOT NULL
   AND published_at <= :now
-  AND (expires_at IS NULL OR expires_at > :now)
+  AND (expires_at IS NULL OR expires_at > :expires_now)
 ORDER BY is_featured DESC, published_at DESC, id DESC
 LIMIT :limit
 SQL);
     $statement->bindValue(':now', et_utc_now());
+    $statement->bindValue(':expires_now', et_utc_now());
     $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
     $statement->execute();
     return $statement->fetchAll();
@@ -340,12 +338,12 @@ function et_release_scheduled_content(PDO $database): int
 {
     $statement = $database->prepare(<<<'SQL'
 UPDATE content_items
-SET status = 'published', updated_at = :now
+SET status = 'published', updated_at = :updated_now
 WHERE status = 'scheduled'
   AND published_at IS NOT NULL
   AND published_at <= :now
 SQL);
-    $statement->execute(['now' => et_utc_now()]);
+    $statement->execute(['now' => et_utc_now(), 'updated_now' => et_utc_now()]);
     return $statement->rowCount();
 }
 
@@ -354,12 +352,12 @@ function et_refresh_content_states(PDO $database): int
     $changed = et_release_scheduled_content($database);
     $statement = $database->prepare(<<<'SQL'
 UPDATE content_items
-SET status = 'archived', is_popup = 0, updated_at = :now
+SET status = 'archived', is_popup = 0, updated_at = :updated_now
 WHERE status = 'published'
   AND expires_at IS NOT NULL
   AND expires_at <= :now
 SQL);
-    $statement->execute(['now' => et_utc_now()]);
+    $statement->execute(['now' => et_utc_now(), 'updated_now' => et_utc_now()]);
     return $changed + $statement->rowCount();
 }
 
@@ -376,16 +374,18 @@ function et_build_sitemap_xml(PDO $database, string $lastModifiedDate = ''): str
     $lastModifiedDate = $lastModifiedDate !== '' ? $lastModifiedDate : gmdate('Y-m-d');
     $urls = [
         ['url' => 'https://elimutaifa.com/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/acsee/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/csee/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/ftna/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/psle/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/sfna/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/results/acsee/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/results/csee/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/results/ftna/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/results/psle/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/results/sfna/', 'lastmod' => $lastModifiedDate],
         ['url' => 'https://elimutaifa.com/about/', 'lastmod' => $lastModifiedDate],
         ['url' => 'https://elimutaifa.com/contact/', 'lastmod' => $lastModifiedDate],
         ['url' => 'https://elimutaifa.com/contribution/', 'lastmod' => $lastModifiedDate],
         ['url' => 'https://elimutaifa.com/privacy/', 'lastmod' => $lastModifiedDate],
         ['url' => 'https://elimutaifa.com/announcements/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/selection/form-one/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://elimutaifa.com/selection/form-five/', 'lastmod' => $lastModifiedDate],
     ];
 
     $statement = $database->prepare(<<<'SQL'
@@ -395,10 +395,10 @@ WHERE status = 'published'
   AND destination_type = 'internal'
   AND published_at IS NOT NULL
   AND published_at <= :now
-  AND (expires_at IS NULL OR expires_at > :now)
+  AND (expires_at IS NULL OR expires_at > :expires_now)
 ORDER BY published_at DESC
 SQL);
-    $statement->execute(['now' => et_utc_now()]);
+    $statement->execute(['now' => et_utc_now(), 'expires_now' => et_utc_now()]);
     foreach ($statement->fetchAll() as $item) {
         $urls[] = [
             'url' => 'https://elimutaifa.com/announcements/' . rawurlencode((string) $item['slug']) . '/',

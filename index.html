@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pata matokeo ya mitihani, matangazo, selection na admission za elimu Tanzania kupitia ElimuTaifa—jukwaa huru kwa wanafunzi, wazazi, walimu na shule.">
+    <meta name="description" content="Pata taarifa na matangazo ya elimu Tanzania, matokeo ya mitihani na selection za Form One na Form Five / vyuo vya kati kupitia ElimuTaifa.">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <title>ElimuTaifa | Matokeo na Taarifa za Elimu Tanzania</title>
     <meta name="theme-color" content="#031B4E">
@@ -12,7 +12,7 @@
     <meta property="og:locale" content="sw_TZ">
     <meta property="og:site_name" content="ElimuTaifa">
     <meta property="og:title" content="ElimuTaifa | Matokeo na Taarifa za Elimu Tanzania">
-    <meta property="og:description" content="Matokeo ya mitihani, matangazo, selection na admission za elimu Tanzania katika jukwaa moja rahisi.">
+    <meta property="og:description" content="Taarifa za elimu, matangazo, matokeo ya mitihani na selection za Form One na Form Five / vyuo vya kati katika jukwaa moja rahisi.">
     <meta property="og:url" content="https://elimutaifa.com/">
     <meta property="og:image" content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
     <meta property="og:image:width" content="1024">
@@ -54,9 +54,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/home-selections.css?v=20260916.3">
     <link rel="stylesheet" href="assets/css/consent.css">
     <script src="assets/js/consent.js"></script>
     <script src="assets/js/monitoring.js" defer></script>
+    <script src="assets/js/placements.js" defer></script>
 </head>
 <body class="home-page">
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -75,19 +77,27 @@
                 <ul class="sidebar-menu home-menu">
                     <li><a href="./" class="sidebar-item active"><i class="fa-solid fa-house"></i><span>Nyumbani</span></a></li>
                     <li class="results-menu">
-                        <details open>
+                        <details >
                             <summary class="sidebar-item"><i class="fa-solid fa-chart-column"></i><span>Matokeo</span><i class="fa-solid fa-chevron-down menu-chevron"></i></summary>
                             <div class="results-submenu">
-                                <a href="acsee/">ACSEE <small>Form Six</small></a>
-                                <a href="csee/">CSEE <small>Form Four</small></a>
-                                <a href="ftna/">FTNA <small>Form Two</small></a>
-                                <a href="psle/">PSLE <small>Standard Seven</small></a>
-                                <a href="sfna/">SFNA <small>Standard Four</small></a>
+                                <a href="results/acsee/">ACSEE <small>Form Six</small></a>
+                                <a href="results/csee/">CSEE <small>Form Four</small></a>
+                                <a href="results/ftna/">FTNA <small>Form Two</small></a>
+                                <a href="results/psle/">PSLE <small>Standard Seven</small></a>
+                                <a href="results/sfna/">SFNA <small>Standard Four</small></a>
                             </div>
                         </details>
                     </li>
-                    <li><a href="#selection" class="sidebar-item pending-link"><i class="fa-solid fa-list-check"></i><span>Selection</span><em>soon</em></a></li>
-                    <li><a href="#admission" class="sidebar-item pending-link"><i class="fa-solid fa-door-open"></i><span>Admission</span><em>soon</em></a></li>
+                    <li class="results-menu selections-menu">
+                        <details>
+                            <summary class="sidebar-item"><i class="fa-solid fa-list-check"></i><span>Selections</span><i class="fa-solid fa-chevron-down menu-chevron" aria-hidden="true"></i></summary>
+                            <div class="results-submenu">
+                                <a href="selection/form-one/">Form One <small>Darasa la Saba → Kidato cha Kwanza</small></a>
+                                <a href="selection/form-five/">Form Five / Vyuo vya kati <small>Kidato cha Nne → Kidato cha Tano / Chuo</small></a>
+                            </div>
+                        </details>
+                    </li>
+                    </li>
                     <li><a href="about/" class="sidebar-item"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
                     <li><a href="contact/" class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
                     <li><a href="contribution/" class="sidebar-item"><i class="fa-solid fa-comments"></i><span>Maoni</span></a></li>
@@ -110,24 +120,25 @@
             <div class="datetime-display"><i class="fa-solid fa-circle-check"></i><span>ELIMU TAIFA PORTAL</span></div>
         </header>
 
+        <div data-et-placement-slot="top" data-et-placement-page="home" hidden></div>
         <main class="home-content">
             <section class="home-hero" aria-labelledby="home-title">
                 <div class="home-hero-copy">
                     <span class="home-eyebrow"><i class="fa-solid fa-bolt"></i> PREPARE FOR SUCCESS</span>
-                    <h1 id="home-title">Matokeo na taarifa za elimu Tanzania, <span>kwa urahisi.</span></h1>
-                    <p>Fuatilia matokeo ya mitihani ya taifa, matangazo, selection na admission za shule na vyuo kupitia ElimuTaifa.</p>
+                    <h1 id="home-title">Taarifa za elimu Tanzania, <span>kwa urahisi.</span></h1>
+                    <p>Soma matangazo ya elimu, angalia matokeo ya mitihani na tafuta selection za Form One au Form Five / vyuo vya kati.</p>
                     <div class="home-hero-actions">
-                        <a class="home-secondary-action home-scroll-link" href="#exam-levels"><i class="fa-solid fa-magnifying-glass"></i> Matokeo 2026</a>
-                        <a class="home-secondary-action home-scroll-link" href="#announcements"><i class="fa-solid fa-list-check"></i> Selection 2026</a>
-                        <a class="home-secondary-action home-scroll-link" href="#announcements"><i class="fa-solid fa-door-open"></i> Admission 2026</a>
+                        <a class="home-secondary-action home-scroll-link" href="#exam-levels"><i class="fa-solid fa-magnifying-glass"></i> Matokeo ya mitihani</a>
+                        <a class="home-secondary-action home-scroll-link" href="#selections"><i class="fa-solid fa-list-check"></i> Selections</a>
                         <a class="home-primary-action home-scroll-link" href="#announcements"><i class="fa-solid fa-bullhorn"></i> Habari Mpya</a>
+                        <a class="home-secondary-action home-whatsapp-action" href="https://whatsapp.com/channel/0029VbDeDTQAzNbpq2EF6F2l" target="_blank" rel="noopener noreferrer" aria-label="Jiunge na WhatsApp Channel ya ElimuTaifa (inafunguka kwenye tab mpya)"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Jiunge WhatsApp Channel <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
                     </div>
                     <ul class="home-trust-list" aria-label="Watumiaji wa huduma">
                         <li><i class="fa-solid fa-check"></i> Wanafunzi</li>
                         <li><i class="fa-solid fa-check"></i> Wazazi</li>
                         <li><i class="fa-solid fa-check"></i> Walimu</li>
-                        <li><i class="fa-solid fa-check"></i> Institutes</li>
-                        <li><i class="fa-solid fa-check"></i> Others</li>
+                        <li><i class="fa-solid fa-check"></i> Shule na vyuo</li>
+                        <li><i class="fa-solid fa-check"></i> Mashirika</li>
                     </ul>
                 </div>
 
@@ -135,8 +146,7 @@
                     <h2>Vyote hapa</h2>
                     <ol>
                         <li><span>01</span><div><strong>Matokeo ya mitihani</strong><small>ACSEE, CSEE, FTNA, PSLE na SFNA.</small></div></li>
-                        <li><span>02</span><div><strong>Selection</strong><small>Sehemu hizi zinaandaliwa.</small></div></li>
-                        <li><span>03</span><div><strong>Admission</strong><small>Sehemu hizi zinaandaliwa.</small></div></li>
+                        <li><span>02</span><div><strong>Selection</strong><small>Form One na Form Five / vyuo vya kati.</small></div></li>
                         <li><span>04</span><div><strong>Habari mpya</strong><small>Taarifa muhimu kwa jamii ya elimu.</small></div></li>
                     </ol>
                 </aside>
@@ -148,30 +158,49 @@
                     <span class="service-count">NGAZI 05</span>
                 </div>
                 <div class="exam-grid">
-                    <a class="exam-card exam-card-featured" href="acsee/">
+                    <a class="exam-card exam-card-featured" href="results/acsee/">
                         <span class="exam-card-code">ACSEE</span>
-                        <span class="exam-card-copy"><strong>Form Six 2026</strong><small>Advanced Certificate of Secondary Education</small></span>
+                        <span class="exam-card-copy"><strong>Form Six</strong><small>Advanced Certificate of Secondary Education</small></span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
-                    <a class="exam-card" href="csee/">
+                    <a class="exam-card" href="results/csee/">
                         <span class="exam-card-code">CSEE</span>
-                        <span class="exam-card-copy"><strong>Form Four 2026</strong><small>Certificate of Secondary Education</small></span>
+                        <span class="exam-card-copy"><strong>Form Four</strong><small>Certificate of Secondary Education</small></span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
-                    <a class="exam-card" href="ftna/">
+                    <a class="exam-card" href="results/ftna/">
                         <span class="exam-card-code">FTNA</span>
-                        <span class="exam-card-copy"><strong>Form Two 2026</strong><small>Form Two National Assessment</small></span>
+                        <span class="exam-card-copy"><strong>Form Two</strong><small>Form Two National Assessment</small></span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
-                    <a class="exam-card" href="psle/">
+                    <a class="exam-card" href="results/psle/">
                         <span class="exam-card-code">PSLE</span>
-                        <span class="exam-card-copy"><strong>Darasa la Saba 2026</strong><small>Primary School Leaving Examination</small></span>
+                        <span class="exam-card-copy"><strong>Darasa la Saba</strong><small>Primary School Leaving Examination</small></span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
-                    <a class="exam-card" href="sfna/">
+                    <a class="exam-card" href="results/sfna/">
                         <span class="exam-card-code">SFNA</span>
-                        <span class="exam-card-copy"><strong>Darasa la Nne 2026</strong><small>Standard Four National Assessment</small></span>
+                        <span class="exam-card-copy"><strong>Darasa la Nne</strong><small>Standard Four National Assessment</small></span>
                         <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </section>
+
+            <section class="home-services" id="selections" aria-labelledby="selections-title">
+                <div class="section-heading">
+                    <div><span class="section-kicker">CHAGUA SELECTION</span><h2 id="selections-title">Shule au chuo ulichopangiwa</h2></div>
+                    <span class="service-count">NGAZI 02</span>
+                </div>
+                <div class="exam-grid selection-grid">
+                    <a class="exam-card" href="selection/form-one/">
+                        <span class="exam-card-code">FORM 1</span>
+                        <span class="exam-card-copy"><strong>Form One Selection</strong><small>Darasa la Saba → Kidato cha Kwanza. Tafuta kwa index au shule uliyosoma.</small></span>
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a class="exam-card" href="selection/form-five/">
+                        <span class="exam-card-code">FORM 5</span>
+                        <span class="exam-card-copy"><strong>Form Five / Vyuo vya kati</strong><small>Kidato cha Nne → Kidato cha Tano / Chuo. Chagua mkoa, halmashauri na shule uliyosoma.</small></span>
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </div>
             </section>
@@ -181,7 +210,7 @@
                     <span class="section-kicker">MAELEKEZO</span>
                     <h2>Tafuta kwa taarifa sahihi</h2>
                     <p>Kwa matokeo ya sekondari, andaa namba ya mtahiniwa na mwaka. Kwa PSLE na SFNA, chagua mkoa na halmashauri ili kupata shule.</p>
-                    <a href="contribution/">Soma maelekezo zaidi <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="contribution/">Tuma maoni au ripoti tatizo <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 <div class="home-contact-card">
                     <span class="home-contact-icon"><i class="fa-solid fa-headset"></i></span>
@@ -201,18 +230,18 @@
                         <div class="announcement-copy">
                             <span class="announcement-label">TANGAZO LA JUKWAA</span>
                             <h3>ElimuTaifa inapanua huduma za taarifa za elimu</h3>
-                            <p>Sehemu za selection, admission na matangazo mengine ya elimu zinaandaliwa. Matokeo ya mitihani yanaendelea kupatikana kama kawaida.</p>
+                            <p>Selection za Form One na Form Five / vyuo vya kati zinapatikana.</p>
                         </div>
                         <button class="announcement-button" id="announcementOpen" type="button">Soma tangazo <i class="fa-solid fa-arrow-right"></i></button>
                     </article>
                 </div>
             </section>
 
-        </main>
+        </main><div data-et-placement-slot="bottom" data-et-placement-page="home" hidden></div>
 
         <footer class="footer home-footer">
             <span>&copy; 2026 ElimuTaifa <b>·</b> Techware47</span>
-            <span><a href="privacy/">Privacy Policy</a><a href="privacy/#terms">Terms of Use</a></span>
+            <span><a href="https://whatsapp.com/channel/0029VbDeDTQAzNbpq2EF6F2l" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel (tab mpya)"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Channel ↗</a><a href="privacy/">Privacy Policy</a><a href="privacy/#terms">Terms of Use</a></span>
         </footer>
     </div>
 
@@ -222,7 +251,7 @@
             <span class="announcement-popup-icon"><i class="fa-solid fa-bullhorn"></i></span>
             <span class="announcement-label">TANGAZO JIPYA</span>
             <h2 id="announcement-popup-title">ElimuTaifa inapanua huduma</h2>
-            <p>Taarifa za selection, admission na matangazo mengine ya elimu zitaongezwa kwenye jukwaa hili.</p>
+            <p>Selection za Form One na Form Five / vyuo vya kati zinapatikana kwenye jukwaa hili.</p>
             <span class="announcement-popup-action">Angalia maelezo <i class="fa-solid fa-arrow-right"></i></span>
         </a>
     </aside>

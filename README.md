@@ -14,7 +14,23 @@ ElimuTaifa is not affiliated with, endorsed by, sponsored by, or operated by the
 | PSLE | Standard Seven | `PS1234567-0001` |
 | SFNA | Standard Four | `PS1234567-0001` |
 
-The portal also includes Home, About, Contact, Privacy, current-announcement and community-feedback interfaces. Selection, admission and broader announcement-management services are planned extensions.
+The portal also includes Home, About, Contact, Privacy, current-announcement, community-feedback and separate Form One/Form Five selection modules. Form Five/middle-college school browsing and owner cycle management are available at `/selection/form-five/` and **Result Pages → Form Five → Simamia cycles**; independent index search is not yet implemented for it. See [Form Five scope](docs/form-five.md). Admission development is deferred pending further research; the module and integrations have been removed.
+
+## Grouped modules
+
+- `results/`: ACSEE, CSEE, FTNA, PSLE and SFNA, retaining their individual pages.
+- `selection/`: separate `form-one/` and `form-five/` modules.
+
+Legacy public exam and selection URLs return HTTP 307 redirects to grouped URLs.
+This preserves query strings and POST methods/bodies. Shared `assets/`, `includes/`,
+`admin/` and data storage remain at the project root. Deploy the moved folders,
+updated links and `.htaccess` together; deploying only deletions will break pages.
+These temporary redirects can be made permanent after rollout verification.
+
+Regression checks: `php tests/grouped_routes.php`; add `--http` for local XAMPP
+HTTP checks. The application uses MariaDB.
+
+Form One years/rounds are managed by the owner under **Result Pages → Simamia cycles** (`admin/sources.php?section=form-one`): Draft → live source verification → Published/default, with archival and cycle-specific cache clearing. See [Form One management](docs/form-one.md) for setup and operation.
 
 ## How result search works
 
@@ -50,7 +66,8 @@ Each result page also provides a direct link to the source page for confirmation
    - `fileinfo`
    - `libxml`
    - `pdo`
-   - `pdo_sqlite`
+   - `pdo_mysql` for MariaDB/MySQL
+   - `pdo_sqlite` for legacy migration and isolated tests
 
 4. Open the application:
 
@@ -68,18 +85,15 @@ The host running PHP must be able to make HTTPS requests to the NECTA and TETEA 
 |-- assets/                    # Shared styles, client JavaScript, cookie notice
 |-- includes/
 |   |-- result_request.php     # Shared cURL, cache, and rate-limit helper
-|   |-- admin_db.php           # SQLite connection and automatic schema migration
+|   |-- admin_db.php           # Shared PDO MariaDB/MySQL or legacy SQLite connection
 |   |-- admin_auth.php         # Admin authentication, CSRF and audit helpers
 |   `-- content.php            # Publication and sitemap helpers
 |-- admin/                     # Protected content-management interface
 |-- announcements/             # Public announcement listing and article pages
 |-- api/                       # Same-origin announcement and contribution endpoints
-|-- storage/                   # Protected runtime SQLite database
-|-- acsee/                     # Form Six search, result, and error pages
-|-- csee/                      # Form Four search, result, and error pages
-|-- ftna/                      # Form Two search, result, and error pages
-|-- psle/                      # Standard Seven search, result, and error pages
-|-- sfna/                      # Standard Four search, result, and error pages
+|-- storage/                   # Protected database configuration and runtime data
+|-- results/                   # Individual acsee/, csee/, ftna/, psle/, sfna/ modules
+|-- selection/                 # Separate form-one/ and form-five/ modules
 |-- about/                     # About page
 |-- contact/                   # Contact page
 |-- contribution/              # Community feedback interface
@@ -88,7 +102,9 @@ The host running PHP must be able to make HTTPS requests to the NECTA and TETEA 
 
 ## Admin MVP setup
 
-The admin interface uses a protected SQLite database in `storage/`. Database tables are created automatically. Create the first administrator from the command line; there is intentionally no public web-based setup page.
+Admin supports Authenticator-compatible 2FA. Owners must enrol before using other modules; see [setup, recovery and deployment instructions](docs/two-factor.md).
+
+The admin interface supports MariaDB/MySQL through a shared PDO connection. Existing SQLite installations must follow [the database migration guide](docs/database-migration.md) before switching; SQLite remains active until migration is verified. Credentials belong in the protected, Git-ignored `storage/database.php`. Create the first administrator from the command line; there is intentionally no public web-based setup page.
 
 In PowerShell:
 
@@ -108,6 +124,7 @@ The MVP provides:
 
 - login throttling, CSRF validation and time-limited admin sessions;
 - draft, scheduled, published and archived content;
+- distributed image/text banners and cards, sponsor labels, page/group targeting, priority, scheduling and preview through **Banners & Sponsors**; see [placement management](docs/placements.md);
 - featured announcements and one active pop-up announcement;
 - internal announcement articles or validated external destinations;
 - optional HTTPS images or privacy-delayed YouTube videos attached to internal articles;
@@ -123,7 +140,7 @@ Content can be archived by an administrator. Only an owner can permanently delet
 
 The inbox defaults to `New` and uses 20 messages per page. Audit logs use 50 records per page. Traffic monitoring honours the browser Do Not Track signal, stores aggregate counts rather than raw IP addresses, and groups repeated errors into one system event with an occurrence counter.
 
-Use HTTPS in production. Back up `storage/elimutaifa.sqlite` while the application is in maintenance mode or by using SQLite's backup tooling.
+Use HTTPS in production. Back up MariaDB and uploaded media regularly and test restoration. Keep the original SQLite migration backup; see [backup and rollback guidance](docs/database-migration.md).
 
 For every examination level, the `results/` directory contains:
 
