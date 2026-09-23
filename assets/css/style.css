@@ -441,6 +441,35 @@ a.announcement-button {
     border-radius: 4px;
 }
 
+#home-title{
+    border-left:10px solid #058249;
+    padding-left: 13px;
+
+}
+
+/* Rangi za sehemu tofauti za maandishi */
+.color-part-1 {
+    color: var(--card-bg) !important;
+}
+
+.color-part-2 {
+    color: #08a957 !important; /* Rangi ya kijani(Inaendana na rangi za ElimuTaifa) */
+}
+
+/* Mtindo wa Cursor inayowaka */
+.cursor {
+    display: inline-block;
+    background-color: #08a957;
+    width: 5px;
+    animation: blink 0.7s infinite;
+    margin-left: 4px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 .home-hero h1 {
     max-width: 760px;
     margin-top: 24px;

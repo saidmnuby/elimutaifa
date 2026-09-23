@@ -136,8 +136,11 @@
             <section class="home-hero" aria-labelledby="home-title">
                 <div class="home-hero-copy">
                     <span class="home-eyebrow"><i class="fa-solid fa-bolt"></i> PREPARE FOR SUCCESS</span>
-                    <h1 id="home-title">Taarifa za elimu Tanzania, <span>kwa urahisi.</span></h1>
-                    <p>Soma matangazo ya elimu, angalia matokeo ya mitihani na tafuta selection za Form One au Form Five / vyuo vya kati.</p>
+                    <h1 id="home-title">
+                        <span id="typewriter-text">Taarifa za Elimu Tanzania, Kiganjani Mwako. </span>
+                        <span class="cursor">&nbsp;</span>
+                    </h1>
+                    <p>Jukwaa la kuaminika kwa habari za Elimu, Matokeo ya mitihani na selection za vyuo vya kati, Form Five na Form One nchini Tanzania.</p>
                     <div class="home-hero-actions">
                         <a class="home-primary-action home-scroll-link" href="#exam-levels"><i class="fa-solid fa-magnifying-glass"></i> Matokeo ya mitihani</a>
                         <a class="home-secondary-action home-scroll-link" href="#selections"><i class="fa-solid fa-list-check"></i> Shule uliyopangiwa</a>
@@ -287,5 +290,87 @@
 
         });
     </script>
+
+    
+
+    <script>
+        // Hapa tunagawanya sentensi kuwa vipande vyenye rangi tofauti
+        const sentences = [
+            [
+                { text: "Welcome ", className: "color-part-1" },
+                { text: "ElimuTaifa...", className: "color-part-2" }
+            ],
+            [
+                { text: " Kwa Taarifa ", className: "color-part-1" },
+                { text: " za Elimu.", className: "color-part-2" }
+            ]
+        ];
+
+        let sentenceIndex = 0;
+        let partIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        const speedTyping = 100; 
+        const speedDeleting = 50; 
+        const pauseTime = 5000;   // Sekunde 5 za kusubiri
+
+        function typeEffect() {
+            const currentSentence = sentences[sentenceIndex];
+            const textElement = document.getElementById("typewriter-text");
+
+            // Jenga upya muundo wa HTML ndani ya span kulingana na sehemu ilipofika
+            let htmlContent = "";
+            for (let i = 0; i <= partIndex; i++) {
+                let partText = currentSentence[i].text;
+                if (i === partIndex) {
+                    partText = partText.substring(0, charIndex);
+                }
+                htmlContent += `<span class="${currentSentence[i].className}">${partText}</span>`;
+            }
+            textElement.innerHTML = htmlContent;
+
+            let currentSpeed = speedTyping;
+
+            if (!isDeleting) {
+                charIndex++;
+                // Kama sehemu (part) ya sasa imeisha, nenda sehemu inayofuata ya sentensi hiyo hiyo
+                if (charIndex > currentSentence[partIndex].text.length) {
+                    partIndex++;
+                    charIndex = 0;
+                    // Kama sentensi nzima imeisha kuandikwa
+                    if (partIndex >= currentSentence.length) {
+                        currentSpeed = pauseTime; // Subiri sekunde 5
+                        isDeleting = true;
+                        partIndex = currentSentence.length - 1;
+                        charIndex = currentSentence[partIndex].text.length;
+                    }
+                }
+            } else {
+                charIndex--;
+                // Wakati wa kufuta nyuma
+                if (charIndex < 0) {
+                    partIndex--;
+                    if (partIndex < 0) {
+                        isDeleting = false;
+                        sentenceIndex = (sentenceIndex + 1) % sentences.length;
+                        partIndex = 0;
+                        currentSpeed = 500;
+                    } else {
+                        charIndex = currentSentence[partIndex].text.length;
+                    }
+                } else {
+                    currentSpeed = speedDeleting;
+                }
+            }
+
+            setTimeout(typeEffect, currentSpeed);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(typeEffect, 500);
+        });
+    </script>
+
 </body>
 </html>
