@@ -17,7 +17,7 @@ if ($candidate !== '' && isset($url)) {
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
         if ($examYear === 2026) {
             $_SESSION['error_title']   = "Error_<X001>";
-            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibun.Jaribu hivi baadae..";
+            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibuni.Jaribu tena baadae..";
             $_SESSION['style']         = "warning-alert";
             header("Location: ../error/");
             exit();
@@ -111,6 +111,7 @@ if (empty($result)) {
     exit();
 }
 
+et_record_search_success();
 $_SESSION['success_message'] = "Matokeo ya $candidate mwaka $examYear yamepatikana";
 $_SESSION['style'] = "success";
 

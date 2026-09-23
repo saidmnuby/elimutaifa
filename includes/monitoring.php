@@ -131,6 +131,32 @@ SQL));
     }
 }
 
+/** Successful parsed results, not search attempts. No candidate data is stored.
+ * The reserved non-URL path keeps this event separate from page-view totals.
+ * Uses the existing unique-visitor identity, deduplication and 90-day retention.
+ */
+function et_record_search_success(?PDO $database = null): void
+{
+    if (!et_monitoring_enabled() || ($_SERVER['HTTP_DNT'] ?? '') === '1') return;
+    $userAgent = mb_substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 500);
+    if (preg_match('/bot|crawler|spider|slurp|monitoring|uptime/i', $userAgent)) return;
+    try {
+        $database ??= et_db();
+        $visitorHash = hash_hmac('sha256', ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . '|' . $userAgent, et_monitoring_secret($database));
+        $statement = $database->prepare(et_conflict_sql($database, <<<'SQL'
+INSERT OR IGNORE INTO traffic_unique_visitors (day, path, visitor_hash)
+VALUES (:day, :path, :visitor_hash)
+SQL));
+        $statement->execute([
+            'day' => (new DateTimeImmutable('now', new DateTimeZone('Africa/Dar_es_Salaam')))->format('Y-m-d'),
+            'path' => '@event/search-success',
+            'visitor_hash' => $visitorHash,
+        ]);
+    } catch (Throwable $exception) {
+        error_log('ElimuTaifa search monitoring error: ' . $exception->getMessage());
+    }
+}
+
 function et_record_system_event(
     string $eventType,
     string $message,

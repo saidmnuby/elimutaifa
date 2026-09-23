@@ -18,6 +18,9 @@ $views30 = (int) $trafficStatement->fetchColumn();
 $uniqueStatement = $database->prepare('SELECT COUNT(DISTINCT visitor_hash) FROM traffic_unique_visitors WHERE day>=:start_day');
 $uniqueStatement->execute(['start_day'=>$sevenDaysAgo]);
 $unique7 = (int) $uniqueStatement->fetchColumn();
+$successStatement = $database->prepare("SELECT COUNT(DISTINCT visitor_hash) FROM traffic_unique_visitors WHERE day>=:start_day AND path='@event/search-success'");
+$successStatement->execute(['start_day' => $sevenDaysAgo]);
+$successfulVisitors7 = (int) $successStatement->fetchColumn();
 $openEvents = (int) $database->query("SELECT COUNT(*) FROM system_events WHERE status='open'")->fetchColumn();
 
 $dailyStatement = $database->prepare(<<<'SQL'
@@ -121,21 +124,21 @@ $events = $eventStatement->fetchAll();
 
 et_admin_header('Traffic & Errors', $user, 'monitoring', '../');
 ?>
-<div class="admin-page-heading"><div><p>First-party traffic summary na matatizo yaliyokutana na watumiaji.</p></div></div>
-<section class="stat-grid"><div class="stat-card"><small>Views · siku 7</small><strong><?= number_format($views7) ?></strong></div><div class="stat-card"><small>Approx. visitors · siku 7</small><strong><?= number_format($unique7) ?></strong></div><div class="stat-card"><small>Views · siku 30</small><strong><?= number_format($views30) ?></strong></div><div class="stat-card"><small>Open system events</small><strong><?= number_format($openEvents) ?></strong></div></section>
+<div class="admin-page-heading"><div><p>Website visits and problems users have reported or encountered.</p></div></div>
+<section class="stat-grid"><div class="stat-card"><small>Views · 7 days</small><strong><?= number_format($views7) ?></strong></div><div class="stat-card"><small>Approx. visitors · 7 days</small><strong><?= number_format($unique7) ?></strong><small title="Estimated visitors who found results or selection lists. Each visitor is counted once over 7 days. Tracking starts when this feature is enabled.">Found results: <?= number_format($successfulVisitors7) ?></small></div><div class="stat-card"><small>Views · 30 days</small><strong><?= number_format($views30) ?></strong></div><div class="stat-card"><small>Open system events</small><strong><?= number_format($openEvents) ?></strong></div></section>
 <div class="admin-grid monitoring-summary-grid">
     <section class="admin-card monitoring-traffic-card" aria-labelledby="traffic-chart-title">
         <div class="traffic-card-heading">
-            <div><h2 id="traffic-chart-title">Traffic ya siku 30</h2><p>Mabadiliko ya matumizi kwa kila siku</p></div>
-            <div class="traffic-legend" aria-label="Ufafanuzi wa graph"><span><i class="legend-views"></i>Views</span><span><i class="legend-visitors"></i>Visitors</span></div>
+            <div><h2 id="traffic-chart-title">Traffic over 30 days</h2><p>Daily website activity</p></div>
+            <div class="traffic-legend" aria-label="Chart legend"><span><i class="legend-views"></i>Views</span><span><i class="legend-visitors"></i>Visitors</span></div>
         </div>
         <?php if (!$hasDailyTraffic): ?>
-            <div class="empty-state">Traffic data itaanza kuonekana baada ya watumiaji kufungua kurasa.</div>
+            <div class="empty-state">Traffic data will appear when people visit the website.</div>
         <?php else: ?>
             <div class="traffic-chart">
                 <svg class="traffic-graph" viewBox="0 0 <?= $chartWidth ?> <?= $chartHeight ?>" role="img" aria-labelledby="traffic-graph-title traffic-graph-description">
-                    <title id="traffic-graph-title">Graph ya views na visitors kwa siku 30</title>
-                    <desc id="traffic-graph-description">Mstari wa kijani unaonyesha views na wa bluu unaonyesha visitors wa kila siku.</desc>
+                    <title id="traffic-graph-title">Views and visitors over 30 days</title>
+                    <desc id="traffic-graph-description">Green shows daily page views. Blue shows daily visitors.</desc>
                     <defs>
                         <linearGradient id="views-area-gradient" x1="0" x2="0" y1="0" y2="1">
                             <stop offset="0%" stop-color="#159447" stop-opacity=".22" />
@@ -161,17 +164,17 @@ et_admin_header('Traffic & Errors', $user, 'monitoring', '../');
         <?php endif; ?>
     </section>
     <section class="admin-card monitoring-top-pages">
-        <div class="top-pages-heading"><h2>Top pages · siku 30</h2><small>Views</small></div>
-        <?php if (!$topPages): ?><div class="empty-state">Bado hakuna data.</div><?php else: ?><ul class="admin-list"><?php foreach ($topPages as $row): ?><li><div><strong class="path-text"><?= et_e($row['path']) ?></strong><small><?= number_format((int)$row['unique_page_visitors']) ?> unique page visits</small></div><strong><?= number_format((int)$row['views']) ?></strong></li><?php endforeach; ?></ul><?php endif; ?>
+        <div class="top-pages-heading"><h2>Top pages · 30 days</h2><small>Views</small></div>
+        <?php if (!$topPages): ?><div class="empty-state">No data yet.</div><?php else: ?><ul class="admin-list"><?php foreach ($topPages as $row): ?><li><div><strong class="path-text"><?= et_e($row['path']) ?></strong><small><?= number_format((int)$row['unique_page_visitors']) ?> unique page visits</small></div><strong><?= number_format((int)$row['views']) ?></strong></li><?php endforeach; ?></ul><?php endif; ?>
     </section>
 </div>
 <section style="margin-top:22px">
-<div class="admin-page-heading"><div><h2 style="margin:0">System events</h2><p><?= number_format($totalEvents) ?> events zinazolingana; matukio yanayofanana yanaunganishwa na `occurrences`.</p></div></div>
-<form method="get" class="form-section compact-filter"><div class="form-field"><label for="status">Status</label><select id="status" name="status"><option value="open"<?= $eventStatus==='open'?' selected':'' ?>>Open</option><option value="resolved"<?= $eventStatus==='resolved'?' selected':'' ?>>Resolved</option><option value="all"<?= $eventStatus==='all'?' selected':'' ?>>Zote</option></select></div><div class="form-field"><label for="severity">Severity</label><select id="severity" name="severity"><option value="all">Zote</option><?php foreach (['info','warning','error','critical'] as $level): ?><option value="<?= $level ?>"<?= $severity===$level?' selected':'' ?>><?= ucfirst($level) ?></option><?php endforeach; ?></select></div><button class="admin-button secondary small" type="submit">Chuja</button></form>
+<div class="admin-page-heading"><div id="event-mp"><h2 style="margin:0">System events</h2><p><?= number_format($totalEvents) ?> matching events. Repeated events are grouped and counted.</p></div></div>
+<form method="get" class="form-section compact-filter"><div class="form-field"><label for="status">Status</label><select id="status" name="status"><option value="open"<?= $eventStatus==='open'?' selected':'' ?>>Open</option><option value="resolved"<?= $eventStatus==='resolved'?' selected':'' ?>>Resolved</option><option value="all"<?= $eventStatus==='all'?' selected':'' ?>>All</option></select></div><div class="form-field"><label for="severity">Severity</label><select id="severity" name="severity"><option value="all">All</option><?php foreach (['info','warning','error','critical'] as $level): ?><option value="<?= $level ?>"<?= $severity===$level?' selected':'' ?>><?= ucfirst($level) ?></option><?php endforeach; ?></select></div><button class="admin-button secondary small" type="submit">Filter</button></form>
 <div class="table-wrap"><table class="admin-table"><thead><tr><th>Event</th><th>Location/source</th><th>Frequency</th><th>Action</th></tr></thead><tbody>
-<?php if (!$events): ?><tr><td colspan="4" class="empty-state">Hakuna system events zinazolingana.</td></tr><?php endif; ?>
+<?php if (!$events): ?><tr><td colspan="4" class="empty-state">No matching system events.</td></tr><?php endif; ?>
 <?php foreach ($events as $event): ?><tr><td><span class="severity-badge severity-<?= et_e($event['severity']) ?>"><?= et_e(strtoupper($event['severity'])) ?></span><strong><?= et_e(str_replace('_',' ',$event['event_type'])) ?></strong><small><?= et_e($event['message']) ?></small><?php if ($event['http_status']): ?><small>HTTP <?= (int)$event['http_status'] ?> <?= et_e($event['error_code']) ?></small><?php endif; ?></td><td><span class="path-text"><?= et_e($event['request_path']) ?></span><?php if ($event['target']!==''): ?><small><?= et_e($event['target']) ?></small><?php endif; ?><?php if ($event['exam_type']!==''): ?><small>Exam: <?= et_e($event['exam_type']) ?></small><?php endif; ?></td><td><strong><?= number_format((int)$event['occurrences']) ?>×</strong><small>First: <?= et_e(et_admin_datetime($event['first_seen_at'])) ?></small><small>Last: <?= et_e(et_admin_datetime($event['last_seen_at'])) ?></small></td><td><form method="post" action="update.php"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int)$event['id'] ?>"><input type="hidden" name="status" value="<?= $event['status']==='open'?'resolved':'open' ?>"><input type="hidden" name="return_status" value="<?= et_e($eventStatus) ?>"><input type="hidden" name="return_severity" value="<?= et_e($severity) ?>"><input type="hidden" name="return_page" value="<?= $page ?>"><button class="admin-button <?= $event['status']==='open'?'':'secondary' ?> small" type="submit"><?= $event['status']==='open'?'Mark resolved':'Reopen' ?></button></form></td></tr><?php endforeach; ?>
 </tbody></table></div>
-<?php if ($totalPages>1): ?><nav class="admin-pagination"><?php if($page>1):?><a href="?status=<?= et_e(rawurlencode($eventStatus)) ?>&severity=<?= et_e(rawurlencode($severity)) ?>&page=<?= $page-1 ?>">← Nyuma</a><?php endif;?><span>Ukurasa <?= $page ?> / <?= $totalPages ?></span><?php if($page<$totalPages):?><a href="?status=<?= et_e(rawurlencode($eventStatus)) ?>&severity=<?= et_e(rawurlencode($severity)) ?>&page=<?= $page+1 ?>">Mbele →</a><?php endif;?></nav><?php endif;?>
+<?php if ($totalPages>1): ?><nav class="admin-pagination"><?php if($page>1):?><a href="?status=<?= et_e(rawurlencode($eventStatus)) ?>&severity=<?= et_e(rawurlencode($severity)) ?>&page=<?= $page-1 ?>">← Previous</a><?php endif;?><span>Page <?= $page ?> / <?= $totalPages ?></span><?php if($page<$totalPages):?><a href="?status=<?= et_e(rawurlencode($eventStatus)) ?>&severity=<?= et_e(rawurlencode($severity)) ?>&page=<?= $page+1 ?>">Next →</a><?php endif;?></nav><?php endif;?>
 </section>
 <?php et_admin_footer(); ?>

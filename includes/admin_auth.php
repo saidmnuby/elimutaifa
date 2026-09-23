@@ -46,7 +46,7 @@ function et_admin_boot(): void
         || $now - $lastActivity > ET_ADMIN_IDLE_TIMEOUT
     ) {
         et_admin_logout();
-        et_flash('error', 'Kikao chako kimeisha. Ingia tena.');
+        et_flash('error', 'Your session has expired. Sign in again.');
         return;
     }
 
@@ -138,7 +138,7 @@ function et_attempt_admin_login(string $username, string $password): array
     $attemptStatement->execute(['attempt_key' => $attemptKey]);
     $attempt = $attemptStatement->fetch();
     if ($attempt && (int) $attempt['blocked_until'] > $now) {
-        return ['ok' => false, 'message' => 'Jaribio limezuiwa kwa muda. Subiri dakika chache kisha ujaribu tena.'];
+        return ['ok' => false, 'message' => 'Sign-in is temporarily blocked. Wait a few minutes, then try again.'];
     }
 
     $statement = $database->prepare(
@@ -153,7 +153,7 @@ function et_attempt_admin_login(string $username, string $password): array
     if (!$user || (int) $user['is_active'] !== 1 || $user['deleted_at'] !== null || !$validPassword) {
         et_record_login_failure($database, $attemptKey, $attempt, $now);
         et_audit(null, 'login_failed', 'admin_user', null, 'Username: ' . mb_substr($username, 0, 80));
-        return ['ok' => false, 'message' => 'Jina la mtumiaji au nenosiri si sahihi.'];
+        return ['ok' => false, 'message' => 'Incorrect username or password.'];
     }
 
     $database->prepare('DELETE FROM login_attempts WHERE attempt_key = :attempt_key')
@@ -171,7 +171,7 @@ function et_attempt_admin_login(string $username, string $password): array
     $mfa = et_mfa_state((int) $user['id']);
     if ($mfa) {
         if (!et_mfa_rate_allowed((int) $user['id'])) {
-            return ['ok' => false, 'message' => '2FA imezuiwa kwa muda kwa chanzo hiki. Subiri hadi dakika 5 kisha ujaribu tena.'];
+            return ['ok' => false, 'message' => '2FA is temporarily blocked for this connection. Wait up to 5 minutes, then try again.'];
         }
         et_admin_logout();
         $_SESSION['et_mfa_pending'] = ['id' => (int) $user['id'], 'expires' => time() + 300,

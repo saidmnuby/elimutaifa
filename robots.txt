@@ -5,4 +5,4 @@ Disallow: /includes/
 Disallow: /scripts/
 Disallow: /tests/
 
-Sitemap: https://elimutaifa.com/sitemap.xml
+Sitemap: https://saidmnuby.github.io/elimutaifa/sitemap.xml

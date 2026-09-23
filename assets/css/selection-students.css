@@ -9,6 +9,71 @@
     min-height: 0;
     overflow: auto;
     overscroll-behavior-y: contain;
-    scrollbar-gutter: stable;
+    scrollbar-gutter: auto;
+    scrollbar-width: none;
 }
+.selection-student-list::-webkit-scrollbar { display: none; }
 .selection-student-list:focus-visible { outline: 3px solid #175ca6; outline-offset: 2px; }
+
+/* Bottom search stays within its column and remains in the document flow. */
+@media (max-width: 1024px) {
+    .education-page .fo-column .selection-student-search {
+        order: 2;
+        position: sticky;
+        top: auto;
+        bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+        z-index: 20;
+        margin: 0;
+        padding: 10px 12px;
+        background: #fff;
+        border: 1px solid #dce5ee;
+        border-radius: 12px;
+        box-shadow: 0 -4px 18px rgba(3, 27, 78, .12);
+    }
+    .selection-student-search .form-label { margin: 0 0 6px; }
+    .selection-student-search .form-input { min-height: 44px; font-size: 16px; }
+    .selection-student-search p { margin-top: 4px; }
+    .fo-column #selection-student-empty { order: 1; margin: 0; }
+}
+
+/* Compact school selections on phones; leave desktop tables unchanged. */
+@media (max-width: 800px) {
+    .education-page .fo-column .selection-student-list {
+        padding: 10px;
+        max-height: 72vh;
+        max-height: 72dvh;
+        scrollbar-gutter: auto;
+    }
+    .selection-student-list .fo-results-heading { margin-bottom: 8px; gap: 4px 8px; }
+    .selection-student-list .fo-results-heading h2 { font-size: 16px; }
+    .selection-student-list table { display: block; min-width: 0; }
+    .selection-student-list tr[data-selection-student] {
+        display: block;
+        box-sizing: border-box;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+    }
+    .selection-student-list tr[data-selection-student]:last-child { margin-bottom: 0; }
+    .selection-student-list tr[data-selection-student] td {
+        display: grid;
+        grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr);
+        gap: 3px 10px;
+        box-sizing: border-box;
+        padding: 6px 0;
+        font-size: 13px;
+        line-height: 1.45;
+        border-bottom: 1px solid #edf1f5;
+    }
+    .selection-student-list td::before { margin: 0; font-size: 11px; }
+    .selection-student-list td > * { min-width: 0; }
+    .selection-student-list td small { grid-column: 2; margin: 0; }
+    .selection-student-list tr[data-selection-student] td:last-child { border-bottom: 0; }
+    .education-page .selection-student-list td a[target="_blank"] {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        margin: 0;
+        padding: 6px 8px;
+        box-sizing: border-box;
+    }
+}

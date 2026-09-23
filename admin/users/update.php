@@ -21,8 +21,8 @@ $target = $statement->fetch();
 if (!$target) { et_flash('error', 'Admin hajapatikana.'); et_redirect('./'); }
 if ($target['role'] === 'owner' && (int) $target['is_active'] === 1 && ($role !== 'owner' || $isActive === 0)) {
     $activeOwners = (int) $database->query("SELECT COUNT(*) FROM admin_users WHERE role='owner' AND is_active=1 AND deleted_at IS NULL")->fetchColumn();
-    if ($activeOwners <= 1) { et_flash('error', 'Huwezi kuondoa active owner wa mwisho.'); et_redirect('./'); }
+    if ($activeOwners <= 1) { et_flash('error', 'You cannot remove the last active owner.'); et_redirect('./'); }
 }
 $database->prepare('UPDATE admin_users SET role=:role,is_active=:is_active,updated_at=:updated_at WHERE id=:id')->execute(['role'=>$role,'is_active'=>$isActive,'updated_at'=>et_utc_now(),'id'=>$id]);
 et_audit((int) $user['id'], 'admin_updated', 'admin_user', $id, 'Role: ' . $role . '; active: ' . $isActive);
-et_flash('success', 'Admin account imesasishwa.'); et_redirect('./');
+et_flash('success', 'Admin account updated.'); et_redirect('./');

@@ -47,34 +47,34 @@ function et_validate_placement(array $input): array
     $data['content_id'] = filter_var($input['content_id'] ?? 0, FILTER_VALIDATE_INT) ?: null;
     $targets = is_array($input['targets'] ?? null) ? array_values(array_unique($input['targets'], SORT_REGULAR)) : [];
     $errors = [];
-    foreach ($targets as $target) { if (!is_string($target) || !isset(et_placement_targets()[$target])) { $errors[] = 'Page target si sahihi.'; } }
-    if ($targets === []) { $errors[] = 'Chagua angalau ukurasa mmoja au kundi.'; }
+    foreach ($targets as $target) { if (!is_string($target) || !isset(et_placement_targets()[$target])) { $errors[] = 'Invalid display page.'; } }
+    if ($targets === []) { $errors[] = 'Choose at least one page or page group.'; }
     $data['targets'] = json_encode($targets, JSON_THROW_ON_ERROR);
-    if (mb_strlen($data['title']) < 3 || mb_strlen($data['title']) > 140) { $errors[] = 'Kichwa kiwe herufi 3–140.'; }
-    if (mb_strlen($data['description']) > 300 || mb_strlen($data['sponsor_name']) > 120) { $errors[] = 'Maelezo yasizidi herufi 300; sponsor 120.'; }
+    if (mb_strlen($data['title']) < 3 || mb_strlen($data['title']) > 140) { $errors[] = 'Use 3–140 characters for the title.'; }
+    if (mb_strlen($data['description']) > 300 || mb_strlen($data['sponsor_name']) > 120) { $errors[] = 'Use up to 300 characters for the description and 120 for the sponsor name.'; }
     foreach (['kind'=>['system','sponsor'],'format'=>['banner','card'],'slot'=>['top','bottom','popup'],
         'status'=>['draft','published','archived'],'destination_type'=>['internal','external'],
         'popup_style'=>['corner','interstitial'],'display_mode'=>['session','always','three']] as $field=>$values) {
-        if (!in_array($data[$field], $values, true)) { $errors[] = $field . ' si sahihi.'; }
+        if (!in_array($data[$field], $values, true)) { $errors[] = $field . ' is invalid.'; }
     }
-    if ($data['priority'] === false || $data['priority'] < 0 || $data['priority'] > 100) { $errors[] = 'Priority iwe 0–100.'; }
-    if ($data['skip_delay'] === false || $data['skip_delay'] < 0 || $data['skip_delay'] > 30) { $errors[] = 'Muda wa kuruka tangazo uwe sekunde 0–30.'; }
-    if ($data['kind'] === 'sponsor' && $data['sponsor_name'] === '') { $errors[] = 'Jina la sponsor linahitajika.'; }
-    if ($data['image_url'] !== '' && (strlen($data['image_url']) > 2048 || !et_is_safe_image_url($data['image_url']))) { $errors[] = 'Picha iwe URL ya HTTPS au uploaded image halali.'; }
+    if ($data['priority'] === false || $data['priority'] < 0 || $data['priority'] > 100) { $errors[] = 'Set priority between 0 and 100.'; }
+    if ($data['skip_delay'] === false || $data['skip_delay'] < 0 || $data['skip_delay'] > 30) { $errors[] = 'Set the skip delay between 0 and 30 seconds.'; }
+    if ($data['kind'] === 'sponsor' && $data['sponsor_name'] === '') { $errors[] = 'Enter the sponsor name.'; }
+    if ($data['image_url'] !== '' && (strlen($data['image_url']) > 2048 || !et_is_safe_image_url($data['image_url']))) { $errors[] = 'Use an HTTPS image URL or a valid uploaded image.'; }
     if ($data['destination_type'] === 'external') {
         if (strlen($data['external_url']) > 2048 || !et_is_safe_public_url($data['external_url'])
-            || parse_url($data['external_url'], PHP_URL_SCHEME) !== 'https') { $errors[] = 'Destination ya nje iwe HTTPS URL halali.'; }
+            || parse_url($data['external_url'], PHP_URL_SCHEME) !== 'https') { $errors[] = 'Enter a valid HTTPS destination URL.'; }
         $data['content_id'] = null;
     } else {
         $data['external_url'] = '';
-        if (!$data['content_id'] || $data['content_id'] < 1) { $errors[] = 'Chagua article ya ndani.'; }
+        if (!$data['content_id'] || $data['content_id'] < 1) { $errors[] = 'Choose an internal article.'; }
     }
     foreach (['starts_at','ends_at'] as $field) {
         $raw = trim((string) ($input[$field] ?? ''));
         $data[$field] = $raw === '' ? null : et_local_datetime_to_utc($raw);
-        if ($raw !== '' && (!$data[$field] || et_utc_datetime_to_local($data[$field]) !== $raw)) { $errors[] = 'Tarehe ya ' . $field . ' si sahihi.'; }
+        if ($raw !== '' && (!$data[$field] || et_utc_datetime_to_local($data[$field]) !== $raw)) { $errors[] = 'Date for ' . $field . ' is invalid.'; }
     }
-    if ($data['starts_at'] && $data['ends_at'] && $data['ends_at'] <= $data['starts_at']) { $errors[] = 'Mwisho uwe baada ya mwanzo.'; }
+    if ($data['starts_at'] && $data['ends_at'] && $data['ends_at'] <= $data['starts_at']) { $errors[] = 'The end date must be after the start date.'; }
     return [$data, $errors];
 }
 

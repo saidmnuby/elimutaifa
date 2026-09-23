@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !et_verify_csrf($_POST['csrf_token'
 }
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?: 0;
 if ($id <= 0) {
-    et_flash('error', 'Maudhui hayajapatikana.');
+    et_flash('error', 'Content not found.');
     et_redirect('./');
 }
 $database = et_db();
@@ -20,5 +20,5 @@ $statement = $database->prepare("UPDATE content_items SET status='archived', is_
 $statement->execute(['updated_by' => (int) $user['id'], 'updated_at' => et_utc_now(), 'id' => $id]);
 et_audit((int) $user['id'], 'content_archived', 'content_item', $id);
 et_rebuild_sitemap($database);
-et_flash('success', 'Maudhui yamewekwa archive.');
+et_flash('success', 'Content archived.');
 et_redirect('./');

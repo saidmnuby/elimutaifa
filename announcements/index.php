@@ -33,11 +33,11 @@ et_record_page_view($_SERVER['REQUEST_URI'] ?? '/announcements/');
 $items = $isDetail ? [] : et_public_content($database, 20);
 $title = $item ? $item['title'] . ' | ElimuTaifa' : ($isDetail ? 'Taarifa haijapatikana | ElimuTaifa' : 'Matangazo na Taarifa za Elimu Tanzania | ElimuTaifa');
 $description = $item ? mb_substr((string) $item['excerpt'], 0, 160) : 'Soma matangazo, habari, matokeo, selection na admission mpya za elimu Tanzania kupitia ElimuTaifa.';
-$canonical = $item ? 'https://elimutaifa.com/announcements/' . rawurlencode($item['slug']) . '/' : 'https://elimutaifa.com/announcements/';
+$canonical = $item ? 'https://saidmnuby.github.io/elimutaifa/b.io/elimutaifa/b.io/elimutaifa/announcements/' . rawurhttps://saidmnuby.github.io/elimutaifa/. '/' : 'https://saidmnuby.github.io/elimutaifa/announcements/';
 $imageUrl = $item ? et_content_image_url($item, $basePath) : '';
 $youtubeId = $item ? et_content_youtube_id($item) : null;
 $youtubeCoverUrl = et_youtube_thumbnail_url($youtubeId);
-$socialImage = $imageUrl !== '' ? $imageUrl : ($youtubeCoverUrl !== '' ? $youtubeCoverUrl : 'https://elimutaifa.com/assets/img/brand/rectangle.jpg');
+$socialImage = $imageUrl !== '' ? $imageUrl : ($youtubeCoverUrl !== '' ? $youtubeCoverUrl : 'https://saidmnuby.github.io/elimutaifa/assets/img/brand/rectangle.jpg');
 ?>
 <!doctype html>
 <html lang="sw">
@@ -52,7 +52,7 @@ $socialImage = $imageUrl !== '' ? $imageUrl : ($youtubeCoverUrl !== '' ? $youtub
     <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="<?= htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"><meta name="twitter:description" content="<?= htmlspecialchars($description, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"><meta name="twitter:image" content="<?= htmlspecialchars($socialImage, ENT_QUOTES, 'UTF-8') ?>">
     <link rel="icon" href="<?= htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8') ?>/assets/img/brand/favicon32px.ico"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="<?= htmlspecialchars($announcementHome, ENT_QUOTES, 'UTF-8') ?>style.css">
     <?php if ($youtubeId !== null): ?><script src="<?= htmlspecialchars($announcementHome, ENT_QUOTES, 'UTF-8') ?>media.js" defer></script><?php endif; ?>
-    <?php if ($item): ?><script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Article','headline'=>$item['title'],'description'=>$item['excerpt'],'datePublished'=>str_replace(' ','T',$item['published_at']).'Z','dateModified'=>str_replace(' ','T',$item['updated_at']).'Z','mainEntityOfPage'=>$canonical,'publisher'=>['@type'=>'Organization','name'=>'ElimuTaifa','url'=>'https://elimutaifa.com/']], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script><?php endif; ?>
+    <?php if ($item): ?><script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Article','headline'=>$item['title'],'description'=>$item['excerpt'],'datePublished'=>str_replace(' ','T',$item['published_at']).'Z','dateModified'=>str_replace(' ','T',$item['updated_at']).'Z','mainEntityOfPage'=>$canonical,'publisher'=>['@type'=>'Organization','name'=>'ElimuTaifa','url'=>'https://saidmnuby.github.io/elimutaifa/']], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script><?php endif; ?>
     <script src="../assets/js/placements.js" defer></script>
 </head>
 <body>

@@ -18,7 +18,7 @@ if (!$user || !$state || !hash_equals($pending['secret_hash'], hash('sha256', $s
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!et_verify_csrf($_POST['csrf_token'] ?? null)) { $error = 'Pakia ukurasa upya.'; }
-    elseif (!et_mfa_rate_allowed($id)) { $error = 'Majaribio mengi. Lock ya 2FA ni dakika 5; angalia muda uliobaki hapa chini.'; }
+    elseif (!et_mfa_rate_allowed($id)) { $error = 'Too many attempts. Wait up to 5 minutes. The remaining time is shown below.'; }
     elseif (et_mfa_consume($id, (string) ($_POST['code'] ?? ''))) {
         et_complete_admin_login($user, hash('sha256', $state['secret']));
         et_audit($id, 'two_factor_verified', 'admin_user', $id);
@@ -26,17 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         et_mfa_failed($id);
         if (et_mfa_pending_failure($id)) {
-            et_flash('error', 'Majaribio 3 ya code yameshindwa. Kikao cha verification kimefungwa; ingia tena kwa password.');
+            et_flash('error', 'Three code attempts failed. Verification has ended. Sign in again with your password.');
             et_redirect('login.php');
         }
-        $error = 'Code si sahihi au imeshatumika. Jaribu code mpya.';
+        $error = 'The code is incorrect or has already been used. Try a new code.';
     }
 }
 $lockRemaining = et_mfa_lock_remaining($id);
 ?>
-<!doctype html><html lang="sw"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>2FA | ElimuTaifa Admin</title><link rel="stylesheet" href="assets/admin.css"><link rel="icon" href="../assets/img/brand/favicon32px.ico"></head>
-<body class="login-page"><main class="login-card"><h1>Thibitisha kuingia</h1><p>Weka code ya Authenticator au recovery code. Hatua hii inaisha baada ya dakika 5.</p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>2FA | ElimuTaifa Admin</title><link rel="stylesheet" href="assets/admin.css"><link rel="icon" href="../assets/img/brand/favicon32px.ico"></head>
+<body class="login-page"><main class="login-card"><h1>Confirm sign-in</h1><p>Enter an authenticator code or a recovery code. This step expires after 5 minutes.</p>
 <?php if ($error): ?><div class="admin-alert error" role="alert"><?= et_e($error) ?></div><?php endif; ?>
-<?php if ($lockRemaining > 0): ?><div class="admin-alert" data-mfa-countdown="<?= $lockRemaining ?>">Jaribu tena baada ya <span data-mfa-time><?= sprintf('%02d:%02d', intdiv($lockRemaining, 60), $lockRemaining % 60) ?></span>.</div><?php endif; ?>
+<?php if ($lockRemaining > 0): ?><div class="admin-alert" data-mfa-countdown="<?= $lockRemaining ?>">Try again in <span data-mfa-time><?= sprintf('%02d:%02d', intdiv($lockRemaining, 60), $lockRemaining % 60) ?></span>.</div><?php endif; ?>
 <script src="assets/admin.js" defer></script>
-<form method="post" class="admin-form"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><div class="form-field"><label for="code">Authenticator / recovery code</label><input id="code" name="code" autocomplete="one-time-code" maxlength="23" required autofocus></div><button class="admin-button">Thibitisha</button></form><a href="login.php">Rudi kwenye login</a></main></body></html>
+<form method="post" class="admin-form"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><div class="form-field"><label for="code">Authenticator / recovery code</label><input id="code" name="code" autocomplete="one-time-code" maxlength="23" required autofocus></div><button class="admin-button">Confirm</button></form><a href="login.php">Back to sign-in</a></main></body></html>

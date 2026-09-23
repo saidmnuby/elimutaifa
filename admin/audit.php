@@ -33,11 +33,11 @@ $logs = $statement->fetchAll();
 $actions = $database->query('SELECT DISTINCT action FROM audit_logs WHERE ' . $visibility . ' ORDER BY action')->fetchAll(PDO::FETCH_COLUMN);
 et_admin_header('Audit Log', $user, 'audit');
 ?>
-<div class="admin-page-heading"><div><p>Rekodi <?= number_format($totalItems) ?>; ukurasa <?= $page ?> wa <?= $totalPages ?>. Rekodi 50 tu zinaonyeshwa kwa wakati.</p></div></div>
-<form method="get" class="form-section compact-filter"><div class="form-field"><label for="action">Action</label><select id="action" name="action"><option value="">Zote</option><?php foreach ($actions as $actionOption): ?><option value="<?= et_e($actionOption) ?>"<?= $action === $actionOption ? ' selected' : '' ?>><?= et_e(str_replace('_',' ',$actionOption)) ?></option><?php endforeach; ?></select></div><button class="admin-button secondary small" type="submit">Chuja</button></form>
+<div class="admin-page-heading"><div><p>Records: <?= number_format($totalItems) ?>; page <?= $page ?> of <?= $totalPages ?>. Up to 50 records per page.</p></div></div>
+<form method="get" class="form-section compact-filter"><div class="form-field"><label for="action">Action</label><select id="action" name="action"><option value="">All</option><?php foreach ($actions as $actionOption): ?><option value="<?= et_e($actionOption) ?>"<?= $action === $actionOption ? ' selected' : '' ?>><?= et_e(str_replace('_',' ',$actionOption)) ?></option><?php endforeach; ?></select></div><button class="admin-button secondary small" type="submit">Filter</button></form>
 <div class="table-wrap"><table class="admin-table"><thead><tr><th>Muda</th><th>Admin</th><th>Action</th><th>Entity</th><th>Details</th></tr></thead><tbody>
-<?php if (!$logs): ?><tr><td colspan="5" class="empty-state">Hakuna rekodi.</td></tr><?php endif; ?>
+<?php if (!$logs): ?><tr><td colspan="5" class="empty-state">No records.</td></tr><?php endif; ?>
 <?php foreach ($logs as $log): ?><tr><td><?= et_e(et_admin_datetime($log['created_at'])) ?></td><td><?= et_e($log['display_name'] ?: 'System/unknown') ?></td><td><?= et_e(str_replace('_', ' ', $log['action'])) ?></td><td><?= et_e($log['entity_type']) ?><?= $log['entity_id'] ? ' #' . (int) $log['entity_id'] : '' ?></td><td><?= et_e($log['details']) ?></td></tr><?php endforeach; ?>
 </tbody></table></div>
-<?php et_admin_pagination($page, $totalPages, ['action' => $action], 'Kurasa za audit log'); ?>
+<?php et_admin_pagination($page, $totalPages, ['action' => $action], 'Audit log pages'); ?>
 <?php et_admin_footer(); ?>

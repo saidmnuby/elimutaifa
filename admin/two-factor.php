@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement = et_db()->prepare('SELECT password_hash FROM admin_users WHERE id=?');
     $statement->execute([$id]);
     if (!et_verify_csrf($_POST['csrf_token'] ?? null)) { $error = 'Pakia ukurasa upya.'; }
-    elseif (!et_mfa_rate_allowed($id)) { $error = 'Majaribio mengi. Lock ya 2FA ni dakika 5; angalia muda uliobaki hapa chini.'; }
+    elseif (!et_mfa_rate_allowed($id)) { $error = 'Too many attempts. Wait up to 5 minutes. The remaining time is shown below.'; }
     elseif (!password_verify((string) ($_POST['password'] ?? ''), (string) $statement->fetchColumn())) {
-        et_mfa_failed($id); $error = 'Nenosiri si sahihi.';
+        et_mfa_failed($id); $error = 'Incorrect password.';
     } elseif ($action === 'start' && !$state) {
         $_SESSION['et_mfa_setup'] = ['id' => $id, 'secret' => et_totp()->createSecret(), 'expires' => time() + 600];
         et_redirect('two-factor.php');
@@ -23,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $slice = 0;
         $code = trim((string) ($_POST['code'] ?? ''));
         if (($setup['id'] ?? 0) !== $id || empty($setup['secret'])) {
-            $error = 'Session ya setup haijapatikana. Anza setup tena kwenye tab hii; tumia setup key mpya katika Authenticator.';
+            $error = 'Setup was not found. Start again in this tab and use the new setup key in your authenticator.';
         } elseif (($setup['expires'] ?? 0) < time()) {
-            $error = 'Setup imekwisha muda wa dakika 10. Anza setup tena na ubadilishe setup key katika Authenticator.';
+            $error = 'Setup expired after 10 minutes. Start again and replace the setup key in your authenticator.';
         } elseif (!preg_match('/^\d{6}$/D', $code)) {
             et_mfa_failed($id);
-            $error = 'Format ya code si sahihi. Ingiza tarakimu 6 kutoka Authenticator, si setup key au recovery code.';
+            $error = 'Enter the 6-digit authenticator code, not the setup key or a recovery code.';
         } elseif (!et_totp()->verifyCode($setup['secret'], $code, 1, null, $slice)) {
             et_mfa_failed($id);
-            $error = 'Code hailingani na setup hii. Hakikisha Authenticator ina setup key ya sasa, TOTP, SHA-1, tarakimu 6 na sekunde 30; pia hakikisha saa ya device ni sahihi, kisha jaribu code mpya.';
+            $error = 'The code does not match this setup. Use the current setup key with TOTP, SHA-1, 6 digits and a 30-second interval. Check your device clock, then try a new code.';
         } else {
             $database = et_db();
             $database->beginTransaction();
@@ -49,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 et_redirect('two-factor.php');
             } catch (Throwable $exception) {
                 if ($database->inTransaction()) { $database->rollBack(); }
-                $error = '2FA haijahifadhiwa. Jaribu tena.';
+                $error = 'Could not save 2FA. Try again.';
             }
         }
     } elseif ($state && in_array($action, ['regenerate', 'disable'], true)) {
-        if ($action === 'disable') { $error = 'Admins wote lazima wawe na 2FA. Reset inafanywa na developer kupitia CLI.'; }
+        if ($action === 'disable') { $error = 'All admins need 2FA. A developer can reset it using the command line.'; }
         elseif (!et_mfa_consume($id, (string) ($_POST['code'] ?? ''))) {
-            et_mfa_failed($id); $error = 'Code si sahihi au imeshatumika.';
+            et_mfa_failed($id); $error = 'The code is incorrect or has already been used.';
         } else {
             $database = et_db(); $database->beginTransaction();
             try {
@@ -83,14 +83,14 @@ $codes = $_SESSION['et_mfa_recovery'] ?? [];
 unset($_SESSION['et_mfa_recovery']);
 et_admin_header('Two-factor authentication', $user, 'account');
 ?>
-<section class="form-section" style="max-width:680px"><h2>Authenticator</h2><p>Admins wote wanahitaji 2FA kabla ya kutumia modules nyingine. Owner pekee ana ruhusa ya muda kwenye localhost development.</p>
-<?php if (!$state && et_owner_development_exception($user)): ?><p><a class="admin-button secondary" href="index.php">Endelea kwenye Dashboard — localhost development</a></p><?php endif; ?>
+<section class="form-section" style="max-width:680px"><h2>Authenticator</h2><p>All admins must set up 2FA before using other sections. Only the owner can skip this temporarily during local development.</p>
+<?php if (!$state && et_owner_development_exception($user)): ?><p><a class="admin-button secondary" href="index.php">Go to Dashboard — localhost development</a></p><?php endif; ?>
 <?php if ($error): ?><div class="admin-alert error" role="alert"><?= et_e($error) ?></div><?php endif; ?>
-<?php if ($lockRemaining > 0): ?><div class="admin-alert" data-mfa-countdown="<?= $lockRemaining ?>">Jaribu tena baada ya <span data-mfa-time><?= sprintf('%02d:%02d', intdiv($lockRemaining, 60), $lockRemaining % 60) ?></span>.</div><?php endif; ?>
-<?php if ($codes): ?><div class="admin-alert"><h3>Hifadhi recovery codes sasa</h3><p>Zinaonyeshwa mara hii tu. Kila code itumike mara moja. Hifadhi sehemu salama nje ya simu yako. Faili linalopakuliwa halina encryption; usilishiriki.</p><pre id="recoveryCodes"><?= et_e(implode("\n", $codes)) ?></pre><button type="button" class="admin-button secondary" data-download-recovery>Download backup codes (.txt)</button><span data-recovery-download-status role="status"></span></div><?php endif; ?>
-<?php if ($state): ?><p><strong>2FA imewashwa.</strong></p><form method="post" class="admin-form"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><div class="form-field"><label>Nenosiri la sasa<input name="password" type="password" autocomplete="current-password" required></label></div><div class="form-field"><label>Authenticator / recovery code<input name="code" autocomplete="one-time-code" maxlength="23" required></label></div><button class="admin-button" name="action" value="regenerate">Tengeneza recovery codes mpya</button></form><p><a href="index.php">Endelea kwenye Dashboard</a></p>
+<?php if ($lockRemaining > 0): ?><div class="admin-alert" data-mfa-countdown="<?= $lockRemaining ?>">Try again in <span data-mfa-time><?= sprintf('%02d:%02d', intdiv($lockRemaining, 60), $lockRemaining % 60) ?></span>.</div><?php endif; ?>
+<?php if ($codes): ?><div class="admin-alert"><h3>Save your recovery codes now</h3><p>These codes are shown only once. Each code works once. Keep them somewhere safe, separate from your phone. The downloaded file is not encrypted. Do not share it.</p><pre id="recoveryCodes"><?= et_e(implode("\n", $codes)) ?></pre><button type="button" class="admin-button secondary" data-download-recovery>Download backup codes (.txt)</button><span data-recovery-download-status role="status"></span></div><?php endif; ?>
+<?php if ($state): ?><p><strong>2FA is enabled.</strong></p><form method="post" class="admin-form"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><div class="form-field"><label>Current password<input name="password" type="password" autocomplete="current-password" required></label></div><div class="form-field"><label>Authenticator / recovery code<input name="code" autocomplete="one-time-code" maxlength="23" required></label></div><button class="admin-button" name="action" value="regenerate">Create new recovery codes</button></form><p><a href="index.php">Go to Dashboard</a></p>
 <?php else: ?>
-<?php if ($setup): ?><p>Scan QR ndani ya Authenticator. Usishiriki QR au secret.</p><img src="<?= et_e(et_totp()->getQRCodeImageAsDataUri('ElimuTaifa:' . $user['username'], $setup['secret'], 240)) ?>" width="240" height="240" alt="QR ya kusetup Authenticator"><p>Au ingiza setup key mwenyewe: <code><?= et_e($setup['secret']) ?></code></p><?php endif; ?>
-<form method="post" class="admin-form"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><input type="hidden" name="action" value="<?= $setup ? 'enable' : 'start' ?>"><div class="form-field"><label>Nenosiri la sasa<input name="password" type="password" autocomplete="current-password" required></label></div><?php if ($setup): ?><div class="form-field"><label>Code ya tarakimu 6<input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label></div><?php endif; ?><button class="admin-button"><?= $setup ? 'Thibitisha na washa 2FA' : 'Anza setup ya 2FA' ?></button></form>
+<?php if ($setup): ?><p>Scan the QR code with your authenticator. Do not share the QR code or setup key.</p><img src="<?= et_e(et_totp()->getQRCodeImageAsDataUri('ElimuTaifa:' . $user['username'], $setup['secret'], 240)) ?>" width="240" height="240" alt="Authenticator setup QR code"><p>Or enter this setup key manually: <code><?= et_e($setup['secret']) ?></code></p><?php endif; ?>
+<form method="post" class="admin-form"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><input type="hidden" name="action" value="<?= $setup ? 'enable' : 'start' ?>"><div class="form-field"><label>Current password<input name="password" type="password" autocomplete="current-password" required></label></div><?php if ($setup): ?><div class="form-field"><label>6-digit code<input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label></div><?php endif; ?><button class="admin-button"><?= $setup ? 'Confirm and enable 2FA' : 'Set up 2FA' ?></button></form>
 <?php endif; ?></section>
 <?php et_admin_footer(); ?>

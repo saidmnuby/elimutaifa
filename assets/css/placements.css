@@ -31,7 +31,12 @@
 .et-placement-popup--interstitial{inset:0;width:auto;border:0;border-radius:0;background:#031b4eb8;padding:clamp(52px,8vh,90px) 16px;display:grid;place-items:center;overflow-y:auto}
 .et-placement-popup--interstitial .et-placement{width:min(620px,100%);max-height:none;box-shadow:0 24px 70px #0008}
 .et-placement-popup--interstitial .et-placement-link img{max-height:320px}
-.et-placement-popup--interstitial .et-placement-popup-close{position:fixed;top:18px;right:18px;width:auto;min-width:120px;height:38px;padding:0 14px;border-radius:20px;font-size:13px;font-weight:800}
+.et-placement-modal-panel{width:min(620px,100%);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;min-height:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 70px #0008}
+.et-placement-modal-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;padding:10px 12px;border-bottom:1px solid #dbe3ef;background:#fff;color:#172b4d;font-size:13px}
+.et-placement-popup--interstitial{padding:16px}
+.et-placement-popup--interstitial .et-placement-modal-panel .et-placement{width:100%;min-height:0;flex:0 1 auto;overflow-y:auto;box-shadow:none;border-radius:0}
+.et-placement-popup--interstitial .et-placement-link{height:auto}
+.et-placement-popup--interstitial .et-placement-popup-close{position:static;flex-shrink:0;width:auto;min-width:132px;min-height:44px;height:auto;padding:10px 14px;border-radius:8px;background:#031b4e;color:#fff;font-size:14px;font-weight:800;line-height:1.4}
 .et-placement-popup-close:disabled{cursor:not-allowed;opacity:.72}
 .et-placement-modal-open{overflow:hidden}
 @keyframes et-placement-popup-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}

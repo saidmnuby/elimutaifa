@@ -14,7 +14,7 @@ $flash = et_take_flash();
 $error = $flash && $flash['type'] === 'error' ? (string) $flash['message'] : '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!et_verify_csrf($_POST['csrf_token'] ?? null)) {
-        $error = 'Ombi limeisha muda. Pakia ukurasa upya.';
+        $error = 'This request has expired. Reload the page.';
     } else {
         $result = et_attempt_admin_login((string) ($_POST['username'] ?? ''), (string) ($_POST['password'] ?? ''));
         if ($result['ok']) {
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 <!doctype html>
-<html lang="sw">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,19 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="login-page">
 <main class="login-card">
     <div class="login-brand"><img src="../assets/img/brand/circle_logo.png" alt=""><span><strong>ElimuTaifa</strong><small>Content Manager</small></span></div>
-    <h1>Ingia kwenye admin</h1>
-    <p>Simamia matangazo na ujumbe wa jukwaa.</p>
+    <h1>Admin sign-in</h1>
+    <p>Manage announcements and messages.</p>
     <?php if ($error !== ''): ?><div class="admin-alert error" role="alert"><?= et_e($error) ?></div><?php endif; ?>
     <?php if (!$hasAdmin): ?>
-        <div class="admin-alert error">Hakuna admin account. Tumia CLI command iliyoelezwa kwenye README kuunda account ya kwanza.</div>
+        <div class="admin-alert error">No admin account exists. Use the command in the README to create the first account.</div>
     <?php endif; ?>
     <form method="post" class="admin-form" autocomplete="on">
         <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>">
         <div class="form-field"><label for="username">Username</label><input id="username" name="username" maxlength="80" autocomplete="username" required autofocus></div>
         <div class="form-field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
-        <button class="admin-button" type="submit"<?= !$hasAdmin ? ' disabled' : '' ?>>Ingia</button>
+        <button class="admin-button" type="submit"<?= !$hasAdmin ? ' disabled' : '' ?>>Sign in</button>
     </form>
-    <div class="login-help">Admin haionekani kwenye search engines. Tumia HTTPS kwenye production.</div>
+    <div class="login-help">Admin pages are hidden from search engines. Use HTTPS on the live site.</div>
 </main>
 </body>
 </html>

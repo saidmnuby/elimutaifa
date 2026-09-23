@@ -23,11 +23,11 @@ $statement = $database->prepare('SELECT title,status,media_url FROM content_item
 $statement->execute(['id' => $id]);
 $item = $statement->fetch();
 if (!$item) {
-    et_flash('error', 'Maudhui hayajapatikana.');
+    et_flash('error', 'Content not found.');
     et_redirect('./');
 }
 if ($item['status'] !== 'archived') {
-    et_flash('error', 'Weka maudhui kwenye archive kabla ya kuyafuta kabisa.');
+    et_flash('error', 'Archive this content before deleting it permanently.');
     et_redirect('./');
 }
 
@@ -44,13 +44,13 @@ try {
     if ($database->inTransaction()) {
         $database->rollBack();
     }
-    et_flash('error', 'Maudhui hayakuweza kufutwa kabisa.');
+    et_flash('error', 'Could not permanently delete the content.');
     et_redirect('./');
 }
 
 $mediaDeleted = et_delete_managed_content_image((string) $item['media_url']);
 $sitemapUpdated = et_rebuild_sitemap($database);
 et_flash($sitemapUpdated && $mediaDeleted ? 'success' : 'error', $sitemapUpdated && $mediaDeleted
-    ? 'Maudhui yamefutwa kabisa.'
-    : 'Maudhui yamefutwa, lakini media au sitemap inahitaji ukaguzi.');
+    ? 'Content permanently deleted.'
+    : 'Content deleted, but its media or sitemap needs checking.');
 et_redirect('./');

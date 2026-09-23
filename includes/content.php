@@ -76,47 +76,47 @@ function et_validate_content_input(array $input): array
 
     $errors = [];
     if (mb_strlen($data['title']) < 5 || mb_strlen($data['title']) > 140) {
-        $errors['title'] = 'Kichwa kiwe na herufi 5 hadi 140.';
+        $errors['title'] = 'Use 5 to 140 characters for the title.';
     }
     if ($data['slug'] === '' || strlen($data['slug']) > 160) {
-        $errors['slug'] = 'Slug inahitajika na isizidi herufi 160.';
+        $errors['slug'] = 'Enter a URL name with no more than 160 characters.';
     }
     if (mb_strlen($data['excerpt']) < 20 || mb_strlen($data['excerpt']) > 300) {
-        $errors['excerpt'] = 'Maelezo mafupi yawe na herufi 20 hadi 300.';
+        $errors['excerpt'] = 'Use 20 to 300 characters for the short description.';
     }
     if (mb_strlen($data['body']) < 20 || mb_strlen($data['body']) > 20000) {
-        $errors['body'] = 'Maudhui yawe na herufi 20 hadi 20,000.';
+        $errors['body'] = 'Use 20 to 20,000 characters for the full text.';
     }
     if (!array_key_exists($data['category'], ET_CONTENT_CATEGORIES)) {
-        $errors['category'] = 'Chagua category sahihi.';
+        $errors['category'] = 'Choose a valid category.';
     }
     if (!array_key_exists($data['audience'], ET_CONTENT_AUDIENCES)) {
-        $errors['audience'] = 'Chagua audience sahihi.';
+        $errors['audience'] = 'Choose a valid audience.';
     }
     if (!array_key_exists($data['status'], ET_CONTENT_STATUSES)) {
-        $errors['status'] = 'Chagua status sahihi.';
+        $errors['status'] = 'Choose a valid status.';
     }
     if (!array_key_exists($data['media_type'], ET_CONTENT_MEDIA_TYPES)) {
-        $errors['media_type'] = 'Chagua aina sahihi ya media.';
+        $errors['media_type'] = 'Choose a valid media type.';
     }
     if (!in_array($data['destination_type'], ['internal', 'external'], true)) {
-        $errors['destination_type'] = 'Chagua destination sahihi.';
+        $errors['destination_type'] = 'Choose a valid link type.';
     }
     if ($data['media_type'] !== 'none' && $data['destination_type'] === 'external') {
-        $errors['destination_type'] = 'Picha au embedded video inahitaji taarifa ifunguke ndani ya ElimuTaifa.';
+        $errors['destination_type'] = 'Images and embedded videos need an internal ElimuTaifa article.';
     }
 
     if (strlen($data['media_url']) > 1000) {
-        $errors['media_url'] = 'Media URL isizidi herufi 1,000.';
+        $errors['media_url'] = 'The media URL must not exceed 1,000 characters.';
     } elseif ($data['media_type'] === 'image') {
         $hasPendingUpload = ($input['_has_image_upload'] ?? false) === true;
         if (!$hasPendingUpload && ($data['media_url'] === '' || !et_is_safe_image_url($data['media_url']))) {
-            $errors['media_url'] = 'Pakia picha au weka HTTPS URL kamili ya picha.';
+            $errors['media_url'] = 'Upload an image or enter its full HTTPS URL.';
         }
     } elseif ($data['media_type'] === 'youtube') {
         $videoId = et_youtube_video_id($data['media_url']);
         if ($videoId === null) {
-            $errors['media_url'] = 'Weka link sahihi ya video ya YouTube.';
+            $errors['media_url'] = 'Enter a valid YouTube video link.';
         } else {
             $data['media_url'] = 'https://www.youtube.com/watch?v=' . $videoId;
         }
@@ -125,31 +125,31 @@ function et_validate_content_input(array $input): array
         $data['media_caption'] = '';
     }
     if (mb_strlen($data['media_caption']) > 200) {
-        $errors['media_caption'] = 'Maelezo ya media yasizidi herufi 200.';
+        $errors['media_caption'] = 'The media description must not exceed 200 characters.';
     }
 
     foreach (['source_url', 'external_url'] as $urlField) {
         if ($data[$urlField] !== '' && !et_is_safe_public_url($data[$urlField])) {
-            $errors[$urlField] = 'Tumia URL kamili ya http au https.';
+            $errors[$urlField] = 'Use a full HTTP or HTTPS URL.';
         }
     }
     if ($data['destination_type'] === 'external' && $data['external_url'] === '') {
-        $errors['external_url'] = 'External destination inahitaji URL.';
+        $errors['external_url'] = 'Enter the external website URL.';
     }
     if ($data['status'] === 'scheduled' && $data['published_at'] === null) {
-        $errors['published_at'] = 'Weka muda wa kuchapisha taarifa iliyopangwa.';
+        $errors['published_at'] = 'Set a publish time for scheduled content.';
     }
     if (trim((string) ($input['published_at'] ?? '')) !== '' && $data['published_at'] === null) {
-        $errors['published_at'] = 'Muda wa kuchapisha si sahihi.';
+        $errors['published_at'] = 'Invalid publish time.';
     }
     if (trim((string) ($input['expires_at'] ?? '')) !== '' && $data['expires_at'] === null) {
-        $errors['expires_at'] = 'Muda wa kuisha si sahihi.';
+        $errors['expires_at'] = 'Invalid expiry time.';
     }
     if (mb_strlen($data['source_name']) > 120) {
-        $errors['source_name'] = 'Jina la chanzo lisizidi herufi 120.';
+        $errors['source_name'] = 'The source name must not exceed 120 characters.';
     }
     if ($data['expires_at'] !== null && $data['published_at'] !== null && $data['expires_at'] <= $data['published_at']) {
-        $errors['expires_at'] = 'Muda wa kuisha uwe baada ya muda wa kuchapisha.';
+        $errors['expires_at'] = 'Expiry must be after the publish time.';
     }
 
     return [$data, $errors];
@@ -373,19 +373,19 @@ function et_build_sitemap_xml(PDO $database, string $lastModifiedDate = ''): str
 {
     $lastModifiedDate = $lastModifiedDate !== '' ? $lastModifiedDate : gmdate('Y-m-d');
     $urls = [
-        ['url' => 'https://elimutaifa.com/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/results/acsee/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/results/csee/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/results/ftna/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/results/psle/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/results/sfna/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/about/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/contact/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/contribution/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/privacy/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/announcements/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/selection/form-one/', 'lastmod' => $lastModifiedDate],
-        ['url' => 'https://elimutaifa.com/selection/form-five/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/results/acsee/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/results/csee/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/results/ftna/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/results/psle/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/results/sfna/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/about/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/contact/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/contribution/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/privacy/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/announcements/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/selection/form-one/', 'lastmod' => $lastModifiedDate],
+        ['url' => 'https://saidmnuby.github.io/elimutaifa/selection/form-five/', 'lastmod' => $lastModifiedDate],
     ];
 
     $statement = $database->prepare(<<<'SQL'
@@ -401,7 +401,7 @@ SQL);
     $statement->execute(['now' => et_utc_now(), 'expires_now' => et_utc_now()]);
     foreach ($statement->fetchAll() as $item) {
         $urls[] = [
-            'url' => 'https://elimutaifa.com/announcements/' . rawurlencode((string) $item['slug']) . '/',
+            'url' => 'https://saidmnuby.github.io/elimutaifa/announcements/' . rawurlencode((string) $item['slug']) . '/',
             'lastmod' => substr((string) $item['updated_at'], 0, 10),
         ];
     }

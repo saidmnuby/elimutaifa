@@ -38,23 +38,23 @@ $recentAudit = $database->query(
 
 et_admin_header('Dashboard', $user);
 ?>
-<section class="stat-grid" aria-label="Muhtasari">
+<section class="stat-grid" aria-label="Summary">
     <div class="stat-card"><small>Published</small><strong><?= $contentCounts['published'] ?></strong></div>
     <div class="stat-card"><small>Drafts</small><strong><?= $contentCounts['draft'] ?></strong></div>
-    <div class="stat-card"><small>Ujumbe mpya</small><strong><?= $newSubmissions ?></strong></div>
-    <div class="stat-card"><small>Views · siku 7</small><strong><?= number_format($views7) ?></strong></div>
+    <div class="stat-card"><small>New messages</small><strong><?= $newSubmissions ?></strong></div>
+    <div class="stat-card"><small>Views · 7 days</small><strong><?= number_format($views7) ?></strong></div>
 </section>
 <div class="admin-grid dashboard-grid">
-    <section class="admin-card dashboard-recent-card"><h2>Maudhui ya karibuni</h2>
+    <section class="admin-card dashboard-recent-card"><h2>Recent content</h2>
         <?php if ($recentContent): ?><ul class="admin-list dashboard-recent-list">
-            <?php foreach ($recentContent as $item): ?><li><div><strong><?= et_e($item['title']) ?></strong><small><?= et_e(ET_CONTENT_CATEGORIES[$item['category']] ?? $item['category']) ?> · <?= et_e(et_admin_datetime($item['updated_at'])) ?></small></div><div><?= et_admin_status_badge($item['status']) ?> <a href="content/edit.php?id=<?= (int) $item['id'] ?>">Hariri</a></div></li><?php endforeach; ?>
-        </ul><?php else: ?><div class="empty-state">Bado hakuna maudhui. Anza kwa kuongeza tangazo.</div><?php endif; ?>
+            <?php foreach ($recentContent as $item): ?><li><div><strong><?= et_e($item['title']) ?></strong><small><?= et_e(et_admin_label(ET_CONTENT_CATEGORIES[$item['category']] ?? $item['category'])) ?> · <?= et_e(et_admin_datetime($item['updated_at'])) ?></small></div><div><?= et_admin_status_badge($item['status']) ?> <a href="content/edit.php?id=<?= (int) $item['id'] ?>">Edit</a></div></li><?php endforeach; ?>
+        </ul><?php else: ?><div class="empty-state">No content yet. Add your first announcement.</div><?php endif; ?>
     </section>
     <div>
-        <section class="admin-card"><h2>System health</h2><p><strong><?= number_format($openSystemEvents) ?></strong> open events.</p><a href="monitoring/">Angalia traffic na errors →</a></section>
-        <section class="admin-card" style="margin-top:18px"><h2>Current pop-up</h2><p><?= $popupTitle ? et_e($popupTitle) : 'Hakuna pop-up inayotumika sasa.' ?></p></section>
+        <section class="admin-card"><h2>System health</h2><p><strong><?= number_format($openSystemEvents) ?></strong> open events.</p><a href="monitoring/">View traffic and errors →</a></section>
+        <section class="admin-card" style="margin-top:18px"><h2>Current pop-up</h2><p><?= $popupTitle ? et_e($popupTitle) : 'No active pop-up.' ?></p></section>
         <section class="admin-card" style="margin-top:18px"><h2>Recent activity</h2>
-            <?php if ($recentAudit): ?><ul class="admin-list"><?php foreach ($recentAudit as $log): ?><li><div><strong><?= et_e(str_replace('_', ' ', $log['action'])) ?></strong><small><?= et_e(et_admin_datetime($log['created_at'])) ?></small></div></li><?php endforeach; ?></ul><?php else: ?><p>Hakuna shughuli.</p><?php endif; ?>
+            <?php if ($recentAudit): ?><ul class="admin-list"><?php foreach ($recentAudit as $log): ?><li><div><strong><?= et_e(str_replace('_', ' ', $log['action'])) ?></strong><small><?= et_e(et_admin_datetime($log['created_at'])) ?></small></div></li><?php endforeach; ?></ul><?php else: ?><p>No recent activity.</p><?php endif; ?>
         </section>
     </div>
 </div>

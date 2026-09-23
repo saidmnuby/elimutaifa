@@ -23,5 +23,5 @@
 </tbody></table></section>
 <p id="selection-student-empty" hidden role="status">Hakuna mwanafunzi anayelingana na namba hiyo katika orodha hii.</p>
 <script src="../../assets/js/selection-students.js?v=20260916.1" defer></script>
-<link rel="stylesheet" href="../../assets/css/selection-students.css?v=20260916.2">
+<link rel="stylesheet" href="../../assets/css/selection-students.css?v=20260920.4">
 <?php endif; ?>

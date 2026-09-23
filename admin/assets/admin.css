@@ -243,7 +243,7 @@ a { color: inherit; }
 .traffic-point:hover { r: 7; }
 .traffic-point-views { fill: var(--green); }
 .traffic-point-visitors { fill: #2f71c1; }
-.monitoring-top-pages .admin-list { min-height: 0; margin-top: 13px; padding-right: 7px; overflow-y: auto; scrollbar-gutter: stable; }
+.monitoring-top-pages .admin-list { min-height: 0; margin-top: 13px; padding-right: 7px; overflow-y: auto; scrollbar-gutter: stable;scrollbar-width: none; }
 .path-text { display: block; max-width: 360px; overflow-wrap: anywhere; }
 .severity-badge { display: inline-block; margin: 0 8px 5px 0; padding: 3px 7px; border-radius: 5px; font-size: 10px; font-weight: 900; }
 .severity-info { color: #174c92; background: #e4efff; }

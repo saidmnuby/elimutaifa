@@ -17,7 +17,7 @@ include 'header.php'; // Include the header file
 
     <link
     rel="canonical"
-    href="https://elimutaifa.com/results/sfna/">
+    href="https://saidmnuby.github.io/elimutaifa/results/sfna/">
 
     <meta property="og:title"
     content="Matokeo ya Darasa la Nne 2026 - SFNA">
@@ -28,10 +28,10 @@ include 'header.php'; // Include the header file
     <meta property="og:type" content="website">
     
     <meta property="og:url"
-    content="https://elimutaifa.com/results/sfna/">
+    content="https://saidmnuby.github.io/elimutaifa/results/sfna/">
 
     <meta property="og:image"
-    content="https://elimutaifa.com/assets/img/brand/rectangle.jpg">
+    content="https://saidmnuby.github.io/elimutaifa/assets/img/brand/rectangle.jpg">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

@@ -708,7 +708,8 @@ html.school-results-page {
     max-width: 100%;
     margin-top: 16px;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: auto;
+    scrollbar-width: none;
     overscroll-behavior-x: contain;
     border: 1px solid var(--education-border);
     border-radius: 12px;
@@ -1362,6 +1363,7 @@ html.school-results-page {
 
     .education-page .card-one {
         margin-right: -2px;
+        scrollbar-width: none;
     }
 
     .education-page.level-error .alert-panel {

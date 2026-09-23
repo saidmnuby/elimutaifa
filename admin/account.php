@@ -9,7 +9,7 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!et_verify_csrf($_POST['csrf_token'] ?? null)) {
-        $error = 'Ombi limeisha muda. Pakia ukurasa upya.';
+        $error = 'This request has expired. Reload the page.';
     } else {
         $currentPassword = (string) ($_POST['current_password'] ?? '');
         $newPassword = (string) ($_POST['new_password'] ?? '');
@@ -18,13 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->execute(['id' => (int) $user['id']]);
         $hash = (string) $statement->fetchColumn();
         if (!password_verify($currentPassword, $hash)) {
-            $error = 'Nenosiri la sasa si sahihi.';
+            $error = 'The current password is incorrect.';
         } elseif (strlen($newPassword) < 12 || strlen($newPassword) > 200) {
-            $error = 'Nenosiri jipya liwe na herufi 12 hadi 200.';
+            $error = 'Use 12 to 200 characters for the new password.';
         } elseif ($newPassword !== $confirmation) {
-            $error = 'Uthibitisho wa nenosiri jipya haulingani.';
+            $error = 'The new passwords do not match.';
         } elseif (hash_equals($currentPassword, $newPassword)) {
-            $error = 'Nenosiri jipya liwe tofauti na la sasa.';
+            $error = 'Choose a password different from the current one.';
         } else {
             et_db()->prepare('UPDATE admin_users SET password_hash=:password_hash, updated_at=:updated_at WHERE id=:id')
                 ->execute(['password_hash' => password_hash($newPassword, PASSWORD_DEFAULT), 'updated_at' => et_utc_now(), 'id' => (int) $user['id']]);
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['et_admin_started_at'] = time();
             $_SESSION['et_admin_last_activity'] = time();
             et_audit((int) $user['id'], 'password_changed', 'admin_user', (int) $user['id']);
-            et_flash('success', 'Nenosiri limebadilishwa.');
+            et_flash('success', 'Password changed.');
             et_redirect('account.php');
         }
     }
@@ -40,16 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 et_admin_header('Account', $user, 'account');
 ?>
-<div class="admin-page-heading"><div><p>Badilisha nenosiri la admin aliyeingia.</p></div></div>
-<section class="form-section"><h2>Ulinzi wa akaunti</h2><a class="admin-button secondary" href="two-factor.php">Simamia Authenticator (2FA)</a></section>
+<div class="admin-page-heading"><div><p>Change your admin password.</p></div></div>
+<section class="form-section"><h2>Account security</h2><a class="admin-button secondary" href="two-factor.php">Manage two-step sign-in (2FA)</a></section>
 <?php if ($error !== ''): ?><div class="admin-alert error" role="alert"><?= et_e($error) ?></div><?php endif; ?>
 <form method="post" class="admin-form" style="max-width:680px">
     <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>">
     <section class="form-section"><h2><?= et_e($user['display_name']) ?></h2><div class="form-grid">
-        <div class="form-field full"><label for="current_password">Nenosiri la sasa</label><input id="current_password" name="current_password" type="password" autocomplete="current-password" required></div>
-        <div class="form-field"><label for="new_password">Nenosiri jipya</label><input id="new_password" name="new_password" type="password" minlength="12" maxlength="200" autocomplete="new-password" required></div>
-        <div class="form-field"><label for="new_password_confirmation">Rudia nenosiri jipya</label><input id="new_password_confirmation" name="new_password_confirmation" type="password" minlength="12" maxlength="200" autocomplete="new-password" required></div>
+        <div class="form-field full"><label for="current_password">Current password</label><input id="current_password" name="current_password" type="password" autocomplete="current-password" required></div>
+        <div class="form-field"><label for="new_password">New password</label><input id="new_password" name="new_password" type="password" minlength="12" maxlength="200" autocomplete="new-password" required></div>
+        <div class="form-field"><label for="new_password_confirmation">Confirm new password</label><input id="new_password_confirmation" name="new_password_confirmation" type="password" minlength="12" maxlength="200" autocomplete="new-password" required></div>
     </div></section>
-    <div class="form-actions"><button class="admin-button" type="submit">Badilisha nenosiri</button></div>
+    <div class="form-actions"><button class="admin-button" type="submit">Change password</button></div>
 </form>
 <?php et_admin_footer(); ?>

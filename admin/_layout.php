@@ -3,15 +3,28 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/admin_auth.php';
 
+/** Translate shared UI labels without changing public labels or stored content. */
+function et_admin_label(string $label): string
+{
+    return [
+        'Tangazo'=>'Announcement', 'Habari mpya'=>'News', 'Matokeo'=>'Exam results',
+        'Wote'=>'Everyone', 'Wanafunzi'=>'Students', 'Wazazi'=>'Parents',
+        'Walimu'=>'Teachers', 'Shule'=>'Schools', 'Mashirika'=>'Organisations',
+        'Kurasa zote za umma'=>'All public pages', 'Search pages zote'=>'All search pages',
+        'Result pages zote'=>'All result pages', 'School lists zote'=>'All school lists',
+        'Kurasa za taarifa'=>'Information pages', 'Error pages zote'=>'All error pages',
+    ][$label] ?? $label;
+}
+
 function et_admin_header(string $title, array $user, string $active = 'dashboard', string $base = ''): void
 {
     $GLOBALS['et_admin_layout_base'] = $base;
     $flash = et_take_flash();
     $navItems = [
         'dashboard' => ['Dashboard', $base . 'index.php'],
-        'content' => ['Maudhui', $base . 'content/'],
+        'content' => ['Content', $base . 'content/'],
         'placements' => ['Banners & Sponsors', $base . 'placements/'],
-        'submissions' => ['Ujumbe', $base . 'submissions/'],
+        'submissions' => ['Messages', $base . 'submissions/'],
         'sources' => ['Result Pages', $base . 'sources.php'],
         'monitoring' => ['Traffic & Errors', $base . 'monitoring/'],
         'audit' => ['Audit Log', $base . 'audit.php'],
@@ -22,7 +35,7 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
     }
     ?>
 <!doctype html>
-<html lang="sw">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,10 +58,10 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
             <?php endforeach; ?>
         </nav>
         <div class="admin-sidebar-bottom">
-            <a href="<?= et_e($base) ?>../" target="_blank" rel="noopener">Fungua tovuti ↗</a>
+            <a href="<?= et_e($base) ?>../" target="_blank" rel="noopener">Open website ↗</a>
             <form action="<?= et_e($base) ?>logout.php" method="post">
                 <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>">
-                <button type="submit">Toka</button>
+                <button type="submit">Sign out</button>
             </form>
         </div>
     </aside>
@@ -56,13 +69,13 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
         <header class="admin-topbar">
             <div class="admin-topbar-user">
                 <button type="button" class="admin-menu-button" id="adminMenuButton" aria-controls="adminSidebar" aria-expanded="false">☰</button>
-                <div><span><?= et_e($user['display_name']) ?></span><small><?= et_e(ucfirst((string) ($user['role'] ?? 'admin'))) ?></small></div>
+                <div><span id="display_name"><?= et_e($user['display_name']) ?></span><small><?= et_e(ucfirst((string) ($user['role'] ?? 'admin'))) ?></small></div>
             </div>
             <h1 class="admin-topbar-title"><?= et_e($title) ?></h1>
         </header>
         <main class="admin-content">
             <?php if ($user['role'] === 'owner' && et_local_development_access() && !et_mfa_state((int) $user['id'])): ?>
-                <div class="admin-alert" role="status">Development ya localhost: 2FA setup imeruhusiwa kuahirishwa kwa muda. Password bado inahitajika; production inahitaji 2FA.</div>
+                <div class="admin-alert" role="status">Local development: the owner can set up 2FA later. A password is still required. The live site requires 2FA.</div>
             <?php endif; ?>
             <?php if ($flash): ?>
                 <div class="admin-alert <?= et_e($flash['type'] ?? 'info') ?>" role="status"><?= et_e($flash['message'] ?? '') ?></div>
@@ -101,27 +114,27 @@ function et_admin_pagination(int $currentPage, int $totalPages, array $query = [
     ?>
     <nav class="admin-pagination" aria-label="<?= et_e($label) ?>">
         <?php if ($currentPage > 1): ?>
-            <a href="<?= et_e($pageUrl(1)) ?>" aria-label="Ukurasa wa kwanza">« Mwanzo</a>
-            <a href="<?= et_e($pageUrl($currentPage - 1)) ?>" aria-label="Ukurasa uliopita">‹ Nyuma</a>
+            <a href="<?= et_e($pageUrl(1)) ?>" aria-label="First page">« First</a>
+            <a href="<?= et_e($pageUrl($currentPage - 1)) ?>" aria-label="Previous page">‹ Previous</a>
         <?php else: ?>
-            <span class="is-disabled" aria-disabled="true">« Mwanzo</span>
-            <span class="is-disabled" aria-disabled="true">‹ Nyuma</span>
+            <span class="is-disabled" aria-disabled="true">« First</span>
+            <span class="is-disabled" aria-disabled="true">‹ Previous</span>
         <?php endif; ?>
 
         <?php for ($pageNumber = $startPage; $pageNumber <= $endPage; $pageNumber++): ?>
             <?php if ($pageNumber === $currentPage): ?>
                 <span class="page-number is-current" aria-current="page"><?= $pageNumber ?></span>
             <?php else: ?>
-                <a class="page-number" href="<?= et_e($pageUrl($pageNumber)) ?>" aria-label="Ukurasa <?= $pageNumber ?>"><?= $pageNumber ?></a>
+                <a class="page-number" href="<?= et_e($pageUrl($pageNumber)) ?>" aria-label="Page <?= $pageNumber ?>"><?= $pageNumber ?></a>
             <?php endif; ?>
         <?php endfor; ?>
 
         <?php if ($currentPage < $totalPages): ?>
-            <a href="<?= et_e($pageUrl($currentPage + 1)) ?>" aria-label="Ukurasa unaofuata">Mbele ›</a>
-            <a href="<?= et_e($pageUrl($totalPages)) ?>" aria-label="Ukurasa wa mwisho">Mwisho »</a>
+            <a href="<?= et_e($pageUrl($currentPage + 1)) ?>" aria-label="Next page">Next ›</a>
+            <a href="<?= et_e($pageUrl($totalPages)) ?>" aria-label="Last page">Last »</a>
         <?php else: ?>
-            <span class="is-disabled" aria-disabled="true">Mbele ›</span>
-            <span class="is-disabled" aria-disabled="true">Mwisho »</span>
+            <span class="is-disabled" aria-disabled="true">Next ›</span>
+            <span class="is-disabled" aria-disabled="true">Last »</span>
         <?php endif; ?>
     </nav>
     <?php

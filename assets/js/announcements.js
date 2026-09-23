@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         popupLink.onclick = function () { hidePopup(key); };
         let wasSeen = false;
         try { wasSeen = window.localStorage.getItem(key) === 'seen'; } catch (error) { /* show when storage is unavailable */ }
-        if (!wasSeen) window.setTimeout(showPopup, 900);
+        if (!wasSeen) window.setTimeout(showPopup, 10000);
     }
 
     fetch('api/announcements.php', { headers: { Accept: 'application/json' }, credentials: 'same-origin' })
@@ -119,6 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (popupLink) popupLink.addEventListener('click', function () { hidePopup(key); });
             let wasSeen = false;
             try { wasSeen = window.localStorage.getItem(key) === 'seen'; } catch (error) { /* show fallback */ }
-            if (!wasSeen) window.setTimeout(showPopup, 900);
+            if (!wasSeen) window.setTimeout(showPopup, 10000);
         });
 });

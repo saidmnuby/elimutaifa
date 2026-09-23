@@ -18,11 +18,11 @@ $returnStatus = $returnStatus === 'all' || in_array($returnStatus, $allowedStatu
 $returnPage = max(1, filter_var($_POST['return_page'] ?? 1, FILTER_VALIDATE_INT) ?: 1);
 $returnUrl = './?status=' . rawurlencode($returnStatus) . '&page=' . $returnPage;
 if ($id <= 0 || !in_array($status, $allowedStatuses, true) || mb_strlen($note) > 1000) {
-    et_flash('error', 'Taarifa za update si sahihi.');
+    et_flash('error', 'Invalid update details.');
     et_redirect($returnUrl);
 }
 $statement = et_db()->prepare('UPDATE submissions SET status=:status, admin_note=:admin_note, updated_at=:updated_at WHERE id=:id');
 $statement->execute(['status' => $status, 'admin_note' => $note, 'updated_at' => et_utc_now(), 'id' => $id]);
 et_audit((int) $user['id'], 'submission_updated', 'submission', $id, 'Status: ' . $status);
-et_flash('success', 'Ujumbe umesasishwa.');
+et_flash('success', 'Message updated.');
 et_redirect($returnUrl);

@@ -33,11 +33,11 @@ function fo_validate_cycle(array $input,?callable $sourceValidator=null): array 
         'intake_year'=>filter_var($input['intake_year']??'',FILTER_VALIDATE_INT), 'exam_year'=>filter_var($input['exam_year']??'',FILTER_VALIDATE_INT)];
     if(($input['source_mode']??'manual')==='auto') $data['source_url']=fo_generated_source($data['exam_year'],$data['round_label']);
     $errors=[];
-    if(!preg_match('/^[a-z0-9][a-z0-9-]{2,59}$/D',$data['cycle_key'])) $errors[]='Cycle key iwe herufi ndogo/namba/dash (3–60).';
-    if(mb_strlen($data['round_label'])<3 || mb_strlen($data['round_label'])>80) $errors[]='Jina la round liwe herufi 3–80.';
-    if(!$data['intake_year'] || !$data['exam_year'] || $data['exam_year']<2010 || $data['intake_year']>2100 || $data['exam_year']>$data['intake_year'] || $data['intake_year']-$data['exam_year']>2) $errors[]='Hakiki exam year na intake year.';
-    if(!($sourceValidator??'fo_source_valid')($data['source_url'])) $errors[]='Source iwe official HTTPS cycle index ya TAMISEMI; si arbitrary URL.';
-    if(!in_array($data['status'],['draft','published','archived'],true)) $errors[]='Status si sahihi.';
+    if(!preg_match('/^[a-z0-9][a-z0-9-]{2,59}$/D',$data['cycle_key'])) $errors[]='Use 3–60 lowercase letters, numbers or hyphens for the cycle key.';
+    if(mb_strlen($data['round_label'])<3 || mb_strlen($data['round_label'])>80) $errors[]='Use 3–80 characters for the round name.';
+    if(!$data['intake_year'] || !$data['exam_year'] || $data['exam_year']<2010 || $data['intake_year']>2100 || $data['exam_year']>$data['intake_year'] || $data['intake_year']-$data['exam_year']>2) $errors[]='Check the exam year and intake year.';
+    if(!($sourceValidator??'fo_source_valid')($data['source_url'])) $errors[]='Use an official TAMISEMI HTTPS cycle index URL.';
+    if(!in_array($data['status'],['draft','published','archived'],true)) $errors[]='Invalid status.';
     return [$data,$errors];
 }
 function fo_cycle_changed(array $old,array $new): bool {

@@ -1,11 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     const recoveryDownload = document.querySelector('[data-download-recovery]');
     const recoveryCodes = document.getElementById('recoveryCodes');
+    const displayName = document.getElementById('display_name');
     if (recoveryDownload && recoveryCodes) {
         recoveryDownload.addEventListener('click', function () {
-            const content = 'ElimuTaifa — 2FA recovery codes\n\n'
-                + 'Keep this file private. Each code can be used once. New recovery codes invalidate old ones.\n\n'
-                + recoveryCodes.textContent.trim() + '\n';
+            const content = 'ELIMUTAIFA | '+ displayName.textContent.trim() + '\n'
+                + '2FA- Ten(10) Backup Codes \n\n'
+                +'-> Keep this file and use codes private.\n' 
+                +'-> Each code can be used once.\n' 
+                +'-> New recovery codes invalidate old ones.\n\n'
+                
+                +'___________________________\n\n'
+                + recoveryCodes.textContent.trim() 
+                + '\n___________________________'
+            ;
+
             const url = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
             const link = document.createElement('a');
             link.href = url;
@@ -15,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
             link.remove();
             setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
             const status = document.querySelector('[data-recovery-download-status]');
-            if (status) status.textContent = ' Download imeombwa. Hakikisha faili limehifadhiwa sehemu salama.';
+            if (status) status.textContent = ' Download requested. Make sure the file is saved somewhere safe.';
         });
     }
     document.querySelectorAll('[data-mfa-countdown]').forEach(function (box) {
@@ -31,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function update() {
             const seconds = Math.max(0, Math.ceil((deadline - performance.now()) / 1000));
             if (seconds === 0) {
-                box.textContent = 'Lock imeisha. Unaweza kujaribu tena; kama setup au login imeisha muda, anza tena.';
+                box.textContent = 'The wait is over. Try again. If setup or sign-in has expired, start again.';
                 enabledButtons.forEach(function (button) { button.disabled = false; });
                 clearInterval(timer);
                 return;
@@ -117,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 imagePreview.hidden = false;
                 imagePreview.classList.add('has-error');
                 imagePreviewElement.hidden = true;
-                imagePreviewStatus.textContent = 'Chagua JPG, PNG au WebP isiyozidi MB 5.';
+                imagePreviewStatus.textContent = 'Choose a JPG, PNG or WebP image up to 5 MB.';
                 return;
             }
             if (imageObjectUrl) URL.revokeObjectURL(imageObjectUrl);
@@ -131,20 +140,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 imagePreview.hidden = false;
                 imagePreview.classList.add('has-error');
                 imagePreviewElement.hidden = true;
-                imagePreviewStatus.textContent = 'URL ya picha lazima ianze na https://';
+                imagePreviewStatus.textContent = 'The image URL must start with https://';
                 return;
             }
-            showImagePreview(remoteUrl, 'Preview ya picha kutoka HTTPS URL.');
+            showImagePreview(remoteUrl, 'Image preview from an HTTPS URL.');
             return;
         }
-        showImagePreview(imagePreview.dataset.existingUrl || '', 'Picha iliyohifadhiwa sasa.');
+        showImagePreview(imagePreview.dataset.existingUrl || '', 'Current saved image.');
     }
 
     if (imagePreviewElement && imagePreviewStatus) {
         imagePreviewElement.addEventListener('error', function () {
             imagePreview.classList.add('has-error');
             imagePreviewElement.hidden = true;
-            imagePreviewStatus.textContent = 'Preview ya picha haipatikani. Hakikisha URL ni sahihi.';
+            imagePreviewStatus.textContent = 'Image preview unavailable. Check the URL.';
         });
     }
 
@@ -177,10 +186,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const id = youtubeVideoId(value);
         youtubePreview.classList.toggle('is-valid', Boolean(id));
         youtubePreview.classList.toggle('has-error', Boolean(value) && !id);
-        youtubePreviewTitle.textContent = id ? 'Link ya YouTube imetambuliwa' : (value ? 'Link hii haijatambuliwa' : 'Bandika link ya YouTube');
+        youtubePreviewTitle.textContent = id ? 'YouTube link recognised' : (value ? 'Link not recognised' : 'Paste a YouTube link');
         youtubePreviewStatus.textContent = id
-            ? 'Video ID: ' + id + '. Player itatengenezwa baada ya msomaji kubonyeza play.'
-            : (value ? 'Tumia link kamili ya HTTPS kutoka YouTube.' : 'Video haitapakiwa wala kucheza yenyewe.');
+            ? 'Video ID: ' + id + '. The player loads when the reader presses Play.'
+            : (value ? 'Use a full HTTPS link from YouTube.' : 'The video will not load or play automatically.');
         youtubePreviewOpen.hidden = !id;
         if (id) {
             youtubePreviewOpen.href = 'https://www.youtube.com/watch?v=' + encodeURIComponent(id);

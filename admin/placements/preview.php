@@ -11,8 +11,8 @@ $script=str_replace('\\','/',(string)$_SERVER['SCRIPT_NAME']);$pos=strpos($scrip
 $entry=et_placement_entry($database,$item,$base);
 et_admin_header('Placement preview',$user,'placements','../');
 ?>
-<p>Preview ya placement iliyohifadhiwa; hapa ratiba/status hazizuii preview. Internal destination lazima iwe article iliyochapishwa. <a href="edit.php?id=<?= $id ?>">Hariri</a></p>
-<?php if(!$entry): ?><p>Destination haipatikani au article haijachapishwa. Preview haijaonyeshwa.</p><?php else: ?>
+<p>Preview the saved placement regardless of its schedule or status. An internal link must point to a published article. <a href="edit.php?id=<?= $id ?>">Edit</a></p>
+<?php if(!$entry): ?><p>The destination is unavailable or the article is not published. No preview is available.</p><?php else: ?>
 <div data-et-placement-slot="<?= et_e($item['slot']) ?>" data-et-placement-page="home" hidden></div>
 <script type="application/json" id="etPlacementPreview"><?= json_encode(['items'=>[$entry]],JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_THROW_ON_ERROR) ?></script>
 <script src="../../assets/js/placements.js" defer></script>

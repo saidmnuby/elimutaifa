@@ -23,7 +23,7 @@ if ($districtz !== '' && !empty($url)) {
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
         if ($examYear === 2026) {
             $_SESSION['error_title']   = "Error_<X001>";
-            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibun.Jaribu hivi baadae..";
+            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibuni.Jaribu tena baadae..";
             $_SESSION['style']         = "warning-alert";
             header("Location: ../error/");
             exit();

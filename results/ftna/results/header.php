@@ -82,6 +82,7 @@ if ($candidate != '') {
                             
 }else{
     $_SESSION['success_message'] = "Matokeo ya $candidate mwaka $examYear yamepatikana ";
+    et_record_search_success();
     $_SESSION['style'] = "success";
 }
 

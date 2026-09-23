@@ -4,7 +4,7 @@
     const base = new URL('../../', source.src);
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = new URL('assets/css/placements.css', base).href;
+    stylesheet.href = new URL('assets/css/placements.css?v=20260921.1', base).href;
     document.head.appendChild(stylesheet);
 
     function safeUrl(value, image) {
@@ -76,14 +76,26 @@
         const close = document.createElement('button');
         close.type = 'button'; close.className = 'et-placement-popup-close'; close.textContent = '×';
         const delay = interstitial ? Math.max(0, Math.min(30, Number(popupItem.skip_delay) || 0)) : 0;
-        close.textContent = interstitial ? (delay ? 'Ruka baada ya ' + delay + 's' : 'Ruka tangazo') : '×';
-        close.setAttribute('aria-label', interstitial ? 'Ruka tangazo' : 'Funga tangazo');
+        close.textContent = interstitial ? (delay ? 'Ondoa baada ya ' + delay + 's' : 'ondoa tangazo') : '×';
+        close.setAttribute('aria-label', interstitial ? 'Ondoa tangazo' : 'Funga tangazo');
         close.disabled = delay > 0;
         close.addEventListener('click', function () {
             popup.remove();
             document.documentElement.classList.remove('et-placement-modal-open');
         });
-        popup.append(close, article);
+        if (interstitial) {
+            const panel = document.createElement('div');
+            panel.className = 'et-placement-modal-panel';
+            const controls = document.createElement('div');
+            controls.className = 'et-placement-modal-controls';
+            const caption = document.createElement('span');
+            caption.textContent = 'Tangazo';
+            controls.append(caption, close);
+            panel.append(controls, article);
+            popup.appendChild(panel);
+        } else {
+            popup.append(close, article);
+        }
         document.documentElement.dataset.etPlacementPopup = '1';
         window.setTimeout(function () {
             try {
@@ -96,7 +108,7 @@
                 let remaining = delay;
                 const timer = window.setInterval(function () {
                     remaining -= 1;
-                    close.textContent = remaining > 0 ? 'Ruka baada ya ' + remaining + 's' : 'Ruka tangazo';
+                    close.textContent = remaining > 0 ? 'Ondoa baada ya ' + remaining + 's' : 'Ondoa tangazo';
                     if (remaining <= 0) { window.clearInterval(timer); close.disabled = false; }
                 }, 1000);
             }
