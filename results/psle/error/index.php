@@ -29,8 +29,7 @@ include 'header.php'; // Include the header file
     <meta property="og:url"
     content="https://saidmnuby.github.io/elimutaifa/results/psle/">
 
-    <meta property="og:image"
-    content="https://saidmnuby.github.io/elimutaifa/assets/img/brand/rectangle.jpg">
+    <meta property="og:image" content="https://saidmnuby.github.io/elimutaifa/assets/img/brand/square.jpg">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
