@@ -9,7 +9,7 @@
 .education-page .fo-column .fo-list{max-height:60 vh;overflow-y:auto;scrollbar-width: none}
 .education-page .fo-column .fo-table{overflow-x:auto}
 @media(max-width:800px){.education-page .fo-grid{grid-template-columns:1fr}}
-.education-page[data-exam="form-one"] .right-column > .fo-list{height:min(58vh,560px);height:min(58dvh,560px);max-height:none;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-gutter:stable}
+.education-page[data-exam="form-one"] .right-column > .fo-list{height:min(58vh,560px);height:min(58dvh,560px);max-height:none;min-height:0;overflow-y:auto;overflow-x:auto;overscroll-behavior-y:contain;scrollbar-gutter:stable}
 .education-page .fo-context h2{margin:16px 0;font-size:clamp(20px,2vw,28px);line-height:1.35}
 .fo-cycle{display:grid;gap:3px;padding:12px 14px;background:#eef4fa;border-radius:9px;color:#031b4e;font-size:14px}
 .fo-cycle span{font-size:12px;color:#617087}

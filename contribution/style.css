@@ -11,29 +11,20 @@
     align-items: start;
 }
 
-.contribution-intro {
-    position: sticky;
-    top: 104px;
-    padding: 32px;
-    overflow: hidden;
-    color: #FFFFFF;
-    border-radius: 18px;
-    background: linear-gradient(145deg, #031B4E, #0B4770);
-    box-shadow: 0 18px 45px rgba(3, 27, 78, 0.17);
-}
 
-.contribution-intro::after {
+.contact-intro::after {
     content: "";
     position: absolute;
     right: -80px;
     bottom: -110px;
+    width: 250px;
     height: 250px;
     border: 1px solid rgba(100, 220, 159, 0.24);
     border-radius: 50%;
     box-shadow: 0 0 0 38px rgba(100, 220, 159, 0.05);
 }
 
-.contribution-intro .badge-fast {
+.contact-intro .badge-fast {
     position: relative;
     z-index: 1;
     display: inline-flex;
@@ -49,17 +40,17 @@
     letter-spacing: 0.7px;
 }
 
-.contribution-intro h1 {
+.contact-intro h1 {
     position: relative;
     z-index: 1;
     margin: 20px 0 14px;
     color: #FFFFFF;
-    font-size: clamp(30px, 4vw, 44px);
+    font-size: 4vw;
     line-height: 1.08;
     letter-spacing: -1px;
 }
 
-.contribution-intro > p {
+.contact-intro > p {
     position: relative;
     z-index: 1;
     color: #D5E2F2;
@@ -231,7 +222,6 @@
 
     .contribution-intro {
         position: static;
-        display: none;
     }
 }
 
@@ -243,6 +233,5 @@
     .contribution-intro,
     .contribution-form {
         padding: 22px;
-        display: none;
     }
 }
