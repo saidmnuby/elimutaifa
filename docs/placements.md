@@ -2,7 +2,7 @@
 
 ## Admin workflow
 
-Open **Banners & Sponsors** from the admin sidebar. Owner and authenticated admins can create/edit a placement; account/security audit events remain owner-only. Placement activity is an operational audit event.
+Open **Sponsors view** from the admin sidebar. Owner and authenticated admins can create/edit a placement; account/security audit events remain owner-only. Placement activity is an operational audit event.
 
 1. Choose system announcement or sponsor. Sponsor name is mandatory for sponsored items.
 2. Choose banner or card, then top, bottom or pop-up. Top/bottom stay in page flow; pop-ups are dismissible and never autoplay video.

@@ -36,7 +36,7 @@
                 }
                 const body = document.createElement('div'); body.className = 'et-placement-copy';
                 const label = document.createElement('small');
-                label.textContent = item.kind === 'sponsor' ? 'Tangazo la udhamini · ' + item.sponsor_name : 'Tangazo la ElimuTaifa';
+                label.textContent = item.kind === 'sponsor' ? 'Sponsors · ' + item.sponsor_name : 'Tangazo la ElimuTaifa';
                 const title = document.createElement('strong'); title.textContent = item.title;
                 body.append(label, title);
                 if (item.description) { const description = document.createElement('p'); description.textContent = item.description; body.appendChild(description); }
@@ -72,7 +72,7 @@
         const interstitial = popupItem.popup_style === 'interstitial';
         popup.className = 'et-placement-popup' + (interstitial ? ' et-placement-popup--interstitial' : '');
         popup.setAttribute('role', 'dialog');
-        popup.setAttribute('aria-label', popupItem.kind === 'sponsor' ? 'Tangazo la udhamini' : 'Tangazo la ElimuTaifa');
+        popup.setAttribute('aria-label', popupItem.kind === 'sponsor' ? 'Sponsors' : 'Tangazo la ElimuTaifa');
         const close = document.createElement('button');
         close.type = 'button'; close.className = 'et-placement-popup-close'; close.textContent = '×';
         const delay = interstitial ? Math.max(0, Math.min(30, Number(popupItem.skip_delay) || 0)) : 0;

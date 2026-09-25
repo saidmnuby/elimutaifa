@@ -32,7 +32,7 @@ assert.equal(bottom.hidden, false);
 const link = bottom.childNodes[0].childNodes[0];
 assert.equal(link.rel, 'sponsored noopener noreferrer');
 assert.equal(link.target, '_blank');
-assert.equal(link.childNodes[0].childNodes[0].textContent, 'Tangazo la udhamini · Test sponsor');
+assert.equal(link.childNodes[0].childNodes[0].textContent, 'Sponsors · Test sponsor');
 assert.equal(link.childNodes[0].childNodes[1].textContent, entry.title);
 assert.equal(document.head.childNodes[0].href, 'http://localhost/get-results-faster/assets/css/placements.css');
 assert.equal(document.body.childNodes.length, 1);

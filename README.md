@@ -124,7 +124,7 @@ The MVP provides:
 
 - login throttling, CSRF validation and time-limited admin sessions;
 - draft, scheduled, published and archived content;
-- distributed image/text banners and cards, sponsor labels, page/group targeting, priority, scheduling and preview through **Banners & Sponsors**; see [placement management](docs/placements.md);
+- distributed image/text banners and cards, sponsor labels, page/group targeting, priority, scheduling and preview through **Sponsors view**; see [placement management](docs/placements.md);
 - featured announcements and one active pop-up announcement;
 - internal announcement articles or validated external destinations;
 - optional HTTPS images or privacy-delayed YouTube videos attached to internal articles;

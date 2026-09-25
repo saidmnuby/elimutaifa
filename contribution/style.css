@@ -27,7 +27,6 @@
     position: absolute;
     right: -80px;
     bottom: -110px;
-    width: 250px;
     height: 250px;
     border: 1px solid rgba(100, 220, 159, 0.24);
     border-radius: 50%;
@@ -232,6 +231,7 @@
 
     .contribution-intro {
         position: static;
+        display: none;
     }
 }
 
@@ -243,5 +243,6 @@
     .contribution-intro,
     .contribution-form {
         padding: 22px;
+        display: none;
     }
 }
