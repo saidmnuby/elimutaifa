@@ -435,6 +435,12 @@ html.school-results-page {
     margin-top: 0;
 }
 
+/* Keep the optional school-name route after the main index-number form. */
+.education-page .right-column > .school-search-action {
+    order: 10;
+    margin-top: 10px;
+}
+
 .education-page .card-header {
     margin-bottom: 20px;
     padding-bottom: 14px;

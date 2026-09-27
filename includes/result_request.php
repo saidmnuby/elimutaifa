@@ -114,11 +114,10 @@ function grf_fetch_result(string $url): array
     fclose($globalRateHandle);
 
     $cacheFile = $cacheDirectory . DIRECTORY_SEPARATOR . 'result-' . hash('sha256', $url) . '.html';
-    if (is_file($cacheFile) && filemtime($cacheFile) >= $now - 300) {
-        $cachedHtml = file_get_contents($cacheFile);
-        if ($cachedHtml !== false && $cachedHtml !== '') {
-            return ['html' => $cachedHtml, 'status' => 200, 'fetched_at' => filemtime($cacheFile)];
-        }
+    $cacheModifiedAt = is_file($cacheFile) ? filemtime($cacheFile) : false;
+    $cachedHtml = ($cacheModifiedAt !== false) ? file_get_contents($cacheFile) : false;
+    if ($cacheModifiedAt !== false && $cacheModifiedAt >= $now - 300 && is_string($cachedHtml) && $cachedHtml !== '') {
+        return ['html' => $cachedHtml, 'status' => 200, 'fetched_at' => $cacheModifiedAt, 'cache_state' => 'fresh'];
     }
 
     $request = curl_init($url);
@@ -148,7 +147,8 @@ function grf_fetch_result(string $url): array
     $statusCode = (int) curl_getinfo($request, CURLINFO_RESPONSE_CODE);
     curl_close($request);
 
-    if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
+    $upstreamUnavailable = $html === false || $html === '' || $statusCode < 200 || $statusCode >= 400;
+    if ($upstreamUnavailable) {
         $eventType = $statusCode === 404 ? 'upstream_not_found' : 'upstream_request_failed';
         $severity = $statusCode >= 500 || $statusCode === 0 ? 'error' : 'warning';
         et_record_system_event($eventType, 'The external result source did not return a usable response.', $severity, [
@@ -167,6 +167,25 @@ function grf_fetch_result(string $url): array
         if (file_put_contents($cacheFile, $html, LOCK_EX) === false) {
             et_record_system_event('cache_write_error', 'A successful upstream response could not be cached.', 'warning', ['target_url' => $url]);
         }
+    }
+
+    // Do not replace a good cached page with an upstream failure. A short-lived
+    // stale fallback keeps historical results available through temporary source
+    // outages; 404s are excluded because they can mean a genuinely removed page.
+    if ($upstreamUnavailable && $statusCode !== 404 && $cacheModifiedAt !== false
+        && $cacheModifiedAt >= $now - 86400 && is_string($cachedHtml) && $cachedHtml !== '') {
+        et_record_system_event('upstream_stale_cache_served', 'A recent cached result was served after the external source failed.', 'warning', [
+            'target_url' => $url,
+            'http_status' => $statusCode,
+            'error_code' => $curlErrorCode > 0 ? 'CURL_' . $curlErrorCode : '',
+        ]);
+        return [
+            'html' => $cachedHtml,
+            'status' => 200,
+            'fetched_at' => $cacheModifiedAt,
+            'cache_state' => 'stale_fallback',
+            'upstream_status' => $statusCode,
+        ];
     }
 
     return ['html' => $html, 'status' => $statusCode, 'fetched_at' => $now];

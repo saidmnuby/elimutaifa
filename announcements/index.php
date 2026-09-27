@@ -33,7 +33,7 @@ et_record_page_view($_SERVER['REQUEST_URI'] ?? '/announcements/');
 $items = $isDetail ? [] : et_public_content($database, 20);
 $title = $item ? $item['title'] . ' | ElimuTaifa' : ($isDetail ? 'Taarifa haijapatikana | ElimuTaifa' : 'Matangazo na Taarifa za Elimu Tanzania | ElimuTaifa');
 $description = $item ? mb_substr((string) $item['excerpt'], 0, 160) : 'Soma matangazo, habari, matokeo, selection na admission mpya za elimu Tanzania kupitia ElimuTaifa.';
-$canonical = $item ? 'https://saidmnuby.github.io/elimutaifa/b.io/elimutaifa/b.io/elimutaifa/announcements/' . rawurhttps://saidmnuby.github.io/elimutaifa/. '/' : 'https://saidmnuby.github.io/elimutaifa/announcements/';
+$canonical = $item ? 'https://saidmnuby.github.io/elimutaifa/announcements/' . rawurlencode((string) $item['slug']) . '/' : 'https://saidmnuby.github.io/elimutaifa/announcements/';
 $imageUrl = $item ? et_content_image_url($item, $basePath) : '';
 $youtubeId = $item ? et_content_youtube_id($item) : null;
 $youtubeCoverUrl = et_youtube_thumbnail_url($youtubeId);

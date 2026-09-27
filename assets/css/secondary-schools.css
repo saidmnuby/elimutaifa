@@ -1,0 +1,41 @@
+.secondary-school-grid{display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.48fr);gap:20px;width:100%;align-items:start}
+.secondary-sidebar-gap{margin-top:22px}
+.education-page .secondary-school-context{min-height:0;padding:22px;gap:12px}
+.secondary-school-eyebrow{display:inline-flex;width:fit-content;padding:4px 8px;border:1px solid rgba(189,245,215,.35);border-radius:999px;background:rgba(3,27,78,.16);font-size:11px;font-weight:800;letter-spacing:.08em;color:#bdf5d7}
+.education-page .secondary-school-context>h2{margin:0;color:#bdf5d7;font-size:22px;line-height:1.12;letter-spacing:-.35px;overflow-wrap:anywhere}
+.secondary-school-context>p{margin:0;color:#617087;font-size:13px}
+.secondary-year-form{display:grid;gap:8px;margin-top:5px}
+.secondary-school-grid .form-input{width:100%;min-height:44px;box-sizing:border-box;font-size:16px}
+.secondary-school-links{display:grid;gap:8px;margin-top:4px;font-size:13px}
+.secondary-school-links a{overflow-wrap:anywhere;color:#e5f4ff;text-decoration-thickness:1px;text-underline-offset:3px}
+.secondary-school-links a:hover{color:#fff}
+.education-page .secondary-school-results{display:grid;gap:14px}
+.education-page .secondary-school-results .school-search{position:static;margin:0}
+.secondary-school-directory{padding:18px!important}
+.secondary-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.secondary-list-heading h2{margin:0;font-size:18px;color:#031b4e}
+.secondary-list-heading span,#school-count{font-size:12px;color:#617087}
+.secondary-directory-label{display:block;margin-bottom:7px;font-size:13px;font-weight:700;color:#172b4d}
+.secondary-school-matches{display:grid;gap:8px;margin-top:14px;min-height:0}
+.secondary-directory-empty-state{margin:18px 0 6px;padding:18px 12px;border:1px dashed #c9d9e8;border-radius:10px;color:#617087;font-size:13px;text-align:center}
+.secondary-school-match{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;min-height:50px;padding:10px 12px;border:1px solid #dce5ee;border-radius:10px;color:#031b4e;text-decoration:none}
+.secondary-school-match:hover{background:#eef7f1;border-color:#9fd5b5}
+.secondary-school-match strong{overflow-wrap:anywhere}
+.secondary-school-match small{padding:4px 6px;border-radius:5px;background:#eaf1f8;color:#324d73;font-size:11px}
+.education-page .right-column.secondary-school-results .secondary-school-list{max-height:65vh;max-height:65dvh;overflow-x:auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:12px}
+.secondary-school-list::-webkit-scrollbar{display:none}
+.secondary-school-list table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:13px}
+.secondary-school-list th,.secondary-school-list td{text-align:left;padding:10px;border-bottom:1px solid #dce5ee;vertical-align:top;overflow-wrap:anywhere}
+.secondary-school-list th:first-child,.secondary-school-list td:first-child{min-width:118px;white-space:nowrap;overflow-wrap:normal;word-break:normal}
+.secondary-school-list th:nth-child(1){width:130px}.secondary-school-list th:nth-child(2){width:48px}.secondary-school-list th:nth-child(3){width:60px}.secondary-school-list th:nth-child(4){width:68px}
+.secondary-school-list .secondary-subjects{display:flex;flex-wrap:wrap;gap:6px;min-width:250px;color:#203b63}
+.secondary-subject-chip{display:inline-flex;align-items:center;min-height:28px;padding:3px 8px;border:1px solid #cdddeb;border-radius:7px;background:#f4f8fc;color:#183a63;font-size:11px;font-weight:700;line-height:1.25;white-space:nowrap}
+.secondary-school-list tbody tr:hover{background:#f7fbff}
+[data-school-search][hidden]{display:none!important}
+.secondary-school-error h2{margin-top:0;color:#031b4e}
+@media(min-width:701px){.secondary-school-list thead th{position:sticky;top:0;z-index:2;background:#f7faff;box-shadow:0 1px 0 #dce5ee;color:#26456e;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase}.secondary-school-list td:nth-child(2),.secondary-school-list td:nth-child(3),.secondary-school-list td:nth-child(4),.secondary-school-list th:nth-child(2),.secondary-school-list th:nth-child(3),.secondary-school-list th:nth-child(4){text-align:center}}
+@media(min-width:1180px){.secondary-school-grid{grid-template-columns:minmax(280px,.62fr) minmax(0,1.68fr);gap:24px}.education-page .secondary-school-context{position:sticky;top:88px}.secondary-school-context .secondary-school-eyebrow{font-size:13px}.education-page .secondary-school-context>h2{font-size:27px}.education-page .right-column.secondary-school-results .secondary-school-list{max-height:calc(100vh - 240px);max-height:calc(100dvh - 240px)}}
+@media(max-width:1179px){.secondary-school-grid{display:block}.education-page .secondary-school-context{position:sticky;top:74px;z-index:12;padding:16px}.education-page .secondary-school-results{margin-top:14px}.education-page .secondary-school-results .school-search{order:2;position:sticky;bottom:8px;z-index:20;padding:12px;background:#fff;border:1px solid #dce5ee;border-radius:12px;box-shadow:0 -4px 18px rgba(3,27,78,.12)}.secondary-school-list table{min-width:600px}.secondary-school-match{min-height:54px}.secondary-school-directory{padding:14px!important}}
+@media(max-width:700px){.education-page .secondary-school-context{padding:14px;gap:7px;border-radius:14px}.secondary-school-context .secondary-school-eyebrow{font-size:10px}.education-page .secondary-school-context>h2{font-size:24px}.secondary-school-context>p{font-size:12px}.secondary-year-form{gap:5px;margin-top:0}.secondary-year-form label{font-size:12px}.secondary-school-grid .secondary-year-form .form-input{min-height:40px}.secondary-year-form .btn{min-height:42px;padding-top:9px;padding-bottom:9px}.secondary-school-links{display:flex;flex-wrap:wrap;column-gap:14px;row-gap:6px;margin-top:2px;font-size:12px}.education-page .secondary-school-results{padding-bottom:126px}.education-page .secondary-school-results.secondary-viewport-results{position:sticky;top:var(--secondary-results-top);z-index:5;height:var(--secondary-results-height);margin-top:14px;padding-bottom:0;overflow:hidden}.education-page .secondary-viewport-results .secondary-school-list{height:100%;max-height:none;box-sizing:border-box}.education-page .secondary-candidate-filter,.education-page .secondary-directory-filter{position:fixed;top:auto;right:12px;bottom:max(8px,env(safe-area-inset-bottom));left:12px;z-index:80;box-sizing:border-box;margin:0;padding:12px 14px;background:#fff;border:1px solid #cdddeb;border-radius:14px;box-shadow:0 -4px 20px rgba(3,27,78,.16)}.secondary-candidate-filter label,.secondary-directory-filter label{font-size:12px;font-weight:800}.secondary-school-grid .secondary-candidate-filter .form-input,.secondary-school-grid .secondary-directory-filter .form-input{min-height:52px;font-size:18px;font-weight:700}.secondary-candidate-filter~.secondary-school-list{margin-bottom:120px}.secondary-directory-filter~.secondary-school-matches{margin-bottom:120px}}
+@media(max-width:700px){.secondary-school-list table{min-width:0}.secondary-school-list thead{display:none}.secondary-school-list tbody{display:grid;gap:10px}.secondary-school-list tbody tr{display:grid;grid-template-columns:auto auto 1fr auto;gap:0;margin:0;padding:10px;border:1px solid #dce5ee;border-radius:11px;background:#fff;box-shadow:0 3px 10px rgba(3,27,78,.045)}.secondary-school-list tbody td{min-width:0;padding:5px 7px;border:0}.secondary-school-list tbody td:first-child{padding-left:0}.secondary-school-list tbody td:nth-child(2){padding-left:3px}.secondary-school-list tbody td:nth-child(4){grid-column:3;grid-row:1;justify-self:end;padding-right:9px}.secondary-school-list tbody td:nth-child(4)::before{content:"DIVISION";display:inline-block;margin-right:6px;color:#617087;font-size:10px;font-weight:800}.secondary-school-list tbody td:nth-child(3){grid-column:4;grid-row:1;justify-self:end;padding-right:10px}.secondary-school-list tbody .secondary-subjects{grid-column:1/-1;min-width:0;margin-top:7px;padding:10px 0 0;border-top:1px solid #e5edf5}.secondary-school-list tbody tr:last-child{border-bottom:1px solid #dce5ee}}
+

@@ -6,6 +6,7 @@
 /storage/two-factor-key.php
 /storage/development.php
 /storage/composer.phar
+/storage/secondary-directories/*.json
 /vendor/
 /uploads/content/*
 !/uploads/content/.htaccess
