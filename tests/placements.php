@@ -63,7 +63,7 @@ $database->prepare('INSERT INTO content_items(category,title,slug,excerpt,body,s
 $articleId=(int)$database->lastInsertId();
 $internal=array_replace($data,['id'=>999,'destination_type'=>'internal','content_id'=>$articleId,'external_url'=>'']);
 $entry=et_placement_entry($database,$internal,'/get-results-faster');
-placement_check($entry && $entry['href']==='/get-results-faster/announcements/'.$slug.'/','Internal article destination');
+placement_check($entry && $entry['href']==='/get-results-faster/announcements/#announcement-'.$slug,'Internal article destination');
 $database->prepare('UPDATE content_items SET status=? WHERE id=?')->execute(['draft',$articleId]);
 placement_check(et_placement_entry($database,$internal,'')===null,'Unpublished article omitted');
 $database->prepare('DELETE FROM content_items WHERE id=?')->execute([$articleId]);

@@ -10,7 +10,8 @@ foreach(['form-one','form-five'] as $module) {
     activity_check(et_detect_exam_type('/'.$module.'/')===($module==='form-one'?'FORM ONE':'FORM FIVE'),'Monitoring label');
     $html=file_get_contents(dirname(__DIR__).'/selection/'.$module.'/index.php');
     activity_check(substr_count($html,'data-et-placement-slot="')===2,'Top/bottom slots');
-    activity_check(str_contains($html,'../assets/js/monitoring.js'),'Traffic script');
+    activity_check(str_contains($html,'assets/js/monitoring.js'),'Traffic script');
 }
+activity_check(is_file(dirname(__DIR__).'/selection/form-one/schools/index.php'),'Form One school browsing route');
 activity_check(et_normalize_public_path('/form-one/?search=abcdef&candidate=PS2402026-0126')==='/form-one/','Traffic omits query data');
 echo "PASS: selection placements, monitoring labels, scripts and traffic privacy.\n";

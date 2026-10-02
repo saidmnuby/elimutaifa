@@ -148,7 +148,7 @@ $currentImagePreview = ($values['media_type'] ?? 'none') === 'image'
 
 et_admin_header($id > 0 ? 'Edit content' : 'Add content', $user, 'content', '../');
 ?>
-<div class="admin-page-heading"><div><p>Use simple language and add a source where needed.</p></div><?php if ($id > 0 && $item && $item['status'] === 'published' && $item['destination_type'] === 'internal'): ?><a class="admin-button secondary" href="../../announcements/<?= et_e(rawurlencode($item['slug'])) ?>/" target="_blank" rel="noopener">Preview ↗</a><?php endif; ?></div>
+<div class="admin-page-heading"><div><p>Use simple language and add a source where needed.</p></div><?php if ($id > 0 && $item && $item['status'] === 'published' && $item['destination_type'] === 'internal'): ?><a class="admin-button secondary" href="../../announcements/#announcement-<?= et_e(rawurlencode($item['slug'])) ?>" target="_blank" rel="noopener">Preview ↗</a><?php endif; ?></div>
 <?php if (isset($errors['form'])): ?><div class="admin-alert error" role="alert"><?= et_e($errors['form']) ?></div><?php endif; ?>
 <form method="post" class="admin-form" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int) $id ?>">
@@ -192,7 +192,7 @@ et_admin_header($id > 0 ? 'Edit content' : 'Add content', $user, 'content', '../
     <section class="form-section"><h2>Source and link</h2><div class="form-grid">
         <div class="form-field"><label for="source_name">Source name</label><input id="source_name" name="source_name" maxlength="120" value="<?= et_e($values['source_name']) ?>"><?php if (isset($errors['source_name'])): ?><span class="form-error"><?= et_e($errors['source_name']) ?></span><?php endif; ?></div>
         <div class="form-field"><label for="source_url">Source URL</label><input id="source_url" name="source_url" type="url" maxlength="1000" value="<?= et_e($values['source_url']) ?>"><?php if (isset($errors['source_url'])): ?><span class="form-error"><?= et_e($errors['source_url']) ?></span><?php endif; ?></div>
-        <div class="form-field"><label for="destination_type">When the link is clicked</label><select id="destination_type" name="destination_type"><option value="internal"<?= $values['destination_type'] === 'internal' ? ' selected' : '' ?>>Open an ElimuTaifa article</option><option value="external"<?= $values['destination_type'] === 'external' ? ' selected' : '' ?>>Open another website</option></select></div>
+        <div class="form-field"><label for="destination_type">When the link is clicked</label><select id="destination_type" name="destination_type"><option value="internal"<?= $values['destination_type'] === 'internal' ? ' selected' : '' ?>>Open on the announcements page</option><option value="external"<?= $values['destination_type'] === 'external' ? ' selected' : '' ?>>Open another website</option></select></div>
         <div class="form-field"><label for="external_url">External destination URL</label><input id="external_url" name="external_url" type="url" maxlength="1000" value="<?= et_e($values['external_url']) ?>"><?php if (isset($errors['external_url'])): ?><span class="form-error"><?= et_e($errors['external_url']) ?></span><?php endif; ?></div>
     </div></section>
     <section class="form-section"><h2>Publication</h2><div class="form-grid">

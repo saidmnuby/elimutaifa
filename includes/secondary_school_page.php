@@ -69,7 +69,9 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
 <link rel="stylesheet" href="../../../assets/css/style.css">
 <link rel="stylesheet" href="../../../assets/css/consent.css">
 <link rel="stylesheet" href="../../../assets/css/education.css">
-<link rel="stylesheet" href="../../../assets/css/secondary-schools.css?v=20260927.23">
+<link rel="stylesheet" href="../../../assets/css/secondary-schools.css?v=20260927.24">
+<link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css">
+<script src="../../../assets/js/secondary-school-loading.js" defer></script>
 <script src="../../../assets/js/consent.js" defer></script>
 <script src="../../../assets/js/secondary-schools.js?v=20260927.5" defer></script>
 <script src="../../../assets/js/monitoring.js" defer></script>
@@ -103,13 +105,7 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
         <span class="secondary-school-eyebrow"><?= ss_e($exam) ?></span>
         <h2><?= ss_e($selected['name'] ?? 'Tafuta shule') ?></h2>
         <p><?= $selected ? 'Matokeo ya shule Â· ' : 'Tafuta kwa jina au code Â· ' ?><?= ss_e($year) ?></p>
-        <form method="get" class="secondary-year-form">
-            <label for="school-year">Mwaka wa mtihani</label>
-            <select class="form-input" id="school-year" name="year">
-                <?php for($optionYear=2026;$optionYear>=2010;$optionYear--): ?><option value="<?= $optionYear ?>"<?= $year===$optionYear?' selected':'' ?>><?= $optionYear ?></option><?php endfor; ?>
-            </select>
-            <button class="btn btn-green" type="submit">Badilisha mwaka</button>
-        </form>
+        <?php if ($servedFromStaleCache): ?><p class="secondary-source-note" role="status">Inaoneshwa kutoka cache ya muda wakati source haipatikani. Jaribu tena baadaye kwa toleo jipya.</p><?php endif; ?>
         <nav class="secondary-school-links" aria-label="Njia za matokeo">
             <?php if ($selected): ?><a href="?year=<?= (int) $year ?>">Tafuta shule nyingine</a><?php endif; ?>
             <a href="../">Tafuta kwa index number</a>

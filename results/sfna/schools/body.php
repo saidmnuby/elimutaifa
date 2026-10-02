@@ -22,7 +22,9 @@
     <script src="../../../assets/js/consent.js"></script>
     <script src="../../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../../../assets/css/education.css?v=20260912.3">
+    <link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css">
     <script src="../../../assets/js/script.js"></script>
+    <script src="../../../assets/js/secondary-school-loading.js" defer></script>
     <script src="../../../assets/js/school-search.js" defer></script>
 
     <script src="../../../assets/js/placements.js" defer></script>
@@ -151,18 +153,13 @@
                             <?php if (!empty($schools)): ?>
                                 <?php foreach ($schools as $school): ?>
                                     <?php
-                                    $schoolCode = $school['id'];
-                                    $schoolCode = str_ireplace("ps","",$schoolCode);
-
-                                    if (!empty($schoolCode) && $examYear !== null) {
-                                        if ((int)$examYear > 2023) {
-                                            $resultsUrl = "https://onlinesys.necta.go.tz/results/$examYear/sfna/results/ps$schoolCode.htm";
-                                        } else {
-                                            $resultsUrl = "https://maktaba.tetea.org/exam-results/SFNA$examYear/ps$schoolCode.htm";
-                                        }
+                                    $schoolCode = strtoupper(trim((string) $school['id']));
+                                    if (preg_match('/^\d{4,7}$/D', $schoolCode)) {
+                                        $schoolCode = 'PS' . $schoolCode;
                                     }
+                                    $resultsUrl = 'results.php?year=' . rawurlencode((string) $examYear) . '&school=' . rawurlencode($schoolCode);
                                     ?>
-                                    <a href="<?php echo htmlspecialchars($resultsUrl, ENT_QUOTES, 'UTF-8'); ?>" data-school-name="<?php echo htmlspecialchars($school['name'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                                    <a href="<?php echo htmlspecialchars($resultsUrl, ENT_QUOTES, 'UTF-8'); ?>" data-school-name="<?php echo htmlspecialchars($school['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                         <div class="oneSchool">
                                             <?php echo htmlspecialchars($school['name'], ENT_QUOTES, 'UTF-8'); ?>
                                         </div>

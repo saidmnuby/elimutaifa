@@ -1,0 +1,9 @@
+.school-loading-overlay{position:fixed;inset:0;z-index:5000;display:grid;place-items:center;padding:20px;background:rgba(3,27,78,.42);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s ease}
+.school-loading-overlay[hidden]{display:none}
+.school-loading-overlay.is-visible{opacity:1;visibility:visible}
+.school-loading-card{display:flex;align-items:center;gap:16px;width:min(100%,360px);padding:20px;border:1px solid #d9e3ef;border-radius:12px;background:#fff;box-shadow:0 18px 48px rgba(3,27,78,.2);color:#17243a}
+.school-loading-spinner{flex:0 0 30px;width:30px;height:30px;border:3px solid #dce8e2;border-top-color:#058249;border-radius:50%;animation:school-loading-spin .75s linear infinite}
+.school-loading-card strong{display:block;color:#031b4e;font-size:15px;line-height:1.35}
+.school-loading-card p{margin:4px 0 0;color:#617087;font-size:13px;line-height:1.4}
+@keyframes school-loading-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.school-loading-spinner{animation-duration:1.8s}}

@@ -50,6 +50,57 @@ html.school-results-page {
     position: static;
 }
 
+@media (max-width: 1020px) {
+    .education-page.level-schools .grid-layout-results {
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .education-page.level-schools .right-column-results {
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        justify-self: stretch;
+        grid-template-rows: minmax(0, 1fr);
+        padding-bottom: 100px;
+    }
+
+    .education-page.level-schools .right-column-results > .card {
+        height: 100%;
+        padding: 8px;
+    }
+
+    .education-page.level-schools .schoolCard {
+        gap: 7px;
+    }
+
+    .education-page.level-schools .oneSchool {
+        min-height: 48px;
+        padding: 8px 10px;
+        line-height: 1.35;
+    }
+
+    .education-page.level-schools .school-search {
+        position: fixed;
+        top: auto;
+        right: 14px;
+        bottom: max(35px, env(safe-area-inset-bottom));
+        left: 14px;
+        width: auto;
+        max-width: none;
+        z-index: 80;
+        padding: 12px 14px 8px;
+        border-radius: 12px;
+        box-shadow: 0 -4px 18px rgba(3, 27, 78, 0.14);
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1020px) {
+    .education-page.level-schools .school-search {
+        right: 34px;
+        left: 294px;
+    }
+}
+
 .education-page.level-schools .right-column-results > .card {
     min-height: 0;
     scrollbar-width: none;
@@ -799,7 +850,6 @@ html.school-results-page {
 .education-page.level-schools .oneSchool,
 .education-page.level-schools .school-history,
 .education-page.level-schools .recent-school-link {
-    width: 100%;
     min-width: 0;
     max-width: 100%;
 }

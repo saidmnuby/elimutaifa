@@ -2,6 +2,16 @@
 require_once __DIR__ . '/monitoring.php';
 et_register_fatal_error_monitoring();
 
+function grf_cached_result_response(string $cacheFile, int $minimumModifiedAt): ?array
+{
+    if (!is_file($cacheFile)) return null;
+    $modifiedAt = filemtime($cacheFile);
+    if ($modifiedAt === false || $modifiedAt < $minimumModifiedAt) return null;
+    $html = file_get_contents($cacheFile);
+    if (!is_string($html) || $html === '') return null;
+    return ['html' => $html, 'fetched_at' => $modifiedAt];
+}
+
 function grf_fetch_result(string $url): array
 {
     $parsedUrl = parse_url($url);
@@ -46,10 +56,12 @@ function grf_fetch_result(string $url): array
     $now = time();
     $windowStart = $now - 60;
 
-    // Periodically remove expired local cache and rate-limit files.
+    // Keep result pages for a day as a fallback, while rate-limit files expire
+    // sooner so they cannot accumulate indefinitely.
     if (random_int(1, 100) === 1) {
         foreach (glob($cacheDirectory . DIRECTORY_SEPARATOR . '*') ?: [] as $file) {
-            if (is_file($file) && filemtime($file) < $now - 3600) {
+            $maximumAge = str_starts_with(basename($file), 'result-') ? 86400 : 3600;
+            if (is_file($file) && filemtime($file) < $now - $maximumAge) {
                 unlink($file);
             }
         }
@@ -114,10 +126,9 @@ function grf_fetch_result(string $url): array
     fclose($globalRateHandle);
 
     $cacheFile = $cacheDirectory . DIRECTORY_SEPARATOR . 'result-' . hash('sha256', $url) . '.html';
-    $cacheModifiedAt = is_file($cacheFile) ? filemtime($cacheFile) : false;
-    $cachedHtml = ($cacheModifiedAt !== false) ? file_get_contents($cacheFile) : false;
-    if ($cacheModifiedAt !== false && $cacheModifiedAt >= $now - 300 && is_string($cachedHtml) && $cachedHtml !== '') {
-        return ['html' => $cachedHtml, 'status' => 200, 'fetched_at' => $cacheModifiedAt, 'cache_state' => 'fresh'];
+    $freshCache = grf_cached_result_response($cacheFile, $now - 300);
+    if ($freshCache !== null) {
+        return $freshCache + ['status' => 200, 'cache_state' => 'fresh'];
     }
 
     $request = curl_init($url);
@@ -172,17 +183,17 @@ function grf_fetch_result(string $url): array
     // Do not replace a good cached page with an upstream failure. A short-lived
     // stale fallback keeps historical results available through temporary source
     // outages; 404s are excluded because they can mean a genuinely removed page.
-    if ($upstreamUnavailable && $statusCode !== 404 && $cacheModifiedAt !== false
-        && $cacheModifiedAt >= $now - 86400 && is_string($cachedHtml) && $cachedHtml !== '') {
+    $staleCache = grf_cached_result_response($cacheFile, $now - 86400);
+    if ($upstreamUnavailable && $statusCode !== 404 && $staleCache !== null) {
         et_record_system_event('upstream_stale_cache_served', 'A recent cached result was served after the external source failed.', 'warning', [
             'target_url' => $url,
             'http_status' => $statusCode,
             'error_code' => $curlErrorCode > 0 ? 'CURL_' . $curlErrorCode : '',
         ]);
         return [
-            'html' => $cachedHtml,
+            'html' => $staleCache['html'],
             'status' => 200,
-            'fetched_at' => $cacheModifiedAt,
+            'fetched_at' => $staleCache['fetched_at'],
             'cache_state' => 'stale_fallback',
             'upstream_status' => $statusCode,
         ];

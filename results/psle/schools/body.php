@@ -22,7 +22,9 @@
     <script src="../../../assets/js/consent.js"></script>
     <script src="../../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../../../assets/css/education.css?v=20260912.2">
+    <link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css">
     <script src="assets/js/script.js"></script>
+    <script src="../../../assets/js/secondary-school-loading.js" defer></script>
     <script src="../../../assets/js/school-search.js" defer></script>
     
     <script src="../../../assets/js/placements.js" defer></script>
@@ -162,15 +164,11 @@
                                                 <?php foreach ($schools as $school): ?>
                                                     
                                                     <?php
-                                                    $schoolCode = $school['id'];
-                                                    if ($examYear > 2023) {
-                                                        $resultsurl = "https://onlinesys.necta.go.tz/results/$examYear/psle/results/shl_$schoolCode.htm";
-                                                        } elseif ($examYear !== null && $examYear <= 2023) {
-                                                            $resultsurl = "https://maktaba.tetea.org/exam-results/PSLE$examYear/shl_$schoolCode.htm";
-                                                        }
+                                                    $schoolCode = strtoupper($school['id']);
+                                                    $resultsurl = 'results.php?year=' . rawurlencode((string) $examYear) . '&school=' . rawurlencode($schoolCode);
                                                     ?>
 
-                                                    <a href="<?php echo htmlspecialchars($resultsurl, ENT_QUOTES, 'UTF-8'); ?>" data-school-name="<?php echo htmlspecialchars($school['full'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                                                    <a href="<?php echo htmlspecialchars($resultsurl, ENT_QUOTES, 'UTF-8'); ?>" data-school-name="<?php echo htmlspecialchars($school['full'], ENT_QUOTES, 'UTF-8'); ?>">
                                                         <div class="oneSchool">
                                                             <?php echo htmlspecialchars($school['full'], ENT_QUOTES, 'UTF-8'); ?>
                                                     

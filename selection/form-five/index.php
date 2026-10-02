@@ -16,9 +16,9 @@ try {
     if (!isset($cycles[$cycle])) throw new InvalidArgumentException('INVALID_SELECTION');
     if ($action!=='') {
         if (!in_array($action,['browse'],true)) throw new InvalidArgumentException('INVALID_SELECTION');
-        $base=$cycles[$cycle]['url']; $response=f5_fetch($base); $entries=f5_links($response['html'],$base); $stage='region'; $heading='Chagua mkoa uliosoma';
+        $base=$cycles[$cycle]['url']; $response=f5_fetch($base); $entries=f5_links($response['html'],$base); $stage='region'; $heading='--Chagua mkoa--';
         if ($region!=='') {
-            $selected=f5_entry($entries,$region); $base=$selected['url']; $response=f5_fetch($base); $entries=f5_links($response['html'],$base); $stage='council'; $heading='Chagua halmashauri · '.$selected['name'];
+            $selected=f5_entry($entries,$region); $base=$selected['url']; $response=f5_fetch($base); $entries=f5_links($response['html'],$base); $stage='council'; $heading='--Chagua halmashauri-- · '.$selected['name'];
         }
         if ($council!=='') {
             if ($region==='') throw new InvalidArgumentException('INVALID_SELECTION');
@@ -77,5 +77,5 @@ $placementPage=et_selection_placement_page('form-five',$stage,$error!=='');
 <?php if($cycles && (!$isResponse || $error)): ?><section class="card"><h2>Tafuta kupitia shule</h2><form method="get" action="./"><input type="hidden" name="action" value="browse"><label class="form-label" for="browse-cycle">Selection cycle</label><select class="form-input" id="browse-cycle" name="cycle"><?php foreach($cycles as $key=>$value): ?><option value="<?= f5_e($key) ?>"<?= $cycle===(string)$key?' selected':'' ?>><?= f5_e($value['label']) ?></option><?php endforeach; ?></select><p>Chagua mkoa, halmashauri na shule ya sekondari uliyosoma.</p><button class="btn-submit" type="submit">Chagua mkoa</button></form></section><?php endif; ?>
 <?php if($entries): ?><section class="school-search"><label class="form-label" for="fo-filter">Tafuta <?= $stage==='school'?'jina/code ya shule':'jina' ?></label><input class="form-input" type="search" id="fo-filter" placeholder="Anza kuandika…"><p id="fo-count" aria-live="polite"></p></section><section class="card fo-list"><?php foreach($entries as $entry): ?><form method="get" action="./" data-fo-item="<?= f5_e($entry['name']) ?>"><input type="hidden" name="action" value="browse"><input type="hidden" name="cycle" value="<?= f5_e($cycle) ?>"><?php foreach(['region'=>$region,'council'=>$council] as $field=>$value): ?><?php if($field!==$stage && $value!==''): ?><input type="hidden" name="<?= $field ?>" value="<?= f5_e($value) ?>"><?php endif; ?><?php endforeach; ?><button class="fo-list-button" name="<?= $stage ?>" value="<?= f5_e($entry['id']) ?>"><?= f5_e($entry['name']) ?> <span>👆🏽</span></button></form><?php endforeach; ?><p id="fo-empty" hidden>Hakuna chaguo linalolingana.</p></section><?php endif; ?>
 <?php if($records): require __DIR__ . '/_results.php'; endif; ?>
-<script src="../../assets/js/selection-directory.js?v=20260920.2" defer></script>
+<script src="../../assets/js/selection-directory.js?v=20260929.1" defer></script>
 </section></div></main><div data-et-placement-slot="bottom" data-et-placement-page="<?= f5_e($placementPage) ?>" hidden></div><footer class="footer"><div class="footer-text">© 2026 ElimuTaifa</div><div class="footer-links"><a href="../../privacy/">Faragha na sera za matumizi</a></div></footer></div></body></html>

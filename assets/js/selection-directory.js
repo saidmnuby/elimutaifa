@@ -5,6 +5,7 @@
         if (!cycle) return;
         const form = cycle.closest('form');
         const card = form.closest('.card');
+        const useSchoolListPage = ['form-one', 'form-five'].includes(document.body.dataset.exam);
         const key = 'selection-directory:' + location.pathname;
         const panel = document.createElement('div');
         panel.className = 'selection-directory';
@@ -18,6 +19,8 @@
         retry.type = 'button'; retry.textContent = 'Jaribu tena'; retry.hidden = true;
         const list = document.createElement('div'); list.className = 'fo-list';
         const fields = new Map();
+        region.name = 'region';
+        council.name = 'council';
         function field(label, input, id) {
             const title = document.createElement('label'); title.className = 'form-label';
             title.htmlFor = id; title.textContent = label;
@@ -27,9 +30,9 @@
         }
         field('Mkoa uliosoma', region, 'directory-region');
         field('Halmashauri', council, 'directory-council');
-        field('Tafuta shule', search, 'directory-search');
+        if (!useSchoolListPage) field('Tafuta shule', search, 'directory-search');
+        const searchField = fields.get(search);
         panel.append(status, retry, list);
-        card.append(panel);
         let controller, version = 0, schools = [];
         const cache = new Map();
         function reset(select, label) {
@@ -66,18 +69,25 @@
             if (controller) controller.abort();
             controller = new AbortController(); const signal = controller.signal; const current = ++version;
             schools = []; list.replaceChildren(); search.value = ''; search.disabled = true;
-            fields.get(search).hidden = true;
+            if (searchField) searchField.hidden = true;
             if (level === 'region') fields.get(council).hidden = true;
             retry.hidden = true;
-            if (level === 'region') reset(region, 'Chagua mkoa');
-            if (level !== 'school') reset(council, 'Chagua halmashauri');
+            if (level === 'region') reset(region, '--Chagua mkoa--');
+            if (level !== 'school') reset(council, '--Chagua halmashauri--');
+            if (useSchoolListPage && button) button.disabled = true;
             if ((level === 'council' && !region.value) || (level === 'school' && !council.value)) { status.textContent = ''; save(); return; }
+            if (level === 'school' && useSchoolListPage) {
+                button.disabled = false;
+                status.textContent = '';
+                save();
+                return;
+            }
             status.textContent = 'Inapakia…'; panel.setAttribute('aria-busy', 'true');
             try {
                 const params = level === 'region' ? {} : level === 'council' ? {region:region.value} : {region:region.value, council:council.value};
                 const items = await entries(params, level, signal);
                 if (current !== version) return;
-                if (level === 'school') { schools = items; search.disabled = false; fields.get(search).hidden = false; search.value = restore?.search || ''; render(); }
+                if (level === 'school') { schools = items; search.disabled = false; if (searchField) searchField.hidden = false; search.value = restore?.search || ''; render(); }
                 else {
                     const select = level === 'region' ? region : council;
                     items.forEach(item => select.add(new Option(item.name, item.id))); select.disabled = false;
@@ -95,12 +105,18 @@
         // Keep the original GET form available as a no-JS/network fallback.
         const button = form.querySelector('button[type="submit"]');
         if (button) {
-            button.textContent = 'Tumia njia ya kawaida';
-            const fallback = document.createElement('details');
-            const summary = document.createElement('summary');
-            summary.textContent = 'Orodha haipatikani?';
-            fallback.append(summary, button);
-            form.append(panel, fallback);
+            if (useSchoolListPage) {
+                button.textContent = 'Angalia orodha ya shule';
+                button.disabled = true;
+                form.insertBefore(panel, button);
+            } else {
+                button.textContent = 'Tumia njia ya kawaida';
+                const fallback = document.createElement('details');
+                const summary = document.createElement('summary');
+                summary.textContent = 'Orodha haipatikani?';
+                fallback.append(summary, button);
+                form.append(panel, fallback);
+            }
             const guide = form.querySelector('p');
             if (guide && !panel.contains(guide)) guide.hidden = true;
         }

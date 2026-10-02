@@ -43,6 +43,12 @@ expect(grf_district_code_for_selection('dar-es-salaam', 'Ilala Municipal') === n
 
 $blockedRequest = grf_fetch_result('http://127.0.0.1/internal');
 expect($blockedRequest['status'] === 400, 'Non-allow-listed upstream hosts must be rejected.');
+$cacheTestFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'grf-cache-test-' . bin2hex(random_bytes(6)) . '.html';
+file_put_contents($cacheTestFile, '<html>cached result</html>');
+$cachedResult = grf_cached_result_response($cacheTestFile, time() - 60);
+expect($cachedResult !== null && $cachedResult['html'] === '<html>cached result</html>', 'A recent cached result should be available for an upstream fallback.');
+expect(grf_cached_result_response($cacheTestFile, time() + 1) === null, 'An expired cached result must not be used as a fallback.');
+unlink($cacheTestFile);
 
 expect(et_slugify('Matokeo ya Kidato cha Nne 2026') === 'matokeo-ya-kidato-cha-nne-2026', 'Content titles should produce stable slugs.');
 expect(et_is_safe_public_url('https://example.com/notice'), 'HTTPS content destinations should be accepted.');
@@ -114,7 +120,7 @@ SQL)->execute(['published_at' => et_utc_now(), 'admin_id' => $adminId, 'created_
 $publicContent = et_public_content($testDatabase, 6);
 expect(count($publicContent) === 1 && $publicContent[0]['slug'] === 'test-announcement', 'Published content should be returned to the public announcement feed.');
 $dynamicSitemap = simplexml_load_string(et_build_sitemap_xml($testDatabase, '2026-09-12'));
-expect($dynamicSitemap !== false && count($dynamicSitemap->url) === 14, 'Published internal announcements should be added alongside both selection modules.');
+expect($dynamicSitemap !== false && count($dynamicSitemap->url) === 13, 'Published content should refresh the announcements page without adding separate article URLs.');
 $testDatabase = null;
 foreach ([$testDatabasePath, $testDatabasePath . '-shm', $testDatabasePath . '-wal'] as $temporaryDatabaseFile) {
     if (is_file($temporaryDatabaseFile)) {

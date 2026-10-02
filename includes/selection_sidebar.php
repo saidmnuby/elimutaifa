@@ -2,13 +2,14 @@
 declare(strict_types=1);
 
 /** Selection modules share the selection/ directory. */
-function et_selection_sidebar(string $active): void
+function et_selection_sidebar(string $active, int $depth = 0): void
 {
+    $prefix = str_repeat('../', max(0, $depth));
     $items = [
-        'home' => ['../../', 'fa-house', 'Nyumbani'],
-        'form-one' => ['../form-one/', 'fa-list-check', 'Form One Selection'],
-        'form-five' => ['../form-five/', 'fa-graduation-cap', 'Form Five / Vyuo vya kati'],
-        'contribution' => ['../../contribution/', 'fa-comments', 'Contribute / Maoni'],
+        'home' => [$prefix . '../../', 'fa-house', 'Nyumbani'],
+        'form-one' => [$prefix . '../form-one/', 'fa-list-check', 'Form One Selection'],
+        'form-five' => [$prefix . '../form-five/', 'fa-graduation-cap', 'Form Five / Vyuo vya kati'],
+        'contribution' => [$prefix . '../../contribution/', 'fa-comments', 'Contribute / Maoni'],
     ];
     ?>
     <aside class="sidebar" id="sidebar">

@@ -88,7 +88,7 @@ function et_placement_entry(PDO $database, array $row, string $base): ?array
         $statement->execute([$row['content_id'], $now, $now]);
         $slug = $statement->fetchColumn();
         if (!$slug) { return null; }
-        $href = $base . '/announcements/' . rawurlencode((string) $slug) . '/';
+        $href = $base . '/announcements/#announcement-' . rawurlencode((string) $slug);
     } elseif (!et_is_safe_public_url($href) || parse_url($href, PHP_URL_SCHEME) !== 'https') { return null; }
     $image = $row['image_url'];
     if ($image !== '' && !et_is_safe_image_url($image)) { return null; }

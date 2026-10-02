@@ -314,7 +314,7 @@ function et_utc_datetime_to_local(?string $value): string
 
 function et_public_content(PDO $database, int $limit = 6): array
 {
-    $limit = max(1, min($limit, 20));
+    $limit = max(1, min($limit, 100));
     $statement = $database->prepare(<<<'SQL'
 SELECT id, category, title, slug, excerpt, body, audience, source_name, source_url,
        media_type, media_url, media_caption, destination_type, external_url,
@@ -366,7 +366,7 @@ function et_content_href(array $item, string $internalPrefix = 'announcements/')
     if (($item['destination_type'] ?? '') === 'external' && et_is_safe_public_url((string) ($item['external_url'] ?? ''))) {
         return (string) $item['external_url'];
     }
-    return $internalPrefix . rawurlencode((string) $item['slug']) . '/';
+    return $internalPrefix . '#announcement-' . rawurlencode((string) $item['slug']);
 }
 
 function et_build_sitemap_xml(PDO $database, string $lastModifiedDate = ''): string
@@ -389,21 +389,17 @@ function et_build_sitemap_xml(PDO $database, string $lastModifiedDate = ''): str
     ];
 
     $statement = $database->prepare(<<<'SQL'
-SELECT slug, updated_at
+SELECT MAX(updated_at)
 FROM content_items
 WHERE status = 'published'
-  AND destination_type = 'internal'
   AND published_at IS NOT NULL
   AND published_at <= :now
   AND (expires_at IS NULL OR expires_at > :expires_now)
-ORDER BY published_at DESC
 SQL);
     $statement->execute(['now' => et_utc_now(), 'expires_now' => et_utc_now()]);
-    foreach ($statement->fetchAll() as $item) {
-        $urls[] = [
-            'url' => 'https://saidmnuby.github.io/elimutaifa/announcements/' . rawurlencode((string) $item['slug']) . '/',
-            'lastmod' => substr((string) $item['updated_at'], 0, 10),
-        ];
+    $announcementsUpdatedAt = $statement->fetchColumn();
+    if (is_string($announcementsUpdatedAt) && $announcementsUpdatedAt !== '') {
+        $urls[10]['lastmod'] = substr($announcementsUpdatedAt, 0, 10);
     }
 
     $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
