@@ -711,6 +711,7 @@ html.school-results-page {
 
 .education-page .btn-green {
     background: var(--education-green);
+    margin-top:18px;
 }
 
 .education-page .btn-green:hover {
@@ -1092,80 +1093,150 @@ html.school-results-page {
 
 .education-page.level-error .right-columnb {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    z-index: 500;
-    display: block;
-    width: min(520px, calc(100vw - 32px));
-    min-height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #DFE6EF;
-    border-radius: 16px;
-    background: #FFFFFF;
-    box-shadow: 0 28px 80px rgba(3, 17, 42, 0.34);
-    transform: translate(-50%, -50%);
+    inset: 0;
+    z-index: 1500;
+    display: grid;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 16px;
+    place-items: center;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
 }
 
-.education-page.level-error .alert-panel {
-    width: 100%;
+.education-page.level-error .right-columnb .alert-panel {
+    width: min(100%, 520px);
     height: auto;
-    min-height: 210px;
+    min-height: 0;
     margin: 0;
-    padding: 30px 28px 78px;
-    border: 0;
+    padding: 28px;
+    border: 1px solid #DFE6EF;
     border-top: 5px solid #C58A10;
-    border-radius: 0;
+    border-radius: 14px;
     background: #FFFFFF;
+    box-shadow: 0 24px 70px rgba(7, 24, 44, 0.22);
     text-align: left;
 }
 
-.education-page.level-error .alert-panel.failed-alert {
+.education-page.level-error .right-columnb .alert-panel.failed-alert {
     border-top-color: #B91C1C;
 }
 
-.education-page.level-error .alert-panel p {
-    color: #45566E;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.7;
+.education-page.level-error .right-columnb .alert-panel.warning-alert {
+    border-top-color: #C58A10;
 }
 
-.education-page.level-error .alert-panel p > a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #1D5DAF;
-    font-size: 12px;
-    font-weight: 800;
+.education-page.level-error .alert-symbol {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 16px;
+    place-items: center;
+    border-radius: 50%;
+    background: #FFF4DD;
+    color: #9A6400;
+    font-size: 18px;
 }
 
-.education-page.level-error .alert-panel h6 {
-    margin-top: 16px !important;
-    color: #7C5A13 !important;
+.education-page.level-error .alert-symbol-failed {
+    background: #FEECEC;
+    color: #B91C1C;
+}
+
+.education-page.level-error .alert-eyebrow {
+    margin: 0 0 7px;
+    color: #64748B;
     font-size: 11px;
-    line-height: 1.5;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
-.education-page.level-error .commit-button {
-    position: absolute;
-    right: 28px;
-    bottom: 24px;
-    min-width: 96px;
-    padding: 11px 17px;
-    color: #FFFFFF;
+.education-page.level-error .right-columnb .alert-panel h1 {
+    margin: 0;
+    color: #14253D;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.education-page.level-error .right-columnb .alert-message {
+    margin: 12px 0 0;
+    color: #4B5B70;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.education-page.level-error .official-results-link {
+    display: inline-flex;
+    margin-top: 16px;
+    align-items: center;
+    gap: 7px;
+    color: #075B3B;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.education-page.level-error .right-columnb .commit-button {
+    position: static;
+    display: inline-flex;
+    width: fit-content;
+    min-height: 46px;
+    margin-top: 22px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
     border: 0;
-    border-radius: 9px;
-    background: var(--education-green);
-    box-shadow: 0 8px 18px rgba(5, 130, 73, 0.2);
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 900;
+    border-radius: 7px;
+    background: #087A50;
+    box-shadow: none;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background-color 0.18s ease;
 }
 
-.education-page.level-error .commit-button:hover {
-    background: var(--education-green-dark);
+.education-page.level-error .right-columnb .commit-button:hover,
+.education-page.level-error .right-columnb .commit-button:focus-visible {
+    background: #05613F;
+}
+
+@media (max-width: 600px) {
+    .education-page.level-error .right-columnb {
+        padding: 12px;
+    }
+
+    .education-page.level-error .right-columnb .alert-panel {
+        padding: 22px 20px;
+    }
+
+    .education-page.level-error .right-columnb .alert-panel h1 {
+        font-size: 21px;
+    }
+
+    .education-page.level-error .right-columnb .alert-message {
+        font-size: 14px;
+    }
+
+    .education-page.level-error .right-columnb .commit-button {
+        width: 100%;
+    }
 }
 
 /* Footer */

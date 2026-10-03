@@ -189,7 +189,7 @@ $escapedSchoolName = htmlspecialchars($schoolName, ENT_QUOTES | ENT_SUBSTITUTE, 
                     <?php else: ?>
                         <section class="school-search secondary-candidate-filter">
                             <label for="school-filter">Tafuta namba ya mtahiniwa</label>
-                            <input class="form-input" id="school-filter" type="search" autocomplete="off" placeholder="Andika sehemu ya namba..." aria-controls="school-result-table">
+                            <input class="form-input" id="school-filter" type="search" autocomplete="off" placeholder="Andika namba hapa..." aria-controls="school-result-table">
                             <p id="school-count" role="status"></p>
                         </section>
                         <section class="card secondary-school-list" tabindex="0" aria-label="Matokeo ya shule">

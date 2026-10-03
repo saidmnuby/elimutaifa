@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const content = 'ELIMUTAIFA | '+ displayName.textContent.trim() + '\n'
                 + '2FA- Ten(10) Backup Codes \n\n'
                 +'-> Keep this file and use codes private.\n' 
-                +'-> Each code can be used once.\n' 
+                +'-> Each code used once.\n' 
                 +'-> New recovery codes invalidate old ones.\n\n'
                 
                 +'___________________________\n\n'

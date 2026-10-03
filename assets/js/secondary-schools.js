@@ -6,6 +6,79 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     const input = document.getElementById('school-filter');
     if (!input) return;
+    const page = document.querySelector('.education-page');
+    const recentList = document.getElementById('recentSchools');
+    let rememberRecentSchool = function () {};
+    const exam = page ? page.dataset.exam : '';
+    if (recentList && ['acsee', 'csee', 'ftna'].includes(exam)) {
+        const storageKey = 'elimutaifa.recent-schools.' + exam;
+        const maxRecentSchools = 2;
+        const validateRecentSchool = function (item) {
+            if (!item || typeof item !== 'object') return null;
+            const code = String(item.code || '').trim().toUpperCase();
+            const name = String(item.name || '').replace(/\s+/g, ' ').trim().slice(0, 180);
+            const year = String(item.year || '').trim();
+            if (!/^[SP]Q?\d{4}$/.test(code) || !/^\d{4}$/.test(year) || !name) return null;
+            return { code: code, name: name, year: year };
+        };
+        let recentSchools = [];
+        try {
+            const stored = JSON.parse(window.localStorage.getItem(storageKey) || '[]');
+            if (Array.isArray(stored)) recentSchools = stored.map(validateRecentSchool).filter(Boolean).slice(0, maxRecentSchools);
+        } catch (error) {
+            recentSchools = [];
+        }
+        const saveRecentSchools = function () {
+            try { window.localStorage.setItem(storageKey, JSON.stringify(recentSchools)); } catch (error) { /* Storage is optional. */ }
+        };
+        const renderRecentSchools = function () {
+            recentList.replaceChildren();
+            if (recentSchools.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'recent-schools-empty';
+                empty.textContent = 'Hakuna shule iliyochaguliwa bado.';
+                recentList.appendChild(empty);
+                return;
+            }
+            recentSchools.forEach(function (school) {
+                const url = new URL(window.location.href);
+                url.search = '';
+                url.searchParams.set('year', school.year);
+                url.searchParams.set('school', school.code);
+                const link = document.createElement('a');
+                const name = document.createElement('strong');
+                const context = document.createElement('small');
+                link.className = 'recent-school-link';
+                link.href = url.href;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                name.textContent = school.name;
+                context.textContent = exam.toUpperCase() + ' · ' + school.year + ' · ' + school.code;
+                link.append(name, context);
+                link.addEventListener('click', function () { rememberRecentSchool(school, false); });
+                recentList.appendChild(link);
+            });
+        };
+        rememberRecentSchool = function (item, shouldRender) {
+            const school = validateRecentSchool(item);
+            if (!school) return;
+            recentSchools = recentSchools.filter(function (recent) {
+                return recent.code !== school.code || recent.year !== school.year;
+            });
+            recentSchools.unshift(school);
+            recentSchools = recentSchools.slice(0, maxRecentSchools);
+            saveRecentSchools();
+            if (shouldRender !== false) renderRecentSchools();
+        };
+        renderRecentSchools();
+        if (page.dataset.recentSchoolCode) {
+            rememberRecentSchool({
+                code: page.dataset.recentSchoolCode,
+                name: page.dataset.recentSchoolName,
+                year: page.dataset.recentSchoolYear
+            });
+        }
+    }
     const mobileFilter = document.querySelector('.secondary-candidate-filter, .secondary-directory-filter');
     if (mobileFilter) {
         const home = document.createComment('mobile school search position');
@@ -13,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const media = window.matchMedia('(max-width: 700px)');
         const resultPanel = document.querySelector('.secondary-school-results');
         const resultList = document.querySelector('.secondary-school-list');
-        const contextPanel = document.querySelector('.secondary-school-context');
+        const contextPanel = document.querySelector('.secondary-school-context-column');
         let viewportFrame = 0;
         const sizeResultPanel = function () {
             window.cancelAnimationFrame(viewportFrame);
@@ -68,6 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const link = document.createElement('a');
             link.className = 'secondary-school-match';
             link.href = '?year=' + encodeURIComponent(input.dataset.year) + '&school=' + encodeURIComponent(item.code);
+            link.addEventListener('click', function () {
+                rememberRecentSchool({ code: item.code, name: item.name, year: input.dataset.year }, false);
+            });
             const name = document.createElement('strong'); name.textContent = item.name;
             const code = document.createElement('small'); code.textContent = item.code;
             link.append(name, code); matches.appendChild(link);

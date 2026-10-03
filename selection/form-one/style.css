@@ -1,4 +1,4 @@
-.fo-grid{display:grid;grid-template-columns:minmax(240px,.85fr) minmax(0,1.5fr);gap:24px;width:100%;align-items:start}.fo-column{display:grid;gap:16px;min-width:0}.fo-column .card{padding:20px}.fo-column .form-label{display:block;margin:12px 0 7px}.fo-column .btn-submit{margin-top:16px;width:100%;padding:12px;border:0;border-radius:8px;background:#058249;color:white;font-weight:700;cursor:pointer}.fo-example{float:right;font-size:11px;font-weight:400}.fo-error{padding:15px;border:1px solid #ebc69c;border-radius:9px;background:#fff5e8;color:#763a0a;line-height:1.6}.fo-list{max-height:58vh;overflow-y:auto}.fo-list-button{width:100%;padding:13px 10px;display:flex;justify-content:space-between;text-align:left;background:white;border:0;border-bottom:1px solid #e0e7ef;color:#031b4e;cursor:pointer;font:inherit}.fo-list form[hidden]{display:none}.fo-list-button:hover{background:#edf4fb}.fo-table{overflow-x:auto}.fo-table table{width:100%;border-collapse:collapse;font-size:13px}.fo-table th,.fo-table td{padding:12px;text-align:left;border-bottom:1px solid #dce5ee;vertical-align:top}.fo-table small{display:block;margin-top:6px;color:#687589}.fo-meta{font-size:12px}.fo-column .school-search{position:static}.fo-list-button:focus-visible,.fo-column button:focus-visible{outline:3px solid #175ca6;outline-offset:2px}@media(max-width:800px){.fo-grid{grid-template-columns:1fr}.fo-table table{min-width:540px}}
+.fo-grid{display:grid;grid-template-columns:minmax(240px,.85fr) minmax(0,1.5fr);gap:24px;width:100%;align-items:start}.fo-column{display:grid;gap:16px;min-width:0}.fo-column .card{padding:20px}.fo-column .form-label{display:block;margin:12px 0 7px}.fo-column .btn-submit{margin-top:16px;width:100%;padding:12px;border:0;border-radius:8px;background:#058249;color:white;font-weight:700;cursor:pointer}.fo-example{float:right;font-size:11px;font-weight:400}.fo-error{padding:15px;border:1px solid #ebc69c;border-radius:9px;background:#fff5e8;color:#763a0a;line-height:1.6}.fo-list{max-height:58vh;overflow-y:auto}.fo-list-button{width:100%;padding:13px 10px;display:flex;justify-content:space-between;text-align:left;background:white;border:0;border-bottom:1px solid #e0e7ef;color:#031b4e;cursor:pointer;font:inherit}.fo-list form[hidden]{display:none}.fo-list-button:hover{background:#edf4fb}.fo-table{overflow-x:auto}.fo-table table{width:100%;border-collapse:collapse;font-size:13px}.fo-table th,.fo-table td{padding:12px;text-align:left;border-bottom:1px solid #dce5ee;vertical-align:top}.fo-table small{display:block;margin-top:6px;color:#687589}.fo-meta{font-size:12px}.fo-column .school-search{position:sticky}.fo-list-button:focus-visible,.fo-column button:focus-visible{outline:3px solid #175ca6;outline-offset:2px}@media(max-width:800px){.fo-grid{grid-template-columns:1fr}.fo-table table{min-width:540px}}
 .education-page .fo-grid{grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);gap:28px}
 .selection-directory .fo-list{margin-top:10px;max-height:52dvh;overflow:auto;scrollbar-width:none}
 .selection-directory .fo-list::-webkit-scrollbar{display:none}
@@ -39,7 +39,7 @@
 .fo-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 .education-page[data-exam="form-one"].level-results .fo-grid{grid-template-columns:minmax(240px,320px) minmax(0,1fr);gap:20px}
 .education-page[data-exam="form-one"] .fo-context{min-height:0;gap:10px}
-.education-page[data-exam="form-one"].level-results .fo-context{padding:22px}
+.education-page[data-exam="form-one"].level-results .fo-context{padding:22px; position:sticky;top: 12px;left: 12px;}
 .education-page .fo-context h2{margin:4px 0 8px}
 .fo-context-footer{margin-top:6px}
 .education-page .fo-column .fo-result,.education-page .fo-column .fo-table{padding:16px}
@@ -114,7 +114,7 @@
     .education-page .fo-grid{gap:14px}
 }
 @media(max-width:800px){
-    .education-page[data-exam="form-one"].level-results .fo-context{padding:14px 16px}
+    .education-page[data-exam="form-one"].level-results .fo-context{padding:14px 16px; position:fixed; width: 95%; right: 12px;}
 }
 @media(min-width:480px) and (max-width:800px){
     .fo-result-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}

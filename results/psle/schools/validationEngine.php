@@ -17,7 +17,7 @@ $code = grf_district_code_for_selection($regiontz, $districtz);
 
 if ($examYear === null || $examYear < 2010 || $examYear > 2026 || $code === null) {
     $_SESSION['error_title'] = 'Error_<V001>';
-    $_SESSION['error_message'] = 'Chagua mwaka na halmashauri halali kisha ujaribu tena.';
+    $_SESSION['error_message'] = 'Tafadhali chagua mwaka wa matokeo na halmashauri kutoka kwenye orodha, kisha ujaribu tena.';
     $_SESSION['style'] = 'failed-alert';
     header('Location: ../error/');
     exit();

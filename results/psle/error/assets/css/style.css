@@ -11,21 +11,22 @@
 
         }
 
-        .right-columnb{
+        .education-page.level-error .right-columnb{
             position: fixed;
-            display: flex;
-            justify-content: center;
-            top: 20%;
-            right: 24vw;
-            width: 50%; /* Adjust width as needed */
-            min-height: 150px; /* Adjust height as needed */
-            background-color: #ffffff; /* Light background color */
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-            z-index: 1500; /* Keep the error dialog above the blur background */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.44); /* Optional shadow for depth */
-            border-radius: 10px; /* Optional rounded corners */
-            padding-bottom: 5vw; /* Optional padding for content */
-
+            inset: 0;
+            display: grid;
+            place-items: center;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 20px;
+            overflow: visible;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            transform: none;
+            z-index: 1500;
         }
 
 
@@ -58,59 +59,133 @@
 
         
 
-        .alert-panel {
-            width: 90%; /* Adjust width as needed */
-            margin-top: 8%;
-            height: 50%; /* Adjust height as needed */
-            padding: 20px;
-            background-color: #fffdfe; /* Light red background for warning */
-            border-radius: 8px; /* Optional rounded corners */
-            text-align: center;
-            z-index: 1100 !important;
+        .education-page.level-error .right-columnb .alert-panel {
+            width: min(100%, 520px);
+            height: auto;
+            min-height: 0;
+            margin: 0;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            border-top: 5px solid #c58a10;
+            border-radius: 14px;
+            background: #ffffff;
+            box-shadow: 0 24px 70px rgba(7, 24, 44, 0.22);
+            text-align: left;
+            z-index: 1100;
         }
 
-        .alert-box{
-            z-index: 1100 !important; 
+        .education-page.level-error .right-columnb .alert-panel.failed-alert {
+            border-top-color: #b91c1c;
         }
 
-        .commit-button {
-            position: absolute;
-            bottom: 2vw;
-            right: 4vw;
-            padding: 8px 15px;
-            background-color: #007bff; /* Blue background */
-            color: #fff; /* White text */
-            text-decoration: none;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.44); /* Optional shadow for depth */
+        .education-page.level-error .right-columnb .alert-panel.warning-alert {
+            border-top-color: #c58a10;
         }   
 
-        .commit-button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-            transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transition for width and background color */
+        .alert-symbol {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 16px;
+            place-items: center;
+            border-radius: 50%;
+            background: #fff4dd;
+            color: #9a6400;
+            font-size: 18px;
         }
 
-    @media (max-width: 900px) {
-        .right-columnb {
-            top: 30%;
-            right: 10vw;
-            width: 80%; /* Adjust width for smaller screens */
-            min-height: 150px; /* Allow height to adjust based on content */
-            padding-bottom: 7vw; /* Adjust padding for smaller screens */ 
+        .alert-symbol-failed {
+            background: #feecec;
+            color: #b91c1c;
         }
 
-        .alert-panel {
-            width: 90%; /* Full width for smaller screens */
-            margin-top: 5%; /* Adjust margin for smaller screens */
-            min-height: auto; /* Allow height to adjust based on content */
+        .alert-eyebrow {
+            margin: 0 0 7px;
+            color: #64748b;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
-        .commit-button {
-            bottom: 15px;
-            right: 5%;/* Adjust position for smaller screens */
-            padding: 6px 12px; /* Adjust padding for smaller screens */
-            font-size: 14px; /* Adjust font size for smaller screens */
+        .education-page.level-error .right-columnb .alert-panel h1 {
+            margin: 0;
+            color: #14253d;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .education-page.level-error .right-columnb .alert-message {
+            margin: 12px 0 0;
+            color: #4b5b70;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .official-results-link {
+            display: inline-flex;
+            margin-top: 16px;
+            align-items: center;
+            gap: 7px;
+            color: #075b3b;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 700;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        .education-page.level-error .right-columnb .commit-button {
+            position: static;
+            display: inline-flex;
+            min-height: 46px;
+            margin-top: 22px;
+            padding: 0 16px;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border: 0;
+            border-radius: 7px;
+            background: #087a50;
+            box-shadow: none;
+            color: #ffffff;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 800;
+            text-decoration: none;
+            transition: background-color 0.18s ease;
+        }
+
+        .education-page.level-error .right-columnb .commit-button:hover,
+        .education-page.level-error .right-columnb .commit-button:focus-visible {
+            background: #05613f;
+        }
+
+        @media (max-width: 600px) {
+            .education-page.level-error .right-columnb {
+                padding: 14px;
+            }
+
+            .education-page.level-error .right-columnb .alert-panel {
+                padding: 22px 20px;
+            }
+
+            .education-page.level-error .right-columnb .alert-panel h1 {
+                font-size: 21px;
+            }
+
+            .education-page.level-error .right-columnb .alert-message {
+                font-size: 14px;
+            }
+
+            .education-page.level-error .right-columnb .commit-button {
+                width: 100%;
+            }
         }
     }

@@ -144,7 +144,7 @@ function et_secondary_directory_read(string $level, int $year): ?array
         flock($handle, LOCK_UN);
         fclose($handle);
     }
-    if (!is_array($data) || ($data['version'] ?? null) !== 4 || !is_string($data['fetched_at'] ?? null) || !is_array($data['schools'] ?? null)) return null;
+    if (!is_array($data) || !in_array($data['version'] ?? null, [3, 4], true) || !is_string($data['fetched_at'] ?? null) || !is_array($data['schools'] ?? null)) return null;
     $schools = [];
     foreach ($data['schools'] as $school) {
         if (!is_array($school) || !preg_match('/^[SP]Q?\d{4}$/D', (string) ($school['code'] ?? ''))

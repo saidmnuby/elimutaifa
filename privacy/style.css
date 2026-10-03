@@ -30,20 +30,27 @@
             line-height: 1.6;
         }
 
-        .policy-layout {
-            display: grid;
-            grid-template-columns: 190px minmax(0, 1fr);
-            gap: 24px;
-            align-items: start;
-        }
 
         .policy-index {
-            position: sticky;
-            top: 86px;
+            position: fixed;
+            top: 135px;
+            right:10vw;
             padding: 16px;
             border-left: 3px solid var(--primary-blue);
             border-radius: 12px;
             background: #EAF2FF;
+            box-shadow: 0 8px 22px rgba(3, 27, 78, 0.05);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 1200px) {
+            .policy-index {
+                right: 4vw;
+                position: sticky !important;
+                box-shadow: 1px 1px 4px rgba(3, 27, 78, 0.19);
+
+            }
         }
 
         .policy-index strong {

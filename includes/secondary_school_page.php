@@ -69,15 +69,15 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
 <link rel="stylesheet" href="../../../assets/css/style.css">
 <link rel="stylesheet" href="../../../assets/css/consent.css">
 <link rel="stylesheet" href="../../../assets/css/education.css">
-<link rel="stylesheet" href="../../../assets/css/secondary-schools.css?v=20260927.24">
+<link rel="stylesheet" href="../../../assets/css/secondary-schools.css?v=20261002.27">
 <link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css">
 <script src="../../../assets/js/secondary-school-loading.js" defer></script>
 <script src="../../../assets/js/consent.js" defer></script>
-<script src="../../../assets/js/secondary-schools.js?v=20260927.5" defer></script>
+<script src="../../../assets/js/secondary-schools.js?v=20261002.4" defer></script>
 <script src="../../../assets/js/monitoring.js" defer></script>
 <script src="../../../assets/js/placements.js" defer></script>
 </head>
-<body class="education-page level-results" data-exam="<?= ss_e($level) ?>">
+<body class="education-page level-results" data-exam="<?= ss_e($level) ?>"<?php if (in_array($level, ['acsee', 'csee', 'ftna'], true) && $selected): ?> data-recent-school-code="<?= ss_e($schoolCode) ?>" data-recent-school-name="<?= ss_e($selected['name']) ?>" data-recent-school-year="<?= (int) $year ?>"<?php endif; ?>>
 <div class="alert-box"><div id="alert-message" class="in-alert"></div></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <aside class="sidebar" id="sidebar">
@@ -101,6 +101,7 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
 <div data-et-placement-slot="top" data-et-placement-page="<?= ss_e($level) ?>" hidden></div>
 <main class="content-container">
 <div class="secondary-school-grid">
+    <div class="secondary-school-context-column">
     <section class="intro-card secondary-school-context">
         <span class="secondary-school-eyebrow"><?= ss_e($exam) ?></span>
         <h2><?= ss_e($selected['name'] ?? 'Tafuta shule') ?></h2>
@@ -112,18 +113,27 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
             <?php if ($source): ?><a href="<?= ss_e($source) ?>" target="_blank" rel="noopener noreferrer"><?= ss_e($sourceLabel) ?></a><?php endif; ?>
         </nav>
     </section>
+    <?php if (in_array($level, ['acsee', 'csee', 'ftna'], true)): ?>
+        <section class="school-history secondary-school-history" aria-labelledby="recent-schools-title">
+            <h4 id="recent-schools-title"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Shule zilizotafutwa hivi karibuni</h4>
+            <div class="recent-schools" id="recentSchools">
+                <p class="recent-schools-empty">Hakuna shule iliyochaguliwa bado.</p>
+            </div>
+        </section>
+    <?php endif; ?>
+    </div>
     <section class="right-column secondary-school-results">
         <?php if ($error): ?>
             <section class="card secondary-school-error" role="alert"><h2>Haikuwezekana kupata majibu</h2><p><?= ss_e($error) ?></p><a class="btn btn-green" href="?year=<?= (int) $year ?>">Rudi kutafuta shule</a></section>
         <?php elseif ($selected): ?>
             <section class="school-search secondary-candidate-filter">
                 <label for="school-filter">Tafuta namba ya mwanafunzi</label>
-                <input class="form-input" id="school-filter" type="search" autocomplete="off" placeholder="Andika sehemu ya nambaâ€¦" aria-controls="school-result-table">
+                <input class="form-input" id="school-filter" type="search" autocomplete="off" placeholder="Andika namba hapaâ€¦" aria-controls="school-result-table">
                 <p id="school-count" role="status"></p>
             </section>
             <section class="card secondary-school-list" tabindex="0" aria-label="Matokeo ya shule">
                 <div class="secondary-list-heading"><h2>Student Results</h2><span><?= count($rows) ?> wanafunzi</span></div>
-                <table id="school-result-table"><thead><tr><th>Number</th><th>Sex</th><th>Aggregate</th><th>Division</th><th>Subjects</th></tr></thead>
+                <table id="school-result-table"><thead><tr><th>Number</th><th>Sex</th><th>Aggr</th><th>Div</th><th>Subjects</th></tr></thead>
                 <tbody><?php foreach($rows as $row): ?><tr data-school-search="<?= ss_e($row[0]) ?>"><?php foreach($row as $column => $cell): ?><?php if ($column === 4): ?><td class="secondary-subjects"><?php foreach (ss_subjects($cell) as $subject): ?><span class="secondary-subject-chip"><?= ss_e($subject) ?></span><?php endforeach; ?></td><?php else: ?><td><?= ss_e($cell) ?></td><?php endif; ?><?php endforeach; ?></tr><?php endforeach; ?></tbody></table>
             </section>
             <p id="school-empty" hidden>Hakuna mwanafunzi anayelingana na namba hiyo.</p>
@@ -131,8 +141,8 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
             <section class="card secondary-school-directory">
                 <div class="secondary-list-heading"><h2>Andika jina la shule</h2><span>Angalau herufi 2</span></div>
                 <div class="secondary-directory-filter">
-                    <label class="secondary-directory-label" for="school-filter">Jina au code ya shule</label>
-                    <input class="form-input" id="school-filter" type="search" autocomplete="off" placeholder="Mfano: Azania au P0101" data-level="<?= ss_e($level) ?>" data-year="<?= (int) $year ?>" aria-controls="school-directory-results">
+                    <label class="secondary-directory-label" for="school-filter">Jina au code ya shule mfano: <span style="font-style: italic;">S3453 au Mkwawa Secondary School</span></label>
+                    <input class="form-input" id="school-filter" type="search" autocomplete="off" placeholder="Andika hapa..." data-level="<?= ss_e($level) ?>" data-year="<?= (int) $year ?>" aria-controls="school-directory-results">
                     <p id="school-count" role="status">Andika herufi 2 au zaidi.</p>
                 </div>
                 <div id="school-directory-results" class="secondary-school-matches" aria-live="polite"></div>

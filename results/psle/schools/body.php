@@ -158,7 +158,7 @@
                         <p class="school-search-summary" id="schoolSearchSummary" aria-live="polite"></p>
                     </section>
                     <div class="card" tabindex="0" role="region" aria-label="Orodha ya shule">
-                            <p class="school-search-empty" id="schoolSearchEmpty" hidden>Hakuna shule inayolingana na jina uliloandika.</p>
+                            <p class="school-search-empty" id="schoolSearchEmpty" hidden>Mwaka: <?php echo htmlspecialchars((string) $examYear, ENT_QUOTES, 'UTF-8'); ?> - Hakuna shule inayolingana na jina uliloandika.</p>
                             <div class="schoolCard" id="schoolList">
                                         <?php if (!empty($schools)): ?>
                                                 <?php foreach ($schools as $school): ?>

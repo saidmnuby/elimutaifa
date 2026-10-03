@@ -12,7 +12,7 @@
         const region = document.createElement('select');
         const council = document.createElement('select');
         const search = document.createElement('input');
-        search.type = 'search'; search.placeholder = 'Tafuta jina au code ya shule';
+        search.type = 'search'; search.placeholder = 'Tafuta jina au code ya shule: Mfano: S3453 au Mkwawa Secondary School';
         const status = document.createElement('p');
         status.setAttribute('role', 'status');
         const retry = document.createElement('button');

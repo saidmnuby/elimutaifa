@@ -4,6 +4,8 @@ if (!defined('ET_CYCLES_EMBEDDED')) {
     header('Location: ../sources.php?section=form-one' . (isset($_GET['id']) ? '&id=' . (int)$_GET['id'] : ''), true, 307);
     exit;
 }
+
+
 require_once dirname(__DIR__,2).'/includes/admin_auth.php';
 require_once dirname(__DIR__,2).'/includes/form_one.php';
 require_once dirname(__DIR__,2).'/includes/form_five.php';
@@ -25,6 +27,7 @@ $q=$database->prepare('SELECT * FROM '.$cycleTable.' WHERE id=?');$q->execute([$
 $values=$item?:['cycle_key'=>'','intake_year'=>(int)date('Y')+1,'exam_year'=>(int)date('Y'),'round_label'=>'First selection','source_url'=>'','status'=>'draft'];
 $errors=[];
 $sourceMode=$item && $item['source_url']!==$generatedSource($item)?'manual':'auto';
+
 if(($_SERVER['REQUEST_METHOD']??'')==='POST'){
     et_require_owner($user);
     if(!et_verify_csrf($_POST['csrf_token']??null)) {$errors[]='This request has expired. Reload the page.';}
@@ -91,31 +94,191 @@ if(($_SERVER['REQUEST_METHOD']??'')==='POST'){
         }
     }
 }
+
+
+
 $items=$database->query('SELECT * FROM '.$cycleTable.' ORDER BY intake_year DESC,id DESC LIMIT 100')->fetchAll();
 $default=$database->query("SELECT setting_value FROM app_settings WHERE setting_key='{$cycleSetting}'")->fetchColumn();
 et_admin_header('Result Pages · '.$cycleTitle,$user,'sources');
 ?>
-<div class="admin-page-heading"><p>Year, round na source management pekee; selections za wanafunzi hazihaririwi hapa.</p><div><a class="admin-button secondary" href="sources.php">← Result Pages</a> <a class="admin-button secondary" href="sources.php?section=<?= et_e($cycleModule) ?>">+ Cycle mpya</a></div></div>
-<?php foreach($errors as $error): ?><div class="admin-alert error" role="alert"><?= et_e($error) ?></div><?php endforeach; ?>
+
+<div class="admin-page-heading">
+    <p>Year, round na source management pekee; selections za wanafunzi hazihaririwi hapa.</p>
+    <div>
+        <a class="admin-button secondary" href="sources.php">← Result Pages</a> 
+        <a class="admin-button secondary" href="sources.php?section=<?= et_e($cycleModule) ?>">+ Cycle mpya</a>
+    </div>
+</div>
+
+<?php foreach($errors as $error): ?>
+    <div class="admin-alert error" role="alert"><?= et_e($error) ?>
+    </div>
+<?php endforeach; ?>
+
 <?php if($user['role']==='owner'): ?>
 <form method="post" class="admin-form" data-cycle-module="<?= et_e($cycleModule) ?>">
-<input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><input type="hidden" name="operation" value="save">
-<section class="form-section"><h2><?= $item?'Edit cycle':'Add cycle (save a draft first)' ?></h2><div class="form-grid">
-<div class="form-field"><label>Exam year: <?= et_e($examLabel) ?><input name="exam_year" type="number" min="2010" max="2099" value="<?= et_e($values['exam_year']) ?>" required></label></div>
-<div class="form-field"><label>Selection round<select name="round_label" required><?php $rounds=['First selection','Second selection','Third selection']; if(!in_array($values['round_label'],$rounds,true)) $rounds[]=$values['round_label']; foreach($rounds as $round): ?><option<?= $values['round_label']===$round?' selected':'' ?>><?= et_e($round) ?></option><?php endforeach; ?></select></label></div>
-<div class="form-field"><label>Status<select name="status"><?php foreach(['draft','published','archived'] as $status): ?><option value="<?= $status ?>"<?= $values['status']===$status?' selected':'' ?>><?= ucfirst($status) ?></option><?php endforeach; ?></select></label></div>
-<div class="check-row"><label><input type="checkbox" name="make_default" value="1"> Set as default (published cycles only)</label></div>
-</div><p>Source: <span id="cycle-source-preview" style="overflow-wrap:anywhere"><?= et_e($sourceMode==='auto'?$generatedSource($values):$values['source_url']) ?></span></p>
-<details<?= $sourceMode==='manual'?' open':'' ?>><summary>More options (optional)</summary><div class="form-grid">
-<div class="form-field"><label>Different intake year<input name="intake_year" type="number" min="2010" max="2100" value="<?= et_e($item?$values['intake_year']:($_POST['intake_year']??'')) ?>" placeholder="Automatic: exam year + 1"></label><small>For a new cycle, leave blank to use the exam year plus one.</small></div>
-<div class="form-field"><label>Source URL mode<select name="source_mode" id="cycle-source-mode"><option value="auto"<?= $sourceMode==='auto'?' selected':'' ?>>Automatic</option><option value="manual"<?= $sourceMode==='manual'?' selected':'' ?>>Manual</option></select></label></div>
-<div class="form-field full"><label>Official URL<input name="source_url" id="cycle-source-url" maxlength="2048" value="<?= et_e($sourceMode==='auto'?$generatedSource($values):$values['source_url']) ?>"<?= $sourceMode==='auto'?' readonly':'' ?> required></label><small>Check the source before publishing.</small></div>
-</div></details><div>
-</div><p>Verification: <?= $item && $item['verified_at']?et_e(et_admin_datetime($item['verified_at'])):'Not yet' ?></p><?php if($item && $item['verification_report']): ?><p><?= et_e($item['verification_report']) ?></p><?php endif; ?>
-<div class="form-actions"><button class="admin-button">Save</button><?php if($item): ?><a href="../selection/<?= et_e($cycleModule) ?>/" class="admin-button secondary" target="_blank" rel="noopener">Open module ↗</a><?php endif; ?></div></section>
+    <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>">
+    <input type="hidden" name="operation" value="save">
+    <section class="form-section">
+        <h2>
+            <?= $item?'Edit cycle':'Add cycle (save a draft first)' ?>
+        </h2>
+
+        <div class="form-grid">
+            <div class="form-field">
+                <label>Exam year: <?= et_e($examLabel) ?>
+                    <input name="exam_year" type="number" min="2010" max="2099" value="<?= et_e($values['exam_year']) ?>" required>
+                </label>
+            </div>
+            
+            <div class="form-field">
+                <label>Selection round
+                    <select name="round_label" required>
+                    
+                        <?php $rounds=['First selection','Second selection','Third selection']; if(!in_array($values['round_label'],$rounds,true)) $rounds[]=$values['round_label']; foreach($rounds as $round): ?>
+                            <option<?= $values['round_label']===$round?' selected':'' ?>><?= et_e($round) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+            </div>
+            
+            <div class="form-field">
+                <label>Status
+                    <select name="status">
+                        <?php foreach(['draft','published','archived'] as $status): ?>
+                            <option value="<?= $status ?>"<?= $values['status']===$status?' selected':'' ?>>
+                                <?= ucfirst($status) ?>
+                            </option>
+                            
+                        <?php endforeach; ?>
+
+                    </select>
+                </label>
+            </div>
+            
+            <div class="check-row">
+                <label>
+                    <input type="checkbox" name="make_default" value="1"> Set as default (published cycles only)
+                </label>
+            </div>
+
+        </div>
+        
+        <p>Source:
+            <span id="cycle-source-preview" style="overflow-wrap:anywhere">
+                <?= et_e($sourceMode==='auto'?$generatedSource($values):$values['source_url']) ?>
+            </span>
+        </p>
+        
+        <details <?= $sourceMode==='manual'?' open':'' ?>>
+
+            <summary>More options (optional)</summary>
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Different intake year
+                        <input name="intake_year" type="number" min="2010" max="2100" value="<?= et_e($item?$values['intake_year']:($_POST['intake_year']??'')) ?>" placeholder="Automatic: exam year + 1">
+                    </label>
+                
+                    <small>For a new cycle, leave blank to use the exam year plus one.</small>
+                </div>
+            
+                <div class="form-field">
+                    <label>Source URL mode
+                        <select name="source_mode" id="cycle-source-mode">
+                            <option value="auto"<?= $sourceMode==='auto'?' selected':'' ?>>Automatic</option>
+                            <option value="manual"<?= $sourceMode==='manual'?' selected':'' ?>>Manual</option>
+                        </select>
+                    </label>
+            
+                </div>
+            
+                <div class="form-field full">
+                    <label>Official URL
+                        <input name="source_url" id="cycle-source-url" maxlength="2048" value="<?= et_e($sourceMode==='auto'?$generatedSource($values):$values['source_url']) ?>"<?= $sourceMode==='auto'?' readonly':'' ?> required>
+                    </label>
+                    <small>Check the source before publishing.</small>
+                </div>
+        
+            </div>
+    
+        </details>
+        
+        <div></div>
+        
+        <p>Verification: 
+            <?= $item && $item['verified_at']?et_e(et_admin_datetime($item['verified_at'])):'Not yet' ?>
+        </p>
+
+        <?php if($item && $item['verification_report']): ?>
+            <p><?= et_e($item['verification_report']) ?></p>
+        <?php endif; ?>
+
+        <div class="form-actions">
+            <button class="admin-button">Save</button>
+
+            <?php if($item): ?>
+                <a href="../selection/<?= et_e($cycleModule) ?>/" class="admin-button secondary" target="_blank" rel="noopener">Open module ↗</a>
+            <?php endif; ?>
+        </div>
+    </section>
 </form>
-<?php if($item): ?><div class="form-actions" style="margin:14px 0"><?php foreach(['verify'=>'Check source (live sample)','clear-cache'=>'Clear cycle cache'] as $op=>$label): ?><form method="post"><input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>"><button class="admin-button secondary" name="operation" value="<?= $op ?>"><?= $label ?></button></form><?php endforeach; ?></div><?php endif; ?>
-<?php else: ?><div class="admin-alert">Owner pekee anabadilisha cycle/source/default. Admin anaweza kuona cycles.</div><?php endif; ?>
-<div class="table-wrap"><table class="admin-table"><thead><tr><th>Cycle</th><th>Status</th><th>Verification (EAT)</th><th>Actions</th></tr></thead><tbody><?php foreach($items as $row): ?><tr><td><?= et_e($row['intake_year'].' · '.$row['round_label']) ?><small><?= et_e($examLabel) ?> <?= (int)$row['exam_year'] ?> · <?= et_e($row['cycle_key']) ?></small></td><td><?= et_e($row['status']) ?><?= $row['cycle_key']===$default && $row['status']==='published'?' · Default':'' ?></td><td><?= $row['verified_at']?et_e(et_admin_datetime($row['verified_at'])):'Not yet' ?></td><td><a href="sources.php?section=<?= et_e($cycleModule) ?>&amp;id=<?= (int)$row['id'] ?>">Open</a></td></tr><?php endforeach; ?></tbody></table></div>
+
+<?php if($item): ?>
+    <div class="form-actions" style="margin:14px 0">
+        <?php foreach(['verify'=>'Check source (live sample)','clear-cache'=>'Clear cycle cache'] as $op=>$label): ?>
+            <form method="post">
+                <input type="hidden" name="csrf_token" value="<?= et_e(et_csrf_token()) ?>">
+                <button class="admin-button secondary" name="operation" value="<?= $op ?>"><?= $label ?></button>
+            </form>
+
+        <?php endforeach; ?>
+    </div>
+
+
+<?php endif; ?>
+<?php else: ?>
+    <div class="admin-alert">Owner pekee anabadilisha cycle/source/default. Admin anaweza kuona cycles.</div>
+<?php endif; ?>
+
+<div class="table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Cycle</th>
+                <th>Status</th>
+                <th>Verification (EAT)</th>
+                <th>Actions</th>
+            </tr>
+        
+        </thead>
+        
+        <tbody>
+            <?php foreach($items as $row): ?>
+                <tr>
+                    <td>
+                        <?= et_e($row['intake_year'].' · '.$row['round_label']) ?>
+                        <small><?= et_e($examLabel) ?> <?= (int)$row['exam_year'] ?> · <?= et_e($row['cycle_key']) ?></small>
+                    </td>
+                
+                    <td>
+                        <?= et_e($row['status']) ?>
+                        <?= $row['cycle_key']===$default && $row['status']==='published'?' · Default':'' ?>
+                    </td>
+                
+                    <td>
+                        <?= $row['verified_at']?et_e(et_admin_datetime($row['verified_at'])):'Not yet' ?>
+                    </td>
+                
+                    <td>
+                        <a href="sources.php?section=<?= et_e($cycleModule) ?>&amp;id=<?= (int)$row['id'] ?>">Open</a>
+                    </td>
+
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
 <script src="assets/form-one-cycles.js?v=20260916.3"></script>
 <?php et_admin_footer(); ?>
