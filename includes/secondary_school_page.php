@@ -70,10 +70,10 @@ $sourceLabel = str_contains($source, 'maktaba.tetea.org') ? 'Maktaba ya TETEA â†
 <link rel="stylesheet" href="../../../assets/css/consent.css">
 <link rel="stylesheet" href="../../../assets/css/education.css">
 <link rel="stylesheet" href="../../../assets/css/secondary-schools.css?v=20261002.27">
-<link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css">
-<script src="../../../assets/js/secondary-school-loading.js" defer></script>
+<link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css?v=20261004.1">
+<script src="../../../assets/js/secondary-school-loading.js?v=20261004.1" defer></script>
 <script src="../../../assets/js/consent.js" defer></script>
-<script src="../../../assets/js/secondary-schools.js?v=20261002.4" defer></script>
+<script src="../../../assets/js/secondary-schools.js?v=20261004.1" defer></script>
 <script src="../../../assets/js/monitoring.js" defer></script>
 <script src="../../../assets/js/placements.js" defer></script>
 </head>

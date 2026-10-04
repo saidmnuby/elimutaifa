@@ -32,6 +32,8 @@
     <script src="../../../assets/js/script.js"></script>
 
     <script src="../../../assets/js/placements.js" defer></script>
+<link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css?v=20261004.1">
+<script src="../../../assets/js/secondary-school-loading.js?v=20261004.1" defer></script>
 </head>
 <body class="education-page level-results" data-exam="acsee">
 

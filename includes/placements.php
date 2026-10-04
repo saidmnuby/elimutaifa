@@ -94,7 +94,7 @@ function et_placement_entry(PDO $database, array $row, string $base): ?array
     if ($image !== '' && !et_is_safe_image_url($image)) { return null; }
     if (et_is_managed_content_image($image)) { $image = $base . '/' . $image; }
     return ['id'=>(int)$row['id'],'title'=>$row['title'],'description'=>$row['description'],
-        'kind'=>$row['kind'],'sponsor_name'=>$row['sponsor_name'],'format'=>$row['format'],'slot'=>$row['slot'],
+        'kind'=>$row['kind'],'sponsor_name'=>$row['sponsor_name'],'format'=>$row['format'],'slot'=>$row['slot'],'priority'=>(int)$row['priority'],
         'image_url'=>$image,'href'=>$href,'external'=>$row['destination_type']==='external',
         'popup_style'=>$row['popup_style']??'corner','display_mode'=>$row['display_mode']??'session','skip_delay'=>(int)($row['skip_delay']??0)];
 }

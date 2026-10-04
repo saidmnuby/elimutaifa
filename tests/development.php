@@ -16,7 +16,7 @@ try {
         [false, $server, array_replace($config, ['allow_owner_without_2fa' => false])],
         [false, array_replace($server, ['REMOTE_ADDR' => '192.168.1.20']), $config],
         [false, array_replace($server, ['SERVER_ADDR' => '192.168.1.20']), $config],
-        [false, array_replace($server, ['HTTP_HOST' => 'elimutaifa.com']), $config],
+        [false, array_replace($server, ['HTTP_HOST' => 'elimutaifa.co.tz']), $config],
         [false, array_replace($server, ['HTTP_HOST' => 'localhost.evil.example']), $config],
         [false, array_replace($server, ['HTTP_X_FORWARDED_FOR' => '127.0.0.1']), $config],
         [false, array_replace($server, ['HTTP_FORWARDED' => 'for=127.0.0.1']), $config],

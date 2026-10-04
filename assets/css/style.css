@@ -967,7 +967,7 @@ a.announcement-button {
 
 @media (max-width: 620px) {
     #home-title{
-        font-size: 18px;
+        font-size: 25px;
     }
     .home-page .home-header-brand .brand-logo {
         display: block;

@@ -1,0 +1,34 @@
+<?php
+declare(strict_types=1);
+require_once dirname(__DIR__).'/includes/notifications.php';
+function notification_check(bool $ok,string $message): void { if(!$ok) throw new RuntimeException($message); }
+$db=et_open_database(':memory:');
+$db->prepare('INSERT INTO admin_users(id,username,display_name,password_hash,role,is_active,created_at,updated_at) VALUES(1,?,?,?,?,1,?,?)')->execute(['owner','Owner','fixture','owner',et_utc_now(),et_utc_now()]);
+et_email_save($db,'admin_email_enabled','1'); et_email_save($db,'admin_email_address_1','owner@example.com');
+et_email_save($db,'notification_preferences',json_encode(['checks'=>false,'critical'=>false,'enabled_on'=>'2026-10-01']));
+$db->exec("INSERT INTO traffic_daily(day,path,views,unique_visitors,last_view_at) VALUES('2026-10-08','/',8,2,'2026-10-08 10:00:00')");
+foreach([['/','a'],['/second','a'],['/','b'],['@event/search-success','a']] as [$path,$hash]) $db->prepare('INSERT INTO traffic_unique_visitors(day,path,visitor_hash) VALUES(?,?,?)')->execute(['2026-10-08',$path,$hash]);
+$body=et_notification_report($db,'2026-10-08','2026-10-08',true);
+notification_check(str_contains($body,'Estimated unique visitors: 2') && str_contains($body,'Visitors with successful results: 1'),'Visitors were double counted');
+notification_check(str_contains($body,'no owner assessment recorded'),'Unmeasured progress invented');
+$now=new DateTimeImmutable('2026-10-09 06:59:00',new DateTimeZone('Africa/Dar_es_Salaam'));
+et_notification_run($db,$now);
+notification_check((int)$db->query("SELECT COUNT(*) FROM app_settings WHERE setting_key LIKE 'admin_email_outbox_%'")->fetchColumn()===0,'Report sent before schedule');
+et_notification_run($db,$now->modify('+1 minute')); et_notification_run($db,$now->modify('+2 minutes'));
+notification_check((int)$db->query("SELECT COUNT(*) FROM app_settings WHERE setting_key LIKE 'admin_email_outbox_%'")->fetchColumn()===2,'Daily/Friday report missing or duplicated');
+et_email_save($db,'notification_preferences',json_encode(['checks'=>false,'critical'=>false,'daily'=>false,'weekly'=>false,'login'=>false]));
+et_admin_email_event('login',['id'=>1,'display_name'=>'Owner','username'=>'owner','role'=>'owner'],$db);
+notification_check((int)$db->query("SELECT COUNT(*) FROM app_settings WHERE setting_key LIKE 'admin_email_outbox_%'")->fetchColumn()===2,'Disabled login channel queued');
+et_email_save($db,'notification_preferences',json_encode(['checks'=>false,'critical'=>false,'daily'=>false,'weekly'=>true,'enabled_on'=>'2026-10-01']));
+et_notification_run($db,new DateTimeImmutable('2026-10-10 08:00:00',new DateTimeZone('Africa/Dar_es_Salaam')));
+notification_check((int)$db->query("SELECT COUNT(*) FROM app_settings WHERE setting_key LIKE 'admin_email_outbox_%'")->fetchColumn()===2,'Friday catch-up repeated an existing report');
+$cycle=et_exam_legacy_cycle('acsee',2026);
+et_email_save($db,et_exam_key('acsee',2026),json_encode($cycle));
+et_email_save($db,'notification_preferences',json_encode(['checks'=>true,'critical'=>false,'daily'=>false,'weekly'=>false]));
+$original=et_email_setting($db,et_exam_key('acsee',2026));
+et_notification_run($db,$now,static function($cycle){ $cycle['school_path']='changed/{school}.htm'; return $cycle; });
+$state=json_decode(et_email_setting($db,'notification_check_acsee-2026'),true);
+notification_check(!$state['ok'] && $state['failures']===1,'Changed source layout was accepted automatically');
+notification_check(et_email_setting($db,et_exam_key('acsee',2026))===$original,'Background check changed a published mapping');
+notification_check(et_notification_queue($db,'stable','Test','Test')===1 && et_notification_queue($db,'stable','Test','Test')===0,'Alert deduplication failed');
+echo "Notification scheduling and report tests passed.\n";

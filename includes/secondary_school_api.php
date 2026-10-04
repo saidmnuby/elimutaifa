@@ -12,6 +12,6 @@ try {
     $items = et_secondary_directory_search($level, $year, $query);
     echo json_encode(['ok'=>true, 'items'=>$items], JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
 } catch (Throwable $exception) {
-    et_record_system_event('school_directory_unavailable', 'School directory could not be prepared.', 'warning', ['exam_type'=>strtoupper($level), 'target_url'=>et_secondary_directory_source($level, $year)]);
+    et_record_system_event('school_directory_unavailable', 'School directory could not be prepared.', 'warning', ['exam_type'=>strtoupper($level)]);
     http_response_code(503); echo '{"ok":false}';
 }

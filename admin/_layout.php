@@ -23,7 +23,7 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
     $navItems = [
         'dashboard' => ['Dashboard', $base . 'index.php'],
         'content' => ['Content', $base . 'content/'],
-        'placements' => ['Sponsors view', $base . 'placements/'],
+        'placements' => ['Sponsors & Ads', $base . 'placements/'],
         'submissions' => ['Messages', $base . 'submissions/'],
         'sources' => ['Result Pages', $base . 'sources.php'],
         'monitoring' => ['Traffic & Errors', $base . 'monitoring/'],
@@ -31,6 +31,7 @@ function et_admin_header(string $title, array $user, string $active = 'dashboard
         'account' => ['Account', $base . 'account.php'],
     ];
     if (($user['role'] ?? '') === 'owner') {
+        $navItems['notifications'] = ['Notifications', $base . 'notifications.php'];
         $navItems['users'] = ['Admins', $base . 'users/'];
     }
     ?>

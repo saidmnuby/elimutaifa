@@ -75,7 +75,7 @@ require_once __DIR__ . '/header.php';
             <div class="header-left">
                 <button class="mobile-menu-btn" id="menuToggle" aria-label="Fungua menyu"><i class="fa-solid fa-bars"></i></button>
                 <span class="logo-icon brand-logo" role="img" aria-label="ElimuTaifa logo"></span>
-                <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.com</p></div>
+                <div class="header-title"><h1>ElimuTaifa</h1><p>www.elimutaifa.co.tz</p></div>
             </div>
             <div class="datetime-display"><i class="fa-solid fa-comments"></i><span>ABOUT-ELIMUTAIFA</span></div>
         </header>

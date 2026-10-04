@@ -6,6 +6,7 @@ require_once __DIR__ . '/admin_db.php';
 require_once __DIR__ . '/monitoring.php';
 require_once __DIR__ . '/two_factor.php';
 require_once __DIR__ . '/development.php';
+require_once __DIR__ . '/admin_email.php';
 et_register_fatal_error_monitoring();
 
 const ET_ADMIN_IDLE_TIMEOUT = 1800;
@@ -197,6 +198,7 @@ function et_complete_admin_login(array $user, ?string $mfaHash = null): void
     $database->prepare('UPDATE admin_users SET last_login_at = :last_login_at WHERE id = :id')
         ->execute(['last_login_at' => et_utc_now(), 'id' => (int) $user['id']]);
     et_audit((int) $user['id'], 'login_succeeded', 'admin_user', (int) $user['id']);
+    et_admin_email_event('login', $user);
 
 }
 

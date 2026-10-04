@@ -2,6 +2,7 @@
 
 require_once dirname(__DIR__, 3) . '/includes/session.php';
 require_once dirname(__DIR__, 3) . '/includes/validation.php';
+require_once dirname(__DIR__, 3) . '/includes/exam_cycles.php';
 grf_start_session();
 
 $examYear = isset($_POST['examYear']) ? filter_var($_POST['examYear'], FILTER_VALIDATE_INT) : false;
@@ -24,22 +25,12 @@ if (!grf_is_valid_secondary_candidate($candidate) || !grf_is_valid_exam_year($ex
         exit();
 }
 
-// Candidate numbers use four digits. Do not impose an artificial numeric
-// threshold: both school and private-centre sequences must remain searchable.
-if ($examYear >= 2023 && $examYear <= 2025) {
-    $url = "https://onlinesys.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
-} elseif ($examYear === 2026) {
-    $url = "https://matokeo.necta.go.tz/results/$examYear/$examLevel/results/$schoolCode.htm";
-} elseif ($examYear <= 2022) {
-    $url = "https://maktaba.tetea.org/exam-results/ACSEE$examYear/$schoolCode.htm";
+try {
+    $url = et_exam_source_url('acsee', $examYear, 'school', $school_id ?? $schoolCode);
+} catch (Throwable $exception) {
+    $_SESSION['error_title'] = 'Source unavailable';
+    $_SESSION['error_message'] = 'Chanzo cha matokeo ya mwaka huu hakipatikani kwa sasa. Tafadhali jaribu baadaye.';
+    $_SESSION['style'] = 'warning-alert';
+    header('Location: ../error/');
+    exit;
 }
-  
-if (!isset($url) || $url === '') {
-    $_SESSION['error_title'] = "Errorr_<V003>";
-    $_SESSION['error_message'] = "namba ya mtihani au mwaka siyo sahihi. Tafadhali hakiki namba, kidato na mwaka kisha ujaribu tena.";
-    $_SESSION['style'] = "failed-alert";
-    header("Location: ../error/");
-    exit();
-}
-
-?>

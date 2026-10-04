@@ -1,0 +1,26 @@
+.exam-monitor-card { margin-top: 18px; }
+.exam-cycle-picker { display: grid; grid-template-columns: minmax(140px,1fr) minmax(100px,.7fr) auto; gap: 16px; align-items: end; }
+.exam-health-heading { display: flex; gap: 18px; justify-content: space-between; align-items: start; }
+.exam-health-heading h2 { margin-bottom: 6px; }
+.exam-health-heading p { color: var(--muted); }
+.exam-health { display: inline-flex; align-items: center; white-space: nowrap; padding: 6px 10px; border-radius: 20px; font-size: 12px; font-weight: 800; background: #edf1f6; color: #52647b; }
+.exam-health-healthy { background: #e6f6ed; color: #03683a; }
+.exam-health-ready { background: #e7f1ff; color: #1453a1; }
+.exam-health-issue { background: #fff0ed; color: #b42318; }
+.exam-health-pending { background: #fff6dd; color: #8b6514; }
+.exam-monitor-details { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.exam-monitor-details dt { color: var(--muted); font-size: 12px; }
+.exam-monitor-details dd { margin: 6px 0 0; font-weight: 700; font-size: 13px; overflow-wrap: anywhere; }
+.exam-check-form { display: grid; grid-template-columns: minmax(180px,300px) auto; justify-content: start; align-items: end; gap: 16px; margin-top: 20px; }
+.exam-check-form p { grid-column: 1/-1; color: var(--muted); margin: 0; }
+.exam-cycle-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.exam-check-note { padding: 12px; color: #03683a; background: #f0f9f4; border-radius: 8px; }
+.exam-advanced { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+.exam-advanced summary { cursor: pointer; color: var(--muted); font-weight: 700; }
+.exam-advanced-fields { display: grid; gap: 16px; border: 0; padding: 16px 0; margin: 0; min-width: 0; }
+.exam-monitor-card [aria-busy="true"] button { opacity: .65; cursor: wait; }
+@media (max-width: 700px) {
+    .exam-cycle-picker, .exam-check-form { grid-template-columns: 1fr; }
+    .exam-monitor-details { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .exam-health-heading { flex-direction: column; }
+}

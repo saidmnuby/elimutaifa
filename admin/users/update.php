@@ -12,13 +12,16 @@ $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?: 0;
 $role = (string) ($_POST['role'] ?? '');
 $isActive = filter_var($_POST['is_active'] ?? null, FILTER_VALIDATE_INT);
 if ($id <= 0 || $id === (int) $user['id'] || !in_array($role, ['owner','admin'], true) || !in_array($isActive, [0,1], true)) {
-    et_flash('error', 'Admin update haikukubalika.'); et_redirect('./');
+    et_flash('error', 'The admin update is not valid.'); et_redirect('./');
 }
 $database = et_db();
+if ($id === (int)(et_email_setting($database,'admin_email_main_owner_id') ?? '0') && ($role!=='owner' || $isActive!==1)) {
+    et_flash('error','The main owner cannot be demoted or disabled.'); et_redirect('./');
+}
 $statement = $database->prepare('SELECT role,is_active FROM admin_users WHERE id=:id AND deleted_at IS NULL');
 $statement->execute(['id' => $id]);
 $target = $statement->fetch();
-if (!$target) { et_flash('error', 'Admin hajapatikana.'); et_redirect('./'); }
+if (!$target) { et_flash('error', 'Admin account not found.'); et_redirect('./'); }
 if ($target['role'] === 'owner' && (int) $target['is_active'] === 1 && ($role !== 'owner' || $isActive === 0)) {
     $activeOwners = (int) $database->query("SELECT COUNT(*) FROM admin_users WHERE role='owner' AND is_active=1 AND deleted_at IS NULL")->fetchColumn();
     if ($activeOwners <= 1) { et_flash('error', 'You cannot remove the last active owner.'); et_redirect('./'); }

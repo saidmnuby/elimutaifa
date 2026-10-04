@@ -2,6 +2,7 @@
 /storage/*.sqlite-shm
 /storage/*.sqlite-wal
 /storage/database.php
+/storage/email.php
 /storage/*.sql
 /storage/two-factor-key.php
 /storage/development.php

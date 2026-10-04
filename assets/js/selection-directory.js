@@ -58,12 +58,15 @@
             const url = new URL('./', location.href);
             url.search = new URLSearchParams({action:'browse', directory:'1', cycle:cycle.value, ...params});
             if (cache.has(url.href)) return cache.get(url.href);
-            const response = await fetch(url, {signal, credentials:'same-origin'});
-            const data = await response.json();
-            if (!response.ok || data.error) throw new Error(data.error || 'Chanzo hakipatikani kwa sasa. Jaribu tena.');
-            const items = data.stage === stage && Array.isArray(data.entries) ? data.entries : [];
-            if (!items.length) throw new Error('Orodha haijapatikana. Jaribu tena au tumia njia ya kawaida.');
-            cache.set(url.href, items); return items;
+            const finish = window.ETPageLoading?.begin({scope:panel, title:stage === 'region' ? 'Inapakia mikoa' : stage === 'council' ? 'Inapakia halmashauri' : 'Inapakia shule', message:'Tafadhali subiri huku orodha ikipakiwa.'}) || function () {};
+            try {
+                const response = await fetch(url, {signal, credentials:'same-origin'});
+                const data = await response.json();
+                if (!response.ok || data.error) throw new Error(data.error || 'Chanzo hakipatikani kwa sasa. Jaribu tena.');
+                const items = data.stage === stage && Array.isArray(data.entries) ? data.entries : [];
+                if (!items.length) throw new Error('Orodha haijapatikana. Jaribu tena au tumia njia ya kawaida.');
+                cache.set(url.href, items); return items;
+            } finally { finish(); }
         }
         async function load(level, restore) {
             if (controller) controller.abort();

@@ -11,6 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !et_verify_csrf($_POST['csrf_token'
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?: 0;
 if ($id <= 0 || $id === (int) $user['id']) { et_flash('error', 'You cannot remove this account.'); et_redirect('./'); }
 $database = et_db();
+if ($id === (int)(et_email_setting($database,'admin_email_main_owner_id') ?? '0')) {
+    et_flash('error','The main owner cannot be removed.'); et_redirect('./');
+}
 $statement = $database->prepare('SELECT role,is_active FROM admin_users WHERE id=:id AND deleted_at IS NULL');
 $statement->execute(['id'=>$id]);
 $target = $statement->fetch();

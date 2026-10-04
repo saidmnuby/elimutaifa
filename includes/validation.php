@@ -1,7 +1,8 @@
 <?php
 
-function grf_is_valid_exam_year(mixed $year, int $minimumYear = 2010, int $maximumYear = 2026): bool
+function grf_is_valid_exam_year(mixed $year, int $minimumYear = 2010, ?int $maximumYear = null): bool
 {
+    $maximumYear ??= (int) date('Y');
     return is_int($year) && $year >= $minimumYear && $year <= $maximumYear;
 }
 

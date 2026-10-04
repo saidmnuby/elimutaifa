@@ -34,7 +34,7 @@ assert.equal(link.rel, 'sponsored noopener noreferrer');
 assert.equal(link.target, '_blank');
 assert.equal(link.childNodes[0].childNodes[0].textContent, 'Sponsors · Test sponsor');
 assert.equal(link.childNodes[0].childNodes[1].textContent, entry.title);
-assert.equal(document.head.childNodes[0].href, 'http://localhost/get-results-faster/assets/css/placements.css');
+assert.equal(new URL(document.head.childNodes[0].href).pathname, '/get-results-faster/assets/css/placements.css');
 assert.equal(document.body.childNodes.length, 1);
 assert.equal(document.documentElement.dataset.etPlacementPopup, '1');
 assert.equal(document.body.childNodes[0].childNodes[1].childNodes[0].rel, 'sponsored noopener noreferrer');

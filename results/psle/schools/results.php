@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 3) . '/includes/page_headers.php';
 require_once dirname(__DIR__, 3) . '/includes/validation.php';
+require_once dirname(__DIR__, 3) . '/includes/exam_cycles.php';
 require_once dirname(__DIR__, 3) . '/includes/result_request.php';
 et_send_nonindex_page_headers();
 
@@ -38,23 +39,21 @@ if (!grf_is_valid_exam_year($examYear) || !preg_match('/^PS\d{7}$/D', $schoolCod
     http_response_code(400);
     $error = 'Hakiki mwaka na namba ya shule kisha ujaribu tena.';
 } else {
-    $sourceCode = strtolower($schoolCode);
-    if ($examYear > 2023) {
-        $sourceUrl = "https://onlinesys.necta.go.tz/results/$examYear/psle/results/shl_$sourceCode.htm";
-    } else {
-        $sourceUrl = "https://maktaba.tetea.org/exam-results/PSLE$examYear/shl_$sourceCode.htm";
+    try {
+        $sourceUrl = et_exam_source_url('psle', $examYear, 'school', $schoolCode);
+        $response = grf_fetch_result($sourceUrl);
+    } catch (Throwable $exception) {
+        $response = ['html'=>false, 'status'=>503];
     }
-
-    $response = grf_fetch_result($sourceUrl);
     $html = $response['html'] ?? false;
     $statusCode = $response['status'] ?? 0;
     $servedFromStaleCache = ($response['cache_state'] ?? '') === 'stale_fallback';
 
     if (!is_string($html) || $html === '' || $statusCode < 200 || $statusCode >= 400) {
         http_response_code($statusCode === 429 ? 429 : 503);
-        $error = $examYear === 2026
-            ? 'Matokeo ya mwaka huu yatapatikana hivi karibuni. Tafadhali jaribu tena baadaye.'
-            : 'Matokeo ya shule hayapatikani kwa sasa. Tafadhali jaribu tena baadaye.';
+        $error = $statusCode === 429
+            ? 'Umefikia kiwango cha maombi. Subiri dakika moja kisha ujaribu tena.'
+            : 'Chanzo cha matokeo ya shule hakipatikani kwa sasa. Tafadhali jaribu tena baadaye.';
     } else {
         $previousLibxmlState = libxml_use_internal_errors(true);
         $dom = new DOMDocument();

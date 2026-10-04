@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/exam_fixture.php';
 require_once dirname(__DIR__).'/includes/secondary_directory.php';
 function school_check(bool $pass,string $message): void { if (!$pass) throw new RuntimeException($message); }
 $base=et_secondary_base('csee',2025);

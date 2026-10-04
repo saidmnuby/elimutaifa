@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/monitoring.php';
+require_once __DIR__ . '/exam_cycles.php';
 et_register_fatal_error_monitoring();
 
 function grf_cached_result_response(string $cacheFile, int $minimumModifiedAt): ?array
@@ -12,7 +13,7 @@ function grf_cached_result_response(string $cacheFile, int $minimumModifiedAt): 
     return ['html' => $html, 'fetched_at' => $modifiedAt];
 }
 
-function grf_fetch_result(string $url): array
+function grf_fetch_result(string $url, bool $liveOnly = false): array
 {
     $parsedUrl = parse_url($url);
     $allowedHosts = [
@@ -125,9 +126,9 @@ function grf_fetch_result(string $url): array
     flock($globalRateHandle, LOCK_UN);
     fclose($globalRateHandle);
 
-    $cacheFile = $cacheDirectory . DIRECTORY_SEPARATOR . 'result-' . hash('sha256', $url) . '.html';
+    $cacheFile = $cacheDirectory . DIRECTORY_SEPARATOR . 'result-' . et_exam_cache_key($url) . '.html';
     $freshCache = grf_cached_result_response($cacheFile, $now - 300);
-    if ($freshCache !== null) {
+    if (!$liveOnly && $freshCache !== null) {
         return $freshCache + ['status' => 200, 'cache_state' => 'fresh'];
     }
 
@@ -159,6 +160,7 @@ function grf_fetch_result(string $url): array
     curl_close($request);
 
     $upstreamUnavailable = $html === false || $html === '' || $statusCode < 200 || $statusCode >= 400;
+    if (!$upstreamUnavailable && $statusCode === 200) et_exam_record_source_success($url);
     if ($upstreamUnavailable) {
         $eventType = $statusCode === 404 ? 'upstream_not_found' : 'upstream_request_failed';
         $severity = $statusCode >= 500 || $statusCode === 0 ? 'error' : 'warning';
@@ -184,7 +186,7 @@ function grf_fetch_result(string $url): array
     // stale fallback keeps historical results available through temporary source
     // outages; 404s are excluded because they can mean a genuinely removed page.
     $staleCache = grf_cached_result_response($cacheFile, $now - 86400);
-    if ($upstreamUnavailable && $statusCode !== 404 && $staleCache !== null) {
+    if (!$liveOnly && $upstreamUnavailable && $statusCode !== 404 && $staleCache !== null) {
         et_record_system_event('upstream_stale_cache_served', 'A recent cached result was served after the external source failed.', 'warning', [
             'target_url' => $url,
             'http_status' => $statusCode,

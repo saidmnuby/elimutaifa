@@ -162,6 +162,8 @@ The project `.htaccess` file disables directory listing, blocks direct access to
 
 ## Development notes
 
+Examination years and NECTA/TETEA routing are managed under **Admin → Result Pages → Examination cycles**. Candidate and school searches use shared mappings. See [examination cycle setup, verification and annual review](docs/exam-cycles.md). Deploy the initializer and managed PHP landing pages together.
+
 - The result parsers depend on the HTML structure published by the external source. Re-test each examination level whenever NECTA or the archive changes its result-page layout.
 - Result availability depends on the external source and the selected examination year.
 - The community-feedback page stores validated submissions in the protected SQLite database for review in the admin inbox.

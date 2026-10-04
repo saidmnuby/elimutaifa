@@ -3,6 +3,8 @@ require_once dirname(__DIR__, 3) . '/includes/session.php';
 grf_start_session();
 
 require_once dirname(__DIR__, 3) . '/includes/district_directory.php';
+require_once dirname(__DIR__, 3) . '/includes/validation.php';
+require_once dirname(__DIR__, 3) . '/includes/exam_cycles.php';
 include_once dirname(__DIR__, 3) . '/includes/result_request.php';
 
 $schools = []; // Array to store extracted school objects
@@ -15,7 +17,7 @@ $searchKey = $districtz;
 
 $code = grf_district_code_for_selection($regiontz, $districtz);
 
-if ($examYear === null || $examYear < 2010 || $examYear > 2026 || $code === null) {
+if (!grf_is_valid_exam_year($examYear) || $code === null) {
     $_SESSION['error_title'] = 'Error_<V001>';
     $_SESSION['error_message'] = 'Chagua mwaka na halmashauri halali kisha ujaribu tena.';
     $_SESSION['style'] = 'failed-alert';
@@ -23,11 +25,12 @@ if ($examYear === null || $examYear < 2010 || $examYear > 2026 || $code === null
     exit();
 }
 
-if ($examYear > 2023) {
-    $url = "https://onlinesys.necta.go.tz/results/$examYear/sfna/results/distr_ps$code.htm";
-} elseif ($examYear !== null && $examYear <= 2023) {
-    $url = "https://maktaba.tetea.org/exam-results/SFNA$examYear/distr_ps$code.htm";
+try {
+    $url = et_exam_source_url('sfna', $examYear, 'directory', $code);
+} catch (Throwable $exception) {
+    $_SESSION['error_title'] = 'Source unavailable';
+    $_SESSION['error_message'] = 'Chanzo cha matokeo ya mwaka huu hakipatikani kwa sasa. Tafadhali jaribu baadaye.';
+    $_SESSION['style'] = 'warning-alert';
+    header('Location: ../error/');
+    exit;
 }
-
-
-?>

@@ -7,7 +7,7 @@ foreach (['results','selection'] as $group) {
     foreach ($files as $file) {
         if (!in_array($file->getExtension(), ['php','html','css'], true)) continue;
         $source = file_get_contents($file->getPathname());
-        preg_match_all('~(?:href|src|action)=["\']([^"\']+)["\']|url\(["\']?([^"\')]+)~i', $source, $matches, PREG_SET_ORDER);
+        preg_match_all('~(?:href|src|action)=["\']([^"\']+)["\']|(?<![a-z0-9_])url\(["\']?([^"\')]+)~i', $source, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             $url = $match[1] !== '' ? $match[1] : ($match[2] ?? '');
             if ($url === '' || preg_match('~^(?:[a-z]+:|//|/|#|\?)~i', $url) || str_contains($url,'<') || str_contains($url,'$')) continue;

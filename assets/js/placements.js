@@ -4,7 +4,7 @@
     const base = new URL('../../', source.src);
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = new URL('assets/css/placements.css?v=20260921.1', base).href;
+    stylesheet.href = new URL('assets/css/placements.css?v=20261004.1', base).href;
     document.head.appendChild(stylesheet);
 
     function safeUrl(value, image) {
@@ -15,6 +15,13 @@
         return null;
     }
     function createPlacement(item) {
+                if (['adsense','adsterra'].includes(item.provider)) {
+                    const article=document.createElement('article');
+                    article.className='et-network-placement'; article.dataset.networkId=item.network_id;
+                    const label=document.createElement('small'); label.textContent='Tangazo'; article.append(label);
+                    const area=document.createElement('div'); area.className='et-network-area'; article.append(area);
+                    return article;
+                }
                 if (!['banner', 'card'].includes(item.format) || !['system', 'sponsor'].includes(item.kind)) return;
                 const href = safeUrl(item.href);
                 if (!href) return;
@@ -132,8 +139,54 @@
                     payload = await response.json();
                 } finally { clearTimeout(timeout); }
             }
-            if (Array.isArray(payload.items)) render(payload.items, slots);
+            if (Array.isArray(payload.items)) {
+                render(payload.items, slots);
+                if (!preview) startNetworks(payload.items, slots[0].dataset.etPlacementPage);
+            }
         } catch (_) { /* Optional placements never block forms or results. */ }
+    }
+    function startNetworks(items,page) {
+        function signal(item,event) {
+            if(navigator.doNotTrack==='1') return;
+            fetch(new URL('api/ad-events.php',base),{method:'POST',credentials:'same-origin',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({id:item.network_id,page:page,event:event,expires:item.expires,token:item.token})}).catch(function(){});
+        }
+        let googleLoader=null;
+        function google(client) {
+            if(googleLoader) return googleLoader;
+            googleLoader=new Promise(function(resolve,reject){
+                const script=document.createElement('script'); script.async=true; script.crossOrigin='anonymous';
+                script.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+encodeURIComponent(client);
+                script.onload=resolve; script.onerror=reject; document.head.append(script);
+            });
+            return googleLoader;
+        }
+        document.querySelectorAll('.et-network-placement').forEach(function(article){
+            const item=items.find(function(entry){return entry.network_id===article.dataset.networkId;});
+            if(!item) return;
+            signal(item,'mounted');
+            // Local development never requests live ads or creates artificial impressions.
+            if(['localhost','127.0.0.1','::1','[::1]'].includes(location.hostname)) return;
+            const area=article.querySelector('.et-network-area'); let started=false;
+            function load() {
+                if(started) return; started=true;
+                if(item.provider==='adsense') {
+                    const ad=document.createElement('ins'); ad.className='adsbygoogle'; ad.style.display='block';
+                    ad.dataset.adClient=item.publisher; ad.dataset.adSlot=item.unit_code; ad.dataset.adFormat='auto'; ad.dataset.fullWidthResponsive='true'; area.append(ad);
+                    google(item.publisher).then(function(){
+                        try { (window.adsbygoogle=window.adsbygoogle || []).push({}); signal(item,'loaded'); }
+                        catch(_) { signal(item,'failed'); }
+                    },function(){signal(item,'failed');});
+                } else {
+                    const container=document.createElement('div'); container.id='container-'+item.unit_code; area.append(container);
+                    const script=document.createElement('script'); script.async=true; script.dataset.cfasync='false'; script.src=item.script_url;
+                    script.onload=function(){signal(item,'loaded');}; script.onerror=function(){signal(item,'failed');}; area.insertBefore(script,container);
+                }
+            }
+            if('IntersectionObserver' in window) {
+                const observer=new IntersectionObserver(function(entries){if(entries.some(function(entry){return entry.isIntersecting;})){observer.disconnect();load();}},{rootMargin:'200px'});
+                observer.observe(article);
+            } else load();
+        });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();

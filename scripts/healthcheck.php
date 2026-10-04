@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/admin_db.php';
+require_once dirname(__DIR__) . '/includes/exam_cycles.php';
 $requiredExtensions = ['curl', 'dom', 'fileinfo', 'libxml', 'pdo',
     et_database_config()['driver'] === 'mysql' ? 'pdo_mysql' : 'pdo_sqlite'];
 $missing = array_filter($requiredExtensions, static fn (string $extension): bool => !extension_loaded($extension));
@@ -27,6 +28,9 @@ try {
     et_db()->query('SELECT COUNT(*) FROM admin_users')->fetchColumn();
     foreach (['form_one_cycles','form_five_cycles'] as $table) {
         et_db()->query('SELECT cycle_key,status,verified_at FROM '.$table.' LIMIT 1')->fetch();
+    }
+    foreach (ET_EXAM_LEVELS as $level) {
+        if (et_exam_cycles($level) === []) throw new RuntimeException('No public examination cycles configured.');
     }
 } catch (Throwable $exception) {
     fwrite(STDERR, "Database connection/schema check failed. Check protected database configuration and server logs.\n");

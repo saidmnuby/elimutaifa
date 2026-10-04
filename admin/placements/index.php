@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once dirname(__DIR__,2).'/includes/admin_auth.php';
 require_once dirname(__DIR__,2).'/includes/placements.php';
+require_once dirname(__DIR__,2).'/includes/ad_networks.php';
 require_once dirname(__DIR__).'/_layout.php';
 et_admin_boot(); $user=et_require_admin(); $database=et_db();
 $page=max(1,filter_input(INPUT_GET,'page',FILTER_VALIDATE_INT)?:1);
@@ -12,11 +13,14 @@ $count=$database->prepare('SELECT COUNT(*) FROM placement_items'.$where); $count
 $total=(int)$count->fetchColumn(); $pages=max(1,(int)ceil($total/20)); $page=min($page,$pages);
 $query=$database->prepare('SELECT * FROM placement_items'.$where.' ORDER BY updated_at DESC,id DESC LIMIT 20 OFFSET '.(($page-1)*20));
 $query->execute($params); $items=$query->fetchAll();
-et_admin_header('Banners & placements',$user,'placements','../');
+et_admin_header('Sponsors & Ads',$user,'placements','../');
 ?>
-<div class="admin-page-heading"><p>Manage platform and sponsor announcements. Choose where, how and when they appear. Records: <?= $total ?>.</p><a class="admin-button" href="edit.php">+ Add placement</a></div>
+<link rel="stylesheet" href="../assets/sponsors.css?v=20261004.1">
+<?php $adUnits=et_ad_units($database); $publishedDirect=(int)$database->query("SELECT COUNT(*) FROM placement_items WHERE status='published'")->fetchColumn(); ?>
+<div class="sponsor-overview"><div>Direct placements<strong><?= $total ?></strong><small>Current list filter</small></div><div>Published direct placements<strong><?= $publishedDirect ?></strong><small>Follows schedule and page targeting</small></div><div>Network ad units<strong><?= count($adUnits) ?></strong><small><a href="networks.php">Manage AdSense / Adsterra</a></small></div></div>
+<div class="admin-page-heading"><p>Manage direct sponsors and platform announcements. Choose where and when they appear. Records: <?= $total ?>.</p><div><a class="admin-button secondary" href="networks.php">Network ads & monitoring</a> <a class="admin-button" href="edit.php">+ Direct placement</a></div></div>
 <form method="get" class="form-section"><label>Status <select name="status"><option value="">All</option><?php foreach(['draft','published','archived'] as $option): ?><option<?= $option===$status?' selected':'' ?>><?= et_e($option) ?></option><?php endforeach; ?></select></label><button class="admin-button secondary small">Filter</button></form>
-<div class="table-wrap"><table class="admin-table"><thead><tr><th>Tangazo</th><th>Placement / targets</th><th>Status / ratiba (EAT)</th><th>Actions</th></tr></thead><tbody>
+<div class="table-wrap"><table class="admin-table"><thead><tr><th>Announcement</th><th>Placement / targets</th><th>Status / schedule (EAT)</th><th>Actions</th></tr></thead><tbody>
 <?php if(!$items): ?><tr><td colspan="4">No placements yet.</td></tr><?php endif; ?>
 <?php foreach($items as $item): ?><tr><td><strong><?= et_e($item['title']) ?></strong><small><?= et_e($item['kind']==='sponsor'?'Sponsor: '.$item['sponsor_name']:'Platform announcement') ?></small></td><td><?= et_e($item['format'].' / '.$item['slot']) ?><small><?= et_e(implode(', ',json_decode($item['targets'],true)?:[])) ?></small><small>Priority <?= (int)$item['priority'] ?></small></td><td><?= et_e($item['status']) ?><small>Start: <?= et_e(et_admin_datetime($item['starts_at'])) ?></small><small>End: <?= et_e(et_admin_datetime($item['ends_at'])) ?></small></td><td><a class="admin-button secondary small" href="edit.php?id=<?= (int)$item['id'] ?>">Edit</a> <a href="preview.php?id=<?= (int)$item['id'] ?>">Preview</a></td></tr><?php endforeach; ?>
 </tbody></table></div>

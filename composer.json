@@ -1,4 +1,5 @@
 {
   "name": "elimutaifa/portal",
-  "require": {"php": "^8.2", "robthree/twofactorauth": "^3.0", "bacon/bacon-qr-code": "^3.0"}
+  "require": {"php": "^8.2", "robthree/twofactorauth": "^3.0", "bacon/bacon-qr-code": "^3.0",
+    "phpmailer/phpmailer": "^7.1"}
 }

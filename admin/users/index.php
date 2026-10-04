@@ -8,15 +8,18 @@ $user = et_require_admin();
 et_require_owner($user);
 $database = et_db();
 $errors = [];
-$newValues = ['username' => '', 'display_name' => '', 'role' => 'admin'];
+$newValues = ['username' => '', 'display_name' => '', 'role' => 'admin', 'email'=>''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newValues = [
         'username' => trim((string) ($_POST['username'] ?? '')),
         'display_name' => trim((string) ($_POST['display_name'] ?? '')),
         'role' => (string) ($_POST['role'] ?? 'admin'),
+        'email' => trim((string) ($_POST['email'] ?? '')),
     ];
     $password = (string) ($_POST['password'] ?? '');
+    try { $newValues['email']=et_email_address($newValues['email']); }
+    catch (InvalidArgumentException $e) { $errors['email']=$e->getMessage(); }
     if (!et_verify_csrf($_POST['csrf_token'] ?? null)) {
         $errors['form'] = 'This request has expired. Reload the page.';
     }
@@ -35,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         try {
             $now = et_utc_now();
+            $database->beginTransaction();
             $statement = $database->prepare(<<<'SQL'
 INSERT INTO admin_users (username,display_name,password_hash,role,is_active,created_at,updated_at)
 VALUES (:username,:display_name,:password_hash,:role,1,:created_at,:updated_at)
@@ -45,10 +49,14 @@ SQL);
                 'created_at' => $now, 'updated_at' => $now,
             ]);
             $newId = (int) $database->lastInsertId();
+            et_email_save($database,'admin_email_address_'.$newId,$newValues['email']);
+            $database->commit();
+            et_admin_email_event('created', ['id'=>$newId,'username'=>$newValues['username'],'display_name'=>$newValues['display_name'],'role'=>$newValues['role']]);
             et_audit((int) $user['id'], 'admin_created', 'admin_user', $newId, 'Role: ' . $newValues['role']);
             et_flash('success', 'Admin account created. Share the username and temporary password securely.');
             et_redirect('./');
         } catch (PDOException $exception) {
+            if ($database->inTransaction()) $database->rollBack();
             $errors['form'] = str_contains(strtolower($exception->getMessage()), 'unique') ? 'This username is already used.' : 'Could not create the admin account.';
         }
     }
@@ -94,6 +102,11 @@ et_admin_header('Admins', $user, 'users', '../');
                 </div>
 
                 <div class="form-field">
+                    <label for="email">Email (optional)</label>
+                    <input id="email" name="email" type="email" maxlength="254" value="<?= et_e($newValues['email']) ?>">
+                    <?php if (isset($errors['email'])): ?><span class="form-error"><?= et_e($errors['email']) ?></span><?php endif; ?>
+                </div>
+                <div class="form-field">
                     <label for="role">Role</label>
                     <select id="role" name="role">
                         <option value="admin">Admin</option>
@@ -112,7 +125,7 @@ et_admin_header('Admins', $user, 'users', '../');
 
             </div>
 
-            <button class="admin-button" type="submit">Tengeneza admin</button>
+            <button class="admin-button" type="submit">Create admin</button>
         </form>
     </section>
     <div class="table-wrap">

@@ -2,15 +2,14 @@
 declare(strict_types=1);
 require_once __DIR__ . '/validation.php';
 require_once __DIR__ . '/result_request.php';
+require_once __DIR__ . '/exam_cycles.php';
 
 function et_secondary_base(string $level, int $year): string
 {
     if (!in_array($level, ['csee','acsee','ftna'], true) || !grf_is_valid_exam_year($year)) {
         throw new InvalidArgumentException('INVALID_INPUT');
     }
-    if ($year <= 2023) return 'https://maktaba.tetea.org/exam-results/' . strtoupper($level) . $year . '/';
-    $host = $level === 'acsee' && $year === 2026 ? 'matokeo.necta.go.tz' : 'onlinesys.necta.go.tz';
-    return "https://$host/results/$year/$level/";
+    return et_exam_cycle($level, $year)['base_url'];
 }
 
 function et_secondary_dom(string $html): DOMDocument
@@ -24,19 +23,21 @@ function et_secondary_dom(string $html): DOMDocument
 }
 
 /** Only accept direct school links under the exact configured exam/year directory. */
-function et_secondary_schools(string $html, string $base): array
+function et_secondary_schools(string $html, string $base, ?array $cycle = null): array
 {
     $schools = [];
     foreach (et_secondary_dom($html)->getElementsByTagName('a') as $link) {
-        $href = trim($link->getAttribute('href'));
+        $href = str_replace('\\', '/', trim($link->getAttribute('href')));
         if (str_starts_with($href, $base)) $href = substr($href, strlen($base));
-        if (!preg_match('#^(?:results/)?([sp]q?\d{4})\.html?$#iD', $href, $match)) continue;
+        $pattern = $cycle ? '#^' . str_replace(preg_quote('{school}', '#'), '([sp]q?\d{4})', preg_quote($cycle['school_path'], '#')) . '$#iD'
+            : '#^(?:results/)?([sp]q?\d{4})\.html?$#iD';
+        if (!preg_match($pattern, $href, $match)) continue;
         $code = strtoupper($match[1]);
         $name = trim(preg_replace('/\s+/u', ' ', $link->textContent) ?? '');
         $nameWithoutCode = trim((string) preg_replace('/^' . preg_quote($code, '/') . '\s*[-–]?\s*/iu', '', $name));
         if ($nameWithoutCode !== '') $name = $nameWithoutCode;
         if ($name === '') continue;
-        $schools[$code] = ['code'=>$code, 'name'=>$name, 'url'=>$base.$href];
+        $schools[$code] = ['code'=>$code, 'name'=>$name, 'url'=>$cycle ? et_exam_url($cycle, 'school', $code) : $base.$href];
     }
     uasort($schools, static fn(array $a,array $b): int => strnatcasecmp($a['name'],$b['name']));
     return $schools;
@@ -120,7 +121,7 @@ function et_secondary_fetch(string $url): string
 
 function et_secondary_directory_source(string $level, int $year): string
 {
-    return et_secondary_base($level, $year) . ($level === 'ftna' && $year <= 2023 ? 'ftna.htm' : 'index.htm');
+    return et_exam_source_url($level, $year, 'directory');
 }
 
 /** Public school names/codes only; these JSON files are blocked from web access. */
@@ -128,7 +129,7 @@ function et_secondary_directory_file(string $level, int $year): string
 {
     et_secondary_base($level, $year); // validates both values
     return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'secondary-directories'
-        . DIRECTORY_SEPARATOR . $level . '-' . $year . '.json';
+        . DIRECTORY_SEPARATOR . $level . '-' . $year . '-' . substr(hash('sha256', json_encode(array_intersect_key(et_exam_cycle($level, $year), array_flip(['base_url','school_path','directory_path','school_case','school_format'])))), 0, 16) . '.json';
 }
 
 function et_secondary_directory_read(string $level, int $year): ?array
@@ -187,7 +188,7 @@ function et_secondary_directory_prepare(string $level, int $year): void
 
     try {
         $source = et_secondary_directory_source($level, $year);
-        $schools = et_secondary_schools(et_secondary_fetch($source), et_secondary_base($level, $year));
+        $schools = et_secondary_schools(et_secondary_fetch($source), et_secondary_base($level, $year), et_exam_cycle($level, $year));
         if ($schools === []) throw new RuntimeException('SOURCE_FORMAT');
         et_secondary_directory_write($level, $year, $schools);
     } catch (Throwable $exception) {

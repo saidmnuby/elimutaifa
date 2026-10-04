@@ -7,3 +7,6 @@
 .school-loading-card p{margin:4px 0 0;color:#617087;font-size:13px;line-height:1.4}
 @keyframes school-loading-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.school-loading-spinner{animation-duration:1.8s}}
+.school-loading-scope{position:relative;min-height:140px}
+.school-loading-inline{position:absolute;padding:12px;border-radius:10px;background:rgba(255,255,255,.9);backdrop-filter:blur(2px);z-index:10}
+.school-loading-inline .school-loading-card{width:min(100%,360px);padding:16px;box-shadow:0 6px 22px rgba(3,27,78,.08)}

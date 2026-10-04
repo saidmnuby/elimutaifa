@@ -12,7 +12,7 @@ a { color: inherit; }
 .public-lead { max-width: 760px; margin: 0 0 26px; color: #5b6d83; font-size: 17px; line-height: 1.7; }
 .announcement-grid { display: grid; gap: 14px; }
 .public-card { display: grid; gap: 8px; padding: 22px; border: 1px solid #dce5ed; border-radius: 14px; background: #fff; text-decoration: none; box-shadow: 0 8px 24px rgba(3,27,78,.05); }
-.public-card:hover { border-color: #91cdb1; transform: translateY(-1px); }
+.public-card:hover { border-color: #91cdb1; }
 .public-card h2 { margin: 0; color: #031b4e; font-size: 20px; }
 .public-card p { margin: 0; color: #607188; line-height: 1.6; }
 .public-card small { color: #75849a; }
@@ -48,3 +48,33 @@ a { color: inherit; }
 .back-link { display: inline-block; margin-bottom: 18px; color: #057844; font-weight: 800; text-decoration: none; }
 .public-footer { padding: 22px 20px; color: #6c7c91; border-top: 1px solid #dce5ed; background: #fff; text-align: center; font-size: 12px; }
 @media (max-width: 600px) { .public-header nav a:not(:last-child) { display:none; } .public-main { padding-top: 28px; } }
+[hidden]{display:none!important}
+.announcement-tools{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;padding:18px;background:#fff;border:1px solid #dce5ed;border-radius:14px}
+.announcement-tools>div:first-child{flex:1 1 270px}.announcement-tools>div:nth-child(2){flex:0 1 200px}
+.announcement-tools label{display:block;margin-bottom:7px;color:#031b4e;font-size:13px;font-weight:750}
+.announcement-tools input,.announcement-tools select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #ccd8e3;border-radius:8px;background:#fff;color:#17263b;font:inherit;font-size:14px}
+.announcement-tools button,.announcement-empty button{min-height:44px;padding:10px 14px;border:1px solid #ccd8e3;border-radius:8px;background:#f5f8fb;color:#031b4e;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.announcement-count{margin:18px 0 12px;color:#66778c;font-size:13px}
+.announcement-date{display:flex;flex-wrap:wrap;gap:14px;color:#66778c;font-size:12px;margin:7px 0}
+.announcement-details summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:10px 0;color:#057844;font-size:14px;font-weight:800;cursor:pointer;list-style:none}
+.announcement-details summary::-webkit-details-marker{display:none}.announcement-details .read-less{display:none}.announcement-details[open] .read-more{display:none}.announcement-details[open] .read-less{display:inline}
+.announcement-details[open] summary>span:last-child{transform:rotate(180deg)}
+.announcement-full-content .article-meta{margin:16px 0;color:#66778c}
+.announcement-action{display:inline-flex;margin-top:18px;padding:12px 16px;border-radius:8px;background:#058249;color:#fff;text-decoration:none;font-size:14px;font-weight:750}
+.announcement-empty{padding:30px 20px;border:1px dashed #ccd8e3;border-radius:14px;text-align:center}.announcement-empty h2{font-size:20px;color:#031b4e}
+.public-card h2,.article-body,.article-source{overflow-wrap:anywhere}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #058249;outline-offset:3px}
+@media(max-width:600px){.public-header{padding:10px 16px;gap:12px}.public-header nav a:not(:last-child){display:block}.public-header nav{gap:10px;font-size:12px}.public-brand{font-size:14px}.public-brand img{width:32px;height:32px}.public-card{padding:18px}.announcement-tools>div:nth-child(2){flex:1 1 180px}.announcement-tools button{width:100%}}
+.public-main{width:min(1080px,calc(100% - 32px));padding-top:30px}
+.announcement-hero{position:relative;overflow:hidden;padding:34px 36px;margin-bottom:24px;border-radius:20px;background:radial-gradient(ellipse at top right,rgba(5,130,73,.45),transparent 60%),#031b4e;color:#fff}
+.announcement-hero .public-eyebrow{color:#85e0b0}.announcement-hero h1{color:#fff;font-size:clamp(28px,4vw,42px);max-width:680px;line-height:1.15}.announcement-hero .public-lead{color:#d8e4f2;font-size:15px;max-width:650px;margin-bottom:20px}
+.announcement-hero-links{display:flex;flex-wrap:wrap;gap:12px}.announcement-hero-links a{display:inline-flex;gap:16px;align-items:center;min-height:44px;padding:10px 15px;border:1px solid #6480a2;border-radius:9px;color:#fff;font-size:13px;font-weight:750;text-decoration:none}.announcement-hero-links a:first-child{border-color:#058249;background:#058249}.announcement-hero-links a:hover{background:#126742}
+.announcement-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.public-card{gap:10px;padding:22px;box-shadow:0 3px 16px rgba(3,27,78,.035)}
+.public-card>h2{font-size:21px;line-height:1.35}.public-card>.public-eyebrow{width:fit-content;padding:5px 9px;border-radius:6px;background:#edf8f2;letter-spacing:.08em}.public-card>p{font-size:14px}
+.announcement-preview{position:relative;margin:-22px -22px 6px;overflow:hidden;border-radius:13px 13px 0 0;background:#e9eff5;height:150px}.announcement-preview img{display:block;width:100%;height:100%;object-fit:cover}.announcement-preview span{position:absolute;bottom:12px;left:14px;padding:5px 9px;border-radius:6px;background:#031b4e;color:#fff;font-size:12px}
+.public-card:has(.announcement-details[open]){grid-column:1/-1}.public-card:has(.announcement-details[open]) .announcement-preview{display:none}
+.announcement-details summary{border-top:1px solid #edf1f5;margin-top:6px;padding-top:14px}.announcement-full-content{padding-top:20px;border-top:0}.announcement-full-content .article-media{max-width:800px;margin-inline:auto}
+.announcement-date{justify-content:space-between;gap:8px;line-height:1.6}.announcement-date>span{background:#f4f7fa;padding:2px 8px;border-radius:5px}
+.public-header nav a[href$="/announcements/"]{color:#058249}
+@media(max-width:700px){.announcement-grid{grid-template-columns:1fr}.announcement-hero{padding:26px 22px;border-radius:14px}.public-main{padding-top:20px}.announcement-tools{padding:16px}.announcement-preview{margin:-18px -18px 6px;height:140px}.public-card{padding:18px}.announcement-hero-links a{flex:1;justify-content:space-between}}

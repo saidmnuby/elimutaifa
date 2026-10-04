@@ -22,9 +22,9 @@
     <script src="../../../assets/js/consent.js"></script>
     <script src="../../../assets/js/monitoring.js" defer></script>
     <link rel="stylesheet" href="../../../assets/css/education.css?v=20260912.2">
-    <link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css">
+    <link rel="stylesheet" href="../../../assets/css/secondary-school-loading.css?v=20261004.1">
     <script src="assets/js/script.js"></script>
-    <script src="../../../assets/js/secondary-school-loading.js" defer></script>
+    <script src="../../../assets/js/secondary-school-loading.js?v=20261004.1" defer></script>
     <script src="../../../assets/js/school-search.js" defer></script>
     
     <script src="../../../assets/js/placements.js" defer></script>

@@ -21,19 +21,13 @@ if ($districtz !== '' && !empty($url)) {
     $statusCode = $response['status'] ?? 0;
 
     if ($html === false || $html === '' || $statusCode < 200 || $statusCode >= 400) {
-        if ($examYear === 2026) {
-            $_SESSION['error_title']   = "Error_<X001>";
-            $_SESSION['error_message'] = "Taarifa zitapatikana hivi karibuni.Jaribu tena baadae..";
-            $_SESSION['style']         = "warning-alert";
-            header("Location: ../error/");
-            exit();
-        }else{
-            $_SESSION['error_title']   = "Error_<H001>";
-            $_SESSION['error_message'] = "Taarifa hazipatikani katika data za mfumo, Tafathali jaribu baadae.";
-            $_SESSION['style']         = "warning-alert";
-            header("Location: ../error/");
-            exit();
-        }
+        $_SESSION['error_title'] = 'Source unavailable';
+        $_SESSION['error_message'] = $statusCode === 429
+            ? 'Umefikia kiwango cha maombi. Subiri dakika moja kisha ujaribu tena.'
+            : 'Chanzo cha matokeo hakipatikani kwa sasa. Tafadhali jaribu tena baadaye.';
+        $_SESSION['style'] = 'warning-alert';
+        header('Location: ../error/');
+        exit;
     }
 
     $dom = new DOMDocument();
@@ -53,7 +47,7 @@ if ($districtz !== '' && !empty($url)) {
     libxml_clear_errors();
 
     $links   = $dom->getElementsByTagName("a");
-    $baseUrl = "https://maktaba.tetea.org/exam-results/SFNA2023/";
+    $baseUrl = et_exam_cycle('sfna', $examYear)['base_url'];
 
     foreach ($links as $link) {
         $schoolText = trim(preg_replace('/\s+/', ' ', $link->textContent));

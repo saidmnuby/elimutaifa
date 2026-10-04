@@ -155,17 +155,20 @@ document.addEventListener('DOMContentLoaded', function () {
         if (query.length < 2) { if (controller) controller.abort(); render([]); count.textContent = 'Andika herufi 2 au zaidi.'; return; }
         timer = window.setTimeout(async function () {
             if (controller) controller.abort(); controller = new AbortController();
+            const requestController = controller;
+            const finish = window.ETPageLoading?.begin({scope:matches, title:'Inatafuta shule', message:'Tafadhali subiri huku orodha ya shule ikipakiwa.'}) || function () {};
             count.textContent = 'Inatafuta…';
             try {
                 const url = new URL('api.php', location.href);
                 url.searchParams.set('year', input.dataset.year); url.searchParams.set('q', query);
-                const response = await fetch(url, {credentials:'same-origin', signal:controller.signal});
+                const response = await fetch(url, {credentials:'same-origin', signal:requestController.signal});
                 const data = await response.json();
+                if (requestController.signal.aborted || controller !== requestController) return;
                 if (!response.ok || !data.ok) throw new Error();
                 render(data.items); count.textContent = data.items.length ? data.items.length + ' shule zimepatikana.' : 'Hakuna shule inayolingana.';
             } catch (error) {
-                if (error.name !== 'AbortError') { render([]); count.textContent = 'Orodha haipatikani kwa sasa. Jaribu tena.'; }
-            }
+                if (error.name !== 'AbortError' && controller === requestController) { render([]); count.textContent = 'Orodha haipatikani kwa sasa. Jaribu tena.'; }
+            } finally { finish(); }
         }, 220);
     };
     input.addEventListener('input', search);

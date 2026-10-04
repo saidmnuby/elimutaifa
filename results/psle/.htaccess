@@ -1,0 +1,6 @@
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^(.*/)index\.html$
+    RewriteRule ^index\.html$ %1 [R=307,L]
+</IfModule>
